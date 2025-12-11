@@ -1,0 +1,61 @@
+# Build output
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+app.publish/
+artifacts/
+
+# Visual Studio
+.vs/
+*.vssscc
+*.vspscc
+*_i.c
+*_p.c
+*.pdb
+*.opendb
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider / ReSharper
+.idea/
+.ReSharper*/
+*.[Rr]e[Ss]harper
+*_Resharper.*
+
+# VS Code
+.vscode/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.nuget.props
+*.nuget.targets
+
+# Testing
+TestResults/
+*.coverage
+*.coveragexml
+*.trx
+
+# Logs
+*.log
+
+# Azure
+*.azurePubxml
+
+# Misc
+*.tmp
+~$*
+*.swp
+.DS_Store
+Thumbs.db

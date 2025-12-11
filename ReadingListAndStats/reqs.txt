@@ -1,0 +1,261 @@
+.NET Console Practice Brief — “Reading List & Stats”
+Focus: generics, LINQ, collections, error handling, file I/O, extension methods, multithreading & async.
+Style: small, self-contained console app with optional unit tests.
+
+1) Overview
+Build a console application that manages a simple reading list from CSV files. Users can import books, list/filter/sort them, compute basic statistics, and export summaries. You’ll practice generics via a tiny repository and Result<T> pattern, LINQ for queries, collections for in-memory storage, robust error handling for bad files/inputs, extension methods for reusable helpers, and async/multithreading for parallel file imports and async file writes.
+
+2) Learning Goals
+Use generics (Repository<T>, Result<T>) to write reusable code.
+
+Apply LINQ (Where, Select, OrderBy, GroupBy, Aggregate) for querying.
+
+Work with collections (List<T>, Dictionary<TKey,TValue>, HashSet<T>).
+
+Implement error handling (custom exceptions, try/catch, validation).
+
+Perform file I/O (CSV read, JSON/CSV write) with UTF-8 and async methods.
+
+Create extension methods (e.g., parsing, string normalization, stats).
+
+Use multithreading/async (Task, Task.WhenAll, Parallel.ForEachAsync, cancellation).
+
+(Optional) Unit test key pieces with MSTest or xUnit + Moq (where applicable).
+
+3) Requirements
+Functional
+Import Books:
+
+Input: one or more CSV files with header:
+Id,Title,Author,Year,Pages,Genre,Finished(yes/no),Rating(0-5)
+
+Support importing multiple files in parallel.
+
+Skip duplicates by Id (keep the first occurrence). Log skipped IDs.
+
+List & Query:
+
+list all — show all books (Id, Title, Author, Year, Finished, Rating).
+
+filter finished — only finished books.
+
+top rated n — highest Rating (desc), take n.
+
+by author <name> — case-insensitive contains on Author.
+
+stats — show total books, finished count, average rating, pages by genre, and top 3 authors by book count.
+
+Update:
+
+mark finished <id> — set Finished = true.
+
+rate <id> <0-5> — update Rating (validate bounds).
+
+Export:
+
+export json <path> — async write of current collection to JSON.
+
+export csv <path> — async write to CSV.
+
+Overwrite prompt on existing file (y/n).
+
+Help & Exit:
+
+help prints commands.
+
+exit quits gracefully.
+
+Non-Functional
+Use async file I/O (File.ReadAllLinesAsync, StreamWriter, await).
+
+(Optional) Use cancellation: pressing Ctrl+C cancels long operations (imports/exports). Use CancellationTokenSource.Cancel() and Console.CancelKeyPress Event
+
+Log warnings for malformed rows and continue (don’t crash entire import).
+
+Keep code SOLID & readable; separate parsing, repository, and UI.
+
+Validate inputs and provide friendly errors (no stack traces to user; log for devs).
+
+4) Architecture & Patterns
+Console UI Layer: command loop, argument parsing.
+
+Domain: Book entity, simple invariants (rating bounds).
+
+Infrastructure/Services:
+
+Generic Repository: IRepository<T> + InMemoryRepository<T, TKey> with key selector.
+Why: practice generics & separation of concerns.
+
+(Optional) Unit of Work (lightweight): wraps repositories, exposes SaveAsync() for future extensibility.
+Why: teach transactional thinking even if in-memory.
+
+(Optional) Strategy for Exporters: IExportStrategy with CsvExportStrategy and JsonExportStrategy.
+Why: swap implementations without changing callers.
+
+Result<T> (generic) for safe operations without exceptions for control flow.
+Why: crisp success/failure handling.
+
+Extension Methods: string.ToTitleCaseSafe(), IEnumerable<Book>.AverageRating().
+
+Multithreading: Parallel.ForEachAsync or Task.WhenAll to import multiple CSVs concurrently.
+
+ 
+
+5) Console Commands (UI Spec)
+Input format: one command per line.
+
+import <file1.csv> [file2.csv ...]
+
+Parallel import; show counts: imported, duplicates, malformed.
+
+list all | filter finished | by author <text> | top rated <n>
+
+mark finished <id> → 200 OK on success, 404 Not Found if missing.
+
+rate <id> <0-5> → validates bounds; 400 Bad Request on invalid.
+
+stats → prints:
+
+Total books
+
+Finished books
+
+Average rating (2 decimals)
+
+Pages by genre (genre, total pages)
+
+Top 3 authors by count (author, count)
+
+export json <path> | export csv <path> — async save with overwrite prompt.
+
+help, exit
+
+Sample CSV (books.csv):
+You can use this custom GPT to create test data: Book CSV Generator
+
+
+
+Id,Title,Author,Year,Pages,Genre,Finished,Rating
+1,"Clean code","Robert C. Martin",2008,464,"software",y,5
+2,"The hobbit","J.R.R. Tolkien",1937,310,"fantasy","no",4.5
+3,Refactoring,"Martin Fowler",1999,448,software,yes,4.7
+ 
+
+6) Testing Plan (Optional)
+Framework: MSTest or xUnit; Mocks: Moq (only if you abstract I/O).
+
+Unit Tests
+Book.SetRating bounds
+
+SetRating(-1) throws ArgumentOutOfRangeException.
+
+SetRating(4.5) sets value.
+
+Repository behavior
+
+Add new item returns true; duplicate returns false.
+
+Upsert overwrites.
+
+Parser
+
+Valid line -> Result.Ok == true, properties mapped.
+
+Malformed line -> Result.Ok == false, error message present.
+
+Queries
+
+AverageOrDefault on empty sequence returns 0 without exception.
+
+Top rated returns expected ordering.
+
+Integration-ish (no real infra)
+Import command
+
+Provide an in-memory IFileReader (mock) that returns two CSV files; assert combined results, duplicates skipped, malformed rows logged (verify logger calls if abstracted).
+
+Example test snippet:
+
+[Fact] public void Repository_Add_Duplicate_ReturnsFalse() { var repo = new InMemoryRepository<Book,int>(b => b.Id); var b = new Book { Id = 1, Title = "A", Author = "B" }; Assert.True(repo.Add(b)); Assert.False(repo.Add(b)); }
+
+7) Acceptance Criteria
+Given CSVs with valid and invalid rows
+When I run import file1.csv file2.csv
+Then the app imports all valid books, logs malformed rows, and reports counts; duplicates by Id are skipped.
+
+Given imported books
+When I run top rated 2
+Then I see the two books with highest rating in descending order.
+
+Given a book with Id=3
+When I run mark finished 3
+Then Finished becomes true and the command reports success.
+
+Given current collection
+When I run export json out.json and confirm overwrite if needed
+Then the JSON file is written using async I/O and contains all current books.
+
+Given no books
+When I run stats
+Then the app prints zeros and handles empty sequences without crashing.
+
+8) Evaluation Rubric (100 pts)
+Correctness & Features (35 pts) — commands implemented, parallel import, export works.
+
+Code Quality (20 pts) — clear structure, naming, small methods, SOLID.
+
+Use of Concepts (20 pts) — generics (Repository<T>, Result<T>), LINQ queries, extension methods.
+
+Error Handling & UX (10 pts) — graceful messages, logging, skip bad rows.
+
+Async & Multithreading (10 pts) — parallel imports & async file writes with cancellation.
+
+Tests & Docs (5 pts) — at least 5 meaningful unit tests + README/usage.
+
+
+
+11) Deliverables & Constraints
+Timebox: ~2-3 days.
+
+.NET: .NET 8 or 9 Console.
+
+Solution Layout:
+
+
+
+ReadingList/
+  src/
+    ReadingList.App/           // console (Program.cs, Command handlers)
+    ReadingList.Domain/        // Book entity, Result<T>, extensions
+    ReadingList.Infrastructure/ // Repo, Import/Export services, parser
+  tests/
+    ReadingList.Tests/         // xUnit tests
+  data/                         // sample CSVs
+  README.md
+
+
+
+Packages: none required; OK to use System.Text.Json.
+
+Conventions:  async for I/O, ILogger<T> or simple Console logger.
+
+What NOT to use: no external CSV/ORM libraries; keep it standard library.
+
+
+
+What the reviewer should look for
+Clear use of generics (Repository<T>, Result<T>), not ad-hoc types.
+
+LINQ queries are idiomatic and efficient (avoid multiple enumerations where unnecessary).
+
+Collection choices make sense (Dictionary for lookup, List for iteration).
+
+Errors are handled gracefully; malformed rows don’t crash import.
+
+File operations are async and cancelable.
+
+Extension methods are focused and reusable.
+
+Basic unit tests exist and are meaningful; tests don’t rely on the console UI.
+
+Code is readable, small functions, clear naming, consistent formatting.
