@@ -1,0 +1,6 @@
+@AMT.Api_HostAddress = http://localhost:5286
+
+GET {{AMT.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
