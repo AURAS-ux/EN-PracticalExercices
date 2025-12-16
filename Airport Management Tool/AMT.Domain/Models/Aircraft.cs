@@ -12,4 +12,6 @@ public class Aircraft
     [Range(0, int.MaxValue, ErrorMessage = "Seat capacity must be a non-negative integer.")]
     public int SeatCapacity { get; set; }
     public Airline OwnedByAirline { get; set; } = null!;
+    public virtual IList<FlightSchedule> FlightSchedules { get; set; } = null!;
+    public virtual IList<Flight> Flights { get; set; } = null!;
 }

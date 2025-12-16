@@ -15,4 +15,9 @@ public class Airport
     [StringLength(80, ErrorMessage = "Country name cannot exceed 80 characters.")]
     public string Country { get; set; } = null!;
     public string Timezone { get; set; } = null!;
+    public virtual IList<Flight> FlightDestinationAirports { get; set; } = null!;
+
+    public virtual IList<Flight> FlightOriginAirports { get; set; } = null!;
+
+    public virtual IList<Gate> Gates { get; set; } = null!;
 }

@@ -17,4 +17,6 @@ public class Ticket
     public bool IsRefundable { get; set; } = false;
     [Range(0, int.MaxValue, ErrorMessage = "Seat inventory must be a non-negative integer.")]
     public int SeatInventory { get; set; }
+    public virtual IList<Booking> Bookings { get; set; } = null!;
+
 }
