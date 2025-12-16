@@ -1,4 +1,7 @@
 using AMT.Infrastructure.Data;
+using AMT.Infrastructure.Interfaces;
+using AMT.Infrastructure.Interfaces.Repos;
+using AMT.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -18,6 +21,16 @@ builder.Services.AddDbContext<AirportManagementContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AirportManagementDb"));
 });
+
+builder.Services.AddScoped<IAirlineRepository, AirlineRepository>();
+builder.Services.AddScoped<IAirportRepository, AirportRepository>();
+builder.Services.AddScoped<IAircraftRepository, AircraftRepository>();
+builder.Services.AddScoped<IFlightRepository, FlightRepository>();
+builder.Services.AddScoped<IFlightScheduleRepository, FlightScheduleRepositroy>();
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
