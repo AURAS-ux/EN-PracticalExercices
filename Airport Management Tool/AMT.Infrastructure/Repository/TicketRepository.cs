@@ -9,19 +9,17 @@ namespace AMT.Infrastructure.Repository;
 
 public class TicketRepository(AirportManagementContext context) : ITicketRepository
 {
-    public Task AddAsync(Ticket entity)
+    public async Task AddAsync(Ticket entity)
     {
-        context.Tickets.AddAsync(TicketMap.ToEntity(entity));
-        return context.SaveChangesAsync();
+        await context.Tickets.AddAsync(TicketMap.ToEntity(entity));
     }
 
-    public Task DeleteAsync(int id)
+    public void Delete(int id)
     {
         var entity = context.Tickets.Find(id);
         if (entity != null)
         {
             context.Tickets.Remove(entity);
-            return context.SaveChangesAsync();
         }
         else
         {
@@ -42,13 +40,12 @@ public class TicketRepository(AirportManagementContext context) : ITicketReposit
             .FirstOrDefault();
     }
 
-    public Task UpdateAsync(Ticket entity)
+    public void Update(Ticket entity)
     {
         var oldEntity = context.Tickets.Find(entity.Id);
         if (oldEntity != null)
         {
             context.Tickets.Update(TicketMap.ToEntity(entity));
-            return context.SaveChangesAsync();
         }
         else
         {

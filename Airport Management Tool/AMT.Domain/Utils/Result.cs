@@ -6,11 +6,11 @@ public class Result<TValue, TException> where TValue : class where TException : 
 {
     public bool IsSuccess { get; set; }
     public TValue? Value { get; set; }
-    public string? ErrorMessage { get; set; }
-    public TException? Exception { get; set; }
+    public List<string>? ErrorMessage { get; set; }
+    public List<TException>? Exception { get; set; }
     public HttpStatusCode? StatusCode { get; set; }
     
-    public Result(bool isSuccess, TValue? value = null, string? errorMessage = null, TException? exception = null, HttpStatusCode? statusCode = null)
+    public Result(bool isSuccess, TValue? value = null, List<string>? errorMessage = null, List<TException>? exception = null, HttpStatusCode? statusCode = null)
     {
         IsSuccess = isSuccess;
         Value = value;
@@ -24,17 +24,17 @@ public class Result<TValue, TException> where TValue : class where TException : 
         return new Result<TValue, TException>(true, value);
     }
 
-    public static Result<TValue, TException> Failure(string errorMessage)
+    public static Result<TValue, TException> Failure(List<string> errorMessage)
     {
         return new Result<TValue, TException>(false, null, errorMessage);
     }
 
-    public static Result<TValue, TException> FailureWithException(string errorMessage, TException exception)
+    public static Result<TValue, TException> FailureWithException(List<string> errorMessage, List<TException> exception)
     {
         return new Result<TValue, TException>(false, null, errorMessage, exception);
     }
 
-    public static Result<TValue, TException> Failure(string errorMessage, TException exception, HttpStatusCode statusCode)
+    public static Result<TValue, TException> Failure(List<string> errorMessage, List<TException> exception, HttpStatusCode statusCode)
     {
         return new Result<TValue, TException>(false, null, errorMessage, exception, statusCode);
     }

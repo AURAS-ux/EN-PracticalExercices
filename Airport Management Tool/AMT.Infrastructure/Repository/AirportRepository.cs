@@ -9,19 +9,17 @@ namespace AMT.Infrastructure.Repository;
 
 public class AirportRepository(AirportManagementContext context) : IAirportRepository
 {
-    public Task AddAsync(Airport entity)
+    public async Task AddAsync(Airport entity)
     {
-        context.Airports.AddAsync(AirportMap.ToEntity(entity));
-        return context.SaveChangesAsync();
+        await context.Airports.AddAsync(AirportMap.ToEntity(entity));
     }
 
-    public Task DeleteAsync(int id)
+    public void Delete(int id)
     {
         var entity = context.Airports.Find(id);
         if (entity != null)
         {
             context.Airports.Remove(entity);
-            return context.SaveChangesAsync();
         }
         else
         {
@@ -42,13 +40,12 @@ public class AirportRepository(AirportManagementContext context) : IAirportRepos
             .FirstOrDefault();
     }
 
-    public Task UpdateAsync(Airport entity)
+    public void Update(Airport entity)
     {
         var oldEntity = context.Airports.Find(entity.Id);
         if (oldEntity != null)
         {
             context.Airports.Update(AirportMap.ToEntity(entity));
-            return context.SaveChangesAsync();
         }
         else
         {

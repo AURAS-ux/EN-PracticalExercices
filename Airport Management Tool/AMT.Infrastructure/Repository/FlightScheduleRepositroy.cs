@@ -9,19 +9,17 @@ namespace AMT.Infrastructure.Repository;
 
 public class FlightScheduleRepositroy(AirportManagementContext context) : IFlightScheduleRepository
 {
-    public Task AddAsync(FlightSchedule entity)
+    public async Task AddAsync(FlightSchedule entity)
     {
-        context.FlightSchedules.AddAsync(FlightScheduleMap.ToEntity(entity));
-        return context.SaveChangesAsync();
+        await context.FlightSchedules.AddAsync(FlightScheduleMap.ToEntity(entity));
     }
 
-    public Task DeleteAsync(int id)
+    public void Delete(int id)
     {
         var entity = context.FlightSchedules.Find(id);
         if (entity != null)
         {
             context.FlightSchedules.Remove(entity);
-            return context.SaveChangesAsync();
         }
         else
         {
@@ -42,13 +40,12 @@ public class FlightScheduleRepositroy(AirportManagementContext context) : IFligh
             .FirstOrDefault();
     }
 
-    public Task UpdateAsync(FlightSchedule entity)
+    public void Update(FlightSchedule entity)
     {
         var oldEntity = context.FlightSchedules.Find(entity.Id);
         if (oldEntity != null)
         {
             context.FlightSchedules.Update(FlightScheduleMap.ToEntity(entity));
-            return context.SaveChangesAsync();
         }
         else
         {

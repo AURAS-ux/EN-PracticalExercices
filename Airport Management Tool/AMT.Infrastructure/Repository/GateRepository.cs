@@ -9,19 +9,17 @@ namespace AMT.Infrastructure.Repository;
 
 public class GateRepository(AirportManagementContext context) : IGateRepository
 {
-    public Task AddAsync(Gate entity)
+    public async Task AddAsync(Gate entity)
     {
-        context.Gates.AddAsync(GateMap.ToEntity(entity));
-        return context.SaveChangesAsync();
+        await context.Gates.AddAsync(GateMap.ToEntity(entity));
     }
 
-    public Task DeleteAsync(int id)
+    public void Delete(int id)
     {
         var entity = context.Gates.Find(id);
         if (entity != null)
         {
             context.Gates.Remove(entity);
-            return context.SaveChangesAsync();
         }
         else
         {
@@ -42,13 +40,12 @@ public class GateRepository(AirportManagementContext context) : IGateRepository
             .FirstOrDefault();
     }
 
-    public Task UpdateAsync(Gate entity)
+    public void Update(Gate entity)
     {
         var oldEntity = context.Gates.Find(entity.Id);
         if (oldEntity != null)
         {
             context.Gates.Update(GateMap.ToEntity(entity));
-            return context.SaveChangesAsync();
         }
         else
         {

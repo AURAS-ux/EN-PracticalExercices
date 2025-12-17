@@ -11,4 +11,9 @@
     <ProjectReference Include="..\AMT.Infrastructure\AMT.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Services\Interfaces\" />
+  </ItemGroup>
+
 </Project>

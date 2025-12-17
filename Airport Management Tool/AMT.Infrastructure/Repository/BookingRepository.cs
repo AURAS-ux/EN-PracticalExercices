@@ -9,19 +9,17 @@ namespace AMT.Infrastructure.Repository;
 
 public class BookingRepository(AirportManagementContext context) : IBookingRepository
 {
-    public Task AddAsync(Booking entity)
+    public async Task AddAsync(Booking entity)
     {
-        context.Bookings.AddAsync(BookingMap.ToEntity(entity));
-        return context.SaveChangesAsync();
+        await context.Bookings.AddAsync(BookingMap.ToEntity(entity));
     }
 
-    public Task DeleteAsync(int id)
+    public void Delete(int id)
     {
         var entity = context.Bookings.Find(id);
         if (entity != null)
         {
             context.Bookings.Remove(entity);
-            return context.SaveChangesAsync();
         }
         else
         {
@@ -41,13 +39,12 @@ public class BookingRepository(AirportManagementContext context) : IBookingRepos
         .FirstOrDefault(b => b.Id == id);
     }
 
-    public Task UpdateAsync(Booking entity)
+    public void Update(Booking entity)
     {
         var oldEntity = context.Bookings.Find(entity.Id);
         if (oldEntity != null)
         {
             context.Entry(oldEntity).CurrentValues.SetValues(BookingMap.ToEntity(entity));
-            return context.SaveChangesAsync();
         }
         else
         {
