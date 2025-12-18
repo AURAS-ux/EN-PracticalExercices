@@ -12,7 +12,4 @@ public class Flight
     public Airport DestinationAirport { get; set; } = null!;
     public Aircraft DefaultAircraft { get; set; } = null!;
     public bool IsActive { get; set; } = true;
-    public virtual IList<Booking> Bookings { get; set; } = null!;
-    public virtual IList<FlightSchedule> FlightSchedules { get; set; } = null!;
-    public virtual IList<Ticket> Tickets { get; set; } = null!;
 }

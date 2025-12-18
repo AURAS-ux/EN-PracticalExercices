@@ -9,6 +9,4 @@ public class Airline
     public string Iatacode { get; set; } = null!;
     [StringLength(100, ErrorMessage = "Airline name cannot exceed 100 characters.")]
     public string Name { get; set; } = null!;
-    public IList<Aircraft> Aircrafts { get; set; } = null!;
-    public IList<Flight> Flights { get; set; } = null!;
 }

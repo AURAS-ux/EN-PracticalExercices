@@ -8,5 +8,4 @@ public class Gate
     [StringLength(10, ErrorMessage = "Gate code cannot exceed 10 characters.")]
     public string Code { get; set; } = null!;
     public Airport Airport { get; set; } = null!;
-    public virtual IList<FlightSchedule> FlightSchedules { get; set; } = null!;
 }

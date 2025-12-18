@@ -12,7 +12,7 @@ public static class FlightMap
     {
         var airline = entity.Airline != null
             ? AirlineMap.ToDomain(entity.Airline)
-            : new DomainAirline { Id = entity.AirlineId, IATACode = string.Empty, Name = string.Empty };
+            : new DomainAirline { Id = entity.AirlineId, Iatacode = string.Empty, Name = string.Empty };
 
         var origin = entity.OriginAirport != null
             ? AirportMap.ToDomain(entity.OriginAirport)

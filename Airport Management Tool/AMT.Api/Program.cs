@@ -1,7 +1,11 @@
+using AMT.Application.Services;
+using AMT.Application.Services.Interfaces;
+using AMT.Application.Validators;
 using AMT.Infrastructure.Data;
 using AMT.Infrastructure.Interfaces;
 using AMT.Infrastructure.Interfaces.Repos;
 using AMT.Infrastructure.Repository;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -16,6 +20,7 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AirportManagementContext>(options =>
 {
@@ -32,14 +37,24 @@ builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+builder.Services.AddValidatorsFromAssemblyContaining<FlightValidator>();
+
+builder.Services.AddScoped<IFlightService, FlightService>();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 var app = builder.Build();
+//TODO: middle ware exception for unhandled exceptions in results 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
 app.Run();
