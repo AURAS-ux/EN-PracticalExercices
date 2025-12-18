@@ -33,6 +33,14 @@ public class AirlineRepository(AirportManagementContext context) : IAirlineRepos
             .Select(AirlineMap.ToDomain);
     }
 
+    public Airline? GetByIataCode(string iataCode)
+    {
+        return context.Airlines
+        .Where(airline => airline.Iatacode == iataCode)
+        .Select(AirlineMap.ToDomain)
+        .FirstOrDefault();
+    }
+
     public Airline? GetById(int id)
     {
         return context.Airlines

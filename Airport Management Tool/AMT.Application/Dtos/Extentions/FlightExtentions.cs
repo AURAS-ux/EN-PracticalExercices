@@ -10,7 +10,7 @@ public static class FlightExtensions
     /// Requires fetched related entities (Airline, Airports, Aircraft).
     /// </summary>
     public static Flight ToFlight(
-        this FlightRequest dto,
+        this CreateFlightDto dto,
         Airline airline,
         Airport originAirport,
         Airport destinationAirport,
@@ -30,15 +30,15 @@ public static class FlightExtensions
     /// <summary>
     /// Maps Flight domain model back to CreateFlightDto.
     /// </summary>
-    public static FlightRequest ToCreateFlightDto(this Flight flight)
+    public static CreateFlightDto ToCreateFlightDto(this Flight flight)
     {
-        return new FlightRequest
+        return new CreateFlightDto
         {
-            AirlineId = flight.Airline.Id,
+            AirlineIata = flight.Airline.Iatacode,
             FlightNumber = flight.FlightNumber,
-            OriginAirportId = flight.OriginAirport.Id,
-            DestinationAirportId = flight.DestinationAirport.Id,
-            DefaultAircraftId = flight.DefaultAircraft?.Id,
+            OriginIata = flight.OriginAirport.IATACode,
+            DestinationIata = flight.DestinationAirport.IATACode,
+            DefaultAircraftTail = flight.DefaultAircraft?.TailNumber!,
             IsActive = flight.IsActive
         };
     }

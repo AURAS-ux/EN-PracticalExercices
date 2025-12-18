@@ -41,6 +41,14 @@ public class AircraftRepository(AirportManagementContext context) : IAircraftRep
         .FirstOrDefault();
     }
 
+    public Aircraft? GetByTailNumber(string tailNumber)
+    {
+        return context.Aircraft
+        .Where(aircraft => aircraft.TailNumber == tailNumber)
+        .Select(AircraftMap.ToDomain)
+        .FirstOrDefault();
+    }
+
     public void Update(Aircraft entity)
     {
         var oldEntity = context.Aircraft.Find(entity.Id);

@@ -7,7 +7,7 @@ namespace AMT.Application.Services.Interfaces;
 
 public interface IFlightService
 {
-    Task<Result<Flight, Exception>> CreateFlightAsync(FlightRequest flightRequest);
-    Task<Result<List<Flight>, Exception>> FilterFlightsBy(string? date = null, string? origin = null, string? destination = null);
-    Task<Result<Flight, Exception>> UpdateFlightAsync(FlightRequest flightRequest);
+    Task<Result<Flight, Exception>> CreateFlightAsync(CreateFlightDto flightRequest);
+    Task<Result<Flight, Exception>> UpdateFlightAsync(int id, UpdateFlightDto flightRequest);
+    Task<Result<string, Exception>> DeleteFlightAsync(int flightId);
 }

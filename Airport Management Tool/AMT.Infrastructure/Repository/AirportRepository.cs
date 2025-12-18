@@ -32,6 +32,14 @@ public class AirportRepository(AirportManagementContext context) : IAirportRepos
         return context.Airports.Select(AirportMap.ToDomain);
     }
 
+    public Airport? GetByIataCode(string iataCode)
+    {
+        return context.Airports
+            .Where(a => a.Iatacode == iataCode)
+            .Select(AirportMap.ToDomain)
+            .FirstOrDefault();
+    }
+
     public Airport? GetById(int id)
     {
         return context.Airports

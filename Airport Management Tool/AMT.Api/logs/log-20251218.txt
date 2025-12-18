@@ -76,3 +76,112 @@ VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
 SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
 FROM [Flight] AS [f]
 WHERE [f].[Id] = @__id_0
+2025-12-18 14:42:43.683 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-18 14:42:43.771 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-18 14:42:43.771 +02:00 [INF] Hosting environment: Development
+2025-12-18 14:42:43.771 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-18 14:47:24.997 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-18 14:47:28.661 +02:00 [INF] Executed DbCommand (290ms) [Parameters=[@__iataCode_0='?' (Size = 2) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 14:47:28.742 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 14:47:28.766 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 14:47:28.782 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-18 14:47:29.084 +02:00 [INF] Executed DbCommand (27ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 8), @p4='?' (DbType = Boolean), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Flight] ([AirlineId], [DefaultAircraftId], [DestinationAirportId], [FlightNumber], [IsActive], [OriginAirportId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-18 14:49:42.414 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-18 14:49:42.452 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-18 14:49:42.452 +02:00 [INF] Hosting environment: Development
+2025-12-18 14:49:42.452 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-18 14:49:45.165 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-18 14:54:42.400 +02:00 [INF] Executed DbCommand (32ms) [Parameters=[@__iataCode_0='?' (Size = 2) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 14:54:42.468 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 14:54:42.491 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 14:54:42.505 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-18 14:54:56.481 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__iataCode_0='?' (Size = 2) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 14:54:56.490 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 14:54:56.500 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 14:54:56.507 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-18 14:54:56.553 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__p_0
+2025-12-18 15:24:32.138 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-18 15:24:32.179 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-18 15:24:32.179 +02:00 [INF] Hosting environment: Development
+2025-12-18 15:24:32.179 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-18 15:37:21.333 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-18 15:37:21.409 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-18 15:37:21.410 +02:00 [INF] Hosting environment: Development
+2025-12-18 15:37:21.410 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-18 15:39:16.581 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-18 15:39:25.240 +02:00 [INF] Executed DbCommand (41ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-18 15:39:25.539 +02:00 [INF] Executed DbCommand (41ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Flight] SET [FlightNumber] = @p0
+OUTPUT 1
+WHERE [Id] = @p1;
+2025-12-18 15:40:07.846 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-18 15:40:07.870 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 15:40:07.917 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-18 15:40:20.715 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__p_0
+2025-12-18 15:40:20.783 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [Flight]
+OUTPUT 1
+WHERE [Id] = @p0;

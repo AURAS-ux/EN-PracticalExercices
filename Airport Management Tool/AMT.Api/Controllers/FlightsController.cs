@@ -14,7 +14,7 @@ namespace AMT.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateFlight([FromBody] FlightRequest createFlightDto)
+        public async Task<IActionResult> CreateFlight([FromBody] CreateFlightDto createFlightDto)
         {
             var result = await flightService.CreateFlightAsync(createFlightDto);
             if(result.IsSuccess)
@@ -35,14 +35,42 @@ namespace AMT.Api.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> FilterFlightsBy([FromQuery] string? date = null, [FromQuery] string? origin = null, [FromQuery] string? destination = null)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateFlight(int id, [FromBody] UpdateFlightDto updateFlightDto)
         {
-            var result = await flightService.FilterFlightsBy(date, origin, destination);
+            var result = await flightService.UpdateFlightAsync(id, updateFlightDto);
             if (result.IsSuccess)
             {
                 return Ok(result.Value);
+            }
+            else
+            {
+                var errors = result.ErrorMessage;
+                var exceptions = result.Exception;
+                var statusCode = (int)result.StatusCode!;
+
+                return StatusCode(statusCode, new
+                {
+                    Errors = errors,
+                    Exceptions = exceptions?.Select(e => e.Message)
+                });
+            }
+        }
+
+        [HttpDelete("{flightId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteFligt(int flightId)
+        {
+            var result = await flightService.DeleteFlightAsync(flightId);
+            if (result.IsSuccess)
+            {
+                return NoContent();
             }
             else
             {

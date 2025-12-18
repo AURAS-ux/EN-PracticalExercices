@@ -16,7 +16,6 @@
     <Folder Include="Dtos\Extentions\" />
     <Folder Include="Services\" />
     <Folder Include="Services\Interfaces\" />
-    <Folder Include="Validators\" />
   </ItemGroup>
 
   <ItemGroup>

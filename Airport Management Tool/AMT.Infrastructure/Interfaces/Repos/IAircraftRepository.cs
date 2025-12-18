@@ -5,5 +5,5 @@ namespace AMT.Infrastructure.Interfaces.Repos;
 
 public interface IAircraftRepository : IGenericRepository<Aircraft>
 {
-
+    Aircraft? GetByTailNumber(string tailNumber);
 }

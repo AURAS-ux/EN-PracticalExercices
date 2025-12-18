@@ -13,46 +13,99 @@ namespace AMT.Application.Services;
 
 public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator) : IFlightService
 {
-    public async Task<Result<Flight, Exception>> CreateFlightAsync(FlightRequest flightRequest)
+    public async Task<Result<Flight, Exception>> CreateFlightAsync(CreateFlightDto flightRequest)
     {
-        var airline = unitOfWork.Airlines.GetById(flightRequest.AirlineId);
-        var originAirport = unitOfWork.Airports.GetById(flightRequest.OriginAirportId);
-        var destinationAirport = unitOfWork.Airports.GetById(flightRequest.DestinationAirportId);
-        Aircraft? aircraft = null;
-        if(airline == null)
+        var flightResult =  await this.GetFlightEntity(flightRequest);
+        if (flightResult.IsSuccess)
+        {
+            await unitOfWork.Flights.AddAsync(flightResult.Value!);
+            await unitOfWork.SaveChangesAsync();
+            return Result<Flight, Exception>.Success(flightResult.Value!);
+        }
+        return flightResult;
+    }
+
+    public async Task<Result<string, Exception>> DeleteFlightAsync(int flightId)
+    {
+        try
+        {
+            unitOfWork.Flights.Delete(flightId);
+            await unitOfWork.SaveChangesAsync();
+            return Result<string, Exception>
+            .Success($"Flight with ID {flightId} deleted successfully.");
+        }
+        catch (GenericNotFound<Flight, int> ex)
+        {
+            return Result<string, Exception>.Failure(
+                new List<string> { ex.Message },
+                new List<Exception> { ex },
+                HttpStatusCode.NotFound);
+        }
+    }
+
+    public async Task<Result<Flight, Exception>> UpdateFlightAsync(int id, UpdateFlightDto flightRequest)
+    {
+        var flight = unitOfWork.Flights.GetById(id);
+        if (flight == null)
         {
             return Result<Flight, Exception>
-            .Failure(new List<string> { "Airline not found." }, 
-            [new GenericNotFound<Airline,int>(flightRequest.AirlineId)], 
-            System.Net.HttpStatusCode.NotFound);
+            .Failure(new List<string> { "Flight not found." }, 
+            [new GenericNotFound<Flight,int>(id)], 
+            HttpStatusCode.NotFound);
         }
-        if(originAirport == null)
+        if(flightRequest.FlightNumber != null)
         {
-            return Result<Flight, Exception>
-            .Failure(new List<string> { "Origin Airport not found." }, 
-            [new GenericNotFound<Airport,int>(flightRequest.OriginAirportId)], 
-            System.Net.HttpStatusCode.NotFound);
+            flight.FlightNumber = flightRequest.FlightNumber;
         }
-        if(destinationAirport == null)
+        if(flightRequest.AirlineIata != null)
         {
-            return Result<Flight, Exception>
-            .Failure(new List<string> { "Destination Airport not found." }, 
-            [new GenericNotFound<Airport,int>(flightRequest.DestinationAirportId)], 
-            System.Net.HttpStatusCode.NotFound);
+            if(unitOfWork.Airlines.GetByIataCode(flightRequest.AirlineIata!) == null)
+            {
+                return Result<Flight, Exception>
+                .Failure(new List<string> { "Airline not found." }, 
+                [new GenericNotFound<Airline,string>(flightRequest.AirlineIata!)], 
+                HttpStatusCode.NotFound);
+            }
+            flight.Airline = unitOfWork.Airlines.GetByIataCode(flightRequest.AirlineIata!)!;
         }
-        if (flightRequest.DefaultAircraftId.HasValue)
+        if(flightRequest.OriginIata != null)
         {
-            aircraft = unitOfWork.Aircraft.GetById(flightRequest.DefaultAircraftId.Value);
+            if(unitOfWork.Airports.GetByIataCode(flightRequest.OriginIata!) == null)
+            {
+                return Result<Flight, Exception>
+                .Failure(new List<string> { "Origin Airport not found." }, 
+                [new GenericNotFound<Airport,string>(flightRequest.OriginIata!)], 
+                HttpStatusCode.NotFound);
+            }
+            flight.OriginAirport = unitOfWork.Airports.GetByIataCode(flightRequest.OriginIata!)!;
+        }
+        if(flightRequest.DestinationIata != null)
+        {
+            if(unitOfWork.Airports.GetByIataCode(flightRequest.DestinationIata!) == null)
+            {
+                return Result<Flight, Exception>
+                .Failure(new List<string> { "Destination Airport not found." }, 
+                [new GenericNotFound<Airport,string>(flightRequest.DestinationIata!)], 
+                HttpStatusCode.NotFound);
+            }
+            flight.DestinationAirport = unitOfWork.Airports.GetByIataCode(flightRequest.DestinationIata!)!;
+        }
+        if(flightRequest.DefaultAircraftTail != null)
+        {
+            var aircraft = unitOfWork.Aircraft.GetByTailNumber(flightRequest.DefaultAircraftTail);
             if (aircraft == null)
             {
                 return Result<Flight, Exception>.Failure(
-                    new List<string> { $"Aircraft with ID {flightRequest.DefaultAircraftId} not found." },
+                    new List<string> { $"Aircraft with Tail Number {flightRequest.DefaultAircraftTail} not found." },
                     new List<Exception> { new KeyNotFoundException() },
                     HttpStatusCode.NotFound);
-            } 
+            }
+            flight.DefaultAircraft = aircraft;
         }
-
-        var flight = flightRequest.ToFlight(airline, originAirport, destinationAirport, aircraft);
+        if(flightRequest.IsActive != null)
+        {
+            flight.IsActive = flightRequest.IsActive.Value;
+        }
 
         var validationResult = validator.Validate(flight);
         if(!validationResult.IsValid)
@@ -62,39 +115,62 @@ public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator) 
             [new Infrastructure.Exceptions.ValidationException(JsonSerializer.Serialize(errors))], 
             HttpStatusCode.BadRequest);
         }
-        await unitOfWork.Flights.AddAsync(flight);
-        await unitOfWork.SaveChangesAsync();
 
-        System.Console.WriteLine("Requesting flight after save:");
-        var addedFlight = unitOfWork.Flights.GetById(flight.Id);
+        unitOfWork.Flights.Update(flight);
+        await unitOfWork.SaveChangesAsync();
 
         return Result<Flight, Exception>.Success(flight);
     }
 
-    public Task<Result<List<Flight>, Exception>> FilterFlightsBy(string? date = null, string? origin = null, string? destination = null)
+    private async Task<Result<Flight, Exception>> GetFlightEntity(CreateFlightDto flightRequest)
     {
-        //TODO implement flightschedule and process dates there
-        // var flights = unitOfWork.Flights.GetAll().Select(flight =>
-        // {
-        //     if (date != null && flight. != DateTime.Parse(date).Date)
-        //     {
-        //         return false;
-        //     }
-        //     if (origin != null && !flight.OriginAirport.Code.Equals(origin, StringComparison.OrdinalIgnoreCase))
-        //     {
-        //         return false;
-        //     }
-        //     if (destination != null && !flight.DestinationAirport.Code.Equals(destination, StringComparison.OrdinalIgnoreCase))
-        //     {
-        //         return false;
-        //     }
-        //     return true;
-        // }).ToList();
-        throw new NotImplementedException();
-    }
+        var airline = unitOfWork.Airlines.GetByIataCode(flightRequest.AirlineIata);
+        var originAirport = unitOfWork.Airports.GetByIataCode(flightRequest.OriginIata);
+        var destinationAirport = unitOfWork.Airports.GetByIataCode(flightRequest.DestinationIata);
+        Aircraft? aircraft = null;
+        if(airline == null)
+        {
+            return Result<Flight, Exception>
+            .Failure(new List<string> { "Airline not found." }, 
+            [new GenericNotFound<Airline,string>(flightRequest.AirlineIata)], 
+            System.Net.HttpStatusCode.NotFound);
+        }
+        if(originAirport == null)
+        {
+            return Result<Flight, Exception>
+            .Failure(new List<string> { "Origin Airport not found." }, 
+            [new GenericNotFound<Airport,string>(flightRequest.OriginIata)], 
+            System.Net.HttpStatusCode.NotFound);
+        }
+        if(destinationAirport == null)
+        {
+            return Result<Flight, Exception>
+            .Failure(new List<string> { "Destination Airport not found." }, 
+            [new GenericNotFound<Airport,string>(flightRequest.DestinationIata)], 
+            System.Net.HttpStatusCode.NotFound);
+        }
+        if (!string.IsNullOrEmpty(flightRequest.DefaultAircraftTail))
+        {
+            aircraft = unitOfWork.Aircraft.GetByTailNumber(flightRequest.DefaultAircraftTail);
+            if (aircraft == null)
+            {
+                return Result<Flight, Exception>.Failure(
+                    new List<string> { $"Aircraft with Tail Number {flightRequest.DefaultAircraftTail} not found." },
+                    new List<Exception> { new KeyNotFoundException() },
+                    HttpStatusCode.NotFound);
+            } 
+        }
 
-    public Task<Result<Flight, Exception>> UpdateFlightAsync(FlightRequest flightRequest)
-    {
-        throw new NotImplementedException();
+        var flight = flightRequest.ToFlight(airline, originAirport, destinationAirport, aircraft); 
+
+        var validationResult = validator.Validate(flight);
+        if(!validationResult.IsValid)
+        {
+            var errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
+            return Result<Flight, Exception>.Failure(errors, 
+            [new Infrastructure.Exceptions.ValidationException(JsonSerializer.Serialize(errors))], 
+            HttpStatusCode.BadRequest);
+        }
+        return Result<Flight, Exception>.Success(flight);
     }
 }
