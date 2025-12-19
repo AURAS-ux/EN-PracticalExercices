@@ -2,6 +2,7 @@ using AMT.Application.Dtos;
 using AMT.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace AMT.Api.Controllers
 {
@@ -53,19 +54,37 @@ namespace AMT.Api.Controllers
         }
 
         [HttpPost("import")]
+        [Consumes("multipart/form-data")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status207MultiStatus)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> BulkCreateSchedules([FromBody] string rawData)
+        public async Task<IActionResult> BulkCreateSchedules([FromForm] ScheduleImportRequest request)
         {
-            var result = await scheduleService.BulkCreateSchedulesAsync(rawData);
-            if (result.IsSuccess)
+            var file = request.File;
+            if (file == null || file.Length == 0)
             {
-                return Created("", result.Value);
+                return BadRequest(new { Errors = new[] { "No file uploaded or file is empty." } });
             }
-            return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages });
+
+            string rawData;
+            using (var reader = new StreamReader(file.OpenReadStream()))
+            {
+                rawData = await reader.ReadToEndAsync();
+            }
+            var result = await scheduleService.BulkCreateSchedulesAsync(rawData);
+            bool allSuccess = result.ImportResults.All(r => r.Value != null && r.Value.IsSuccess);
+            if (allSuccess)
+            {
+                return CreatedAtAction(nameof(BulkCreateSchedules), result);
+            }
+            return StatusCode(StatusCodes.Status207MultiStatus, result);
         }
     }
+
+    public class ScheduleImportRequest
+{
+    public IFormFile File { get; set; } = null!;
+}
 }

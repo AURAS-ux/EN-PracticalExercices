@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Text.Json;
 using AMT.Application.Dtos;
 using AMT.Application.Dtos.Extentions;
 using AMT.Application.Services.Interfaces;
@@ -9,15 +10,60 @@ using AMT.Infrastructure.Exceptions;
 using AMT.Infrastructure.Interfaces;
 using AMT.Infrastructure.Interfaces.Repos;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Serilog;
 
 namespace AMT.Application.Services;
 
 public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<FlightSchedule> validator) : IScheduleService
 {
-    public Task<Result<FlightSchedule, Exception>> BulkCreateSchedulesAsync(string rawData)
+    public async Task<BulkImportResultDto> BulkCreateSchedulesAsync(string rawData)
     {
-        throw new NotImplementedException(); //TODO: implement bulk create
+        try
+        {
+            var importResults = new Dictionary<BulkImportResultDto.ImportStatus, Result<FlightSchedule, Exception>?>();
+            var scheduleDtos = JsonSerializer.Deserialize<List<CreateScheduleDto>>(rawData
+            , new JsonSerializerOptions{PropertyNameCaseInsensitive =  true});
+            if (scheduleDtos == null || !scheduleDtos.Any())
+            {
+                logger.Warning("No schedules found in the provided data.");
+                return new BulkImportResultDto
+                {
+                    ImportResults = importResults
+                };
+            }
+            foreach (var scheduleDto in scheduleDtos)
+            {
+                var result = await this.CreateScheduleAsync(scheduleDto);
+                if (result.IsSuccess)
+                {
+                    importResults[BulkImportResultDto.ImportStatus.SUCCESS] = result;
+                }
+                else
+                {
+                    importResults[BulkImportResultDto.ImportStatus.FAILED] = result;
+                }
+            }
+            logger.Information("Bulk schedule import completed.");
+            return new BulkImportResultDto
+            {
+                ImportResults = importResults
+            };
+        }
+        catch (JsonException ex)
+        {
+            logger.Error("Error parsing bulk schedule data: {Message}", ex.Message);
+            return new BulkImportResultDto
+            {
+                ImportResults = new Dictionary<BulkImportResultDto.ImportStatus, Result<FlightSchedule, Exception>?>
+                {
+                    { BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
+                        new List<string> { "Invalid JSON format." },
+                        [ex],
+                        HttpStatusCode.BadRequest) }
+                }
+            };
+        }
     }
 
     public async Task<Result<FlightSchedule, Exception>> CreateScheduleAsync(CreateScheduleDto scheduleRequest)

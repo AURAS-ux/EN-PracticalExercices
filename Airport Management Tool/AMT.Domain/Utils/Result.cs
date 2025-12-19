@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text.Json.Serialization;
 
 namespace AMT.Domain.Utils;
 
@@ -7,6 +8,7 @@ public class Result<TValue, TException> where TValue : class where TException : 
     public bool IsSuccess { get; set; }
     public TValue? Value { get; set; }
     public List<string>? ErrorMessages { get; set; }
+    [JsonIgnore]
     public List<TException>? Exceptions { get; set; }
     public HttpStatusCode? StatusCode { get; set; }
     

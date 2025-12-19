@@ -6,5 +6,10 @@ namespace AMT.Application.Validators;
 
 public class ScheduleValidator : AbstractValidator<FlightSchedule>
 {
-
+    public ScheduleValidator()
+    {
+        RuleFor(schedule => schedule.ScheduledDepartureUtc)
+            .LessThan(schedule => schedule.ScheduledArrivalUtc)
+            .WithMessage("Scheduled departure time must be earlier than scheduled arrival time.");
+    }
 }
