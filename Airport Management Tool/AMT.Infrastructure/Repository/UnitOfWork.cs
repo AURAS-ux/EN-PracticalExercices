@@ -13,6 +13,7 @@ public sealed class UnitOfWork(
     IFlightRepository flights,
     IFlightScheduleRepository flightSchedules,
     ITicketRepository tickets,
+    IGateRepository gates,
     IBookingRepository bookings) : IUnitOfWork
 {
     private readonly AirportManagementContext _ctx = ctx;
@@ -24,6 +25,8 @@ public sealed class UnitOfWork(
     public IFlightScheduleRepository FlightSchedules { get; } = flightSchedules;
     public ITicketRepository Tickets { get; } = tickets;
     public IBookingRepository Bookings { get; } = bookings;
+
+    public IGateRepository Gates { get; } = gates;
 
     public Task<int> SaveChangesAsync(CancellationToken ct = default) => _ctx.SaveChangesAsync(ct);
       public ValueTask DisposeAsync() => _ctx.DisposeAsync();

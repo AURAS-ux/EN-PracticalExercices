@@ -1,0 +1,4 @@
+2025-12-19 10:18:46.885 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-19 10:18:47.042 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-19 10:18:47.044 +02:00 [INF] Hosting environment: Development
+2025-12-19 10:18:47.045 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api

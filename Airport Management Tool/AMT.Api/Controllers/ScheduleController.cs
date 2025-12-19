@@ -10,6 +10,9 @@ namespace AMT.Api.Controllers
     public class ScheduleController(IScheduleService scheduleService) : ControllerBase
     {
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetSchedule(int id)
         {
             var result = scheduleService.GetSchedule(id);
@@ -21,6 +24,9 @@ namespace AMT.Api.Controllers
         }
 
         [HttpGet("stats/upcoming")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetUpcomingSchedules([FromQuery] string date)
         {
             var result = scheduleService.GetUpcomingSchedules(date);
@@ -32,6 +38,10 @@ namespace AMT.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateSchedule([FromBody] CreateScheduleDto scheduleRequest)
         {
             var result = await scheduleService.CreateScheduleAsync(scheduleRequest);
@@ -43,6 +53,11 @@ namespace AMT.Api.Controllers
         }
 
         [HttpPost("import")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status207MultiStatus)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> BulkCreateSchedules([FromBody] string rawData)
         {
             var result = await scheduleService.BulkCreateSchedulesAsync(rawData);
