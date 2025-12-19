@@ -32,6 +32,14 @@ public class GateRepository(AirportManagementContext context) : IGateRepository
         return context.Gates.Select(GateMap.ToDomain);
     }
 
+    public Gate? GetByGateCode(string gateCode)
+    {
+        return context.Gates
+            .Where(g => g.Code == gateCode)
+            .Select(GateMap.ToDomain)
+            .FirstOrDefault();
+    }
+
     public Gate? GetById(int id)
     {
         return context.Gates

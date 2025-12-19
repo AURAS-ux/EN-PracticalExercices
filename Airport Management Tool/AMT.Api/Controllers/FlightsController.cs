@@ -23,8 +23,8 @@ namespace AMT.Api.Controllers
             }
             else
             {
-                var errors = result.ErrorMessage;
-                var exceptions = result.Exception;
+                var errors = result.ErrorMessages;
+                var exceptions = result.Exceptions;
                 var statusCode = (int)result.StatusCode!;
 
                 return StatusCode(statusCode, new
@@ -49,8 +49,8 @@ namespace AMT.Api.Controllers
             }
             else
             {
-                var errors = result.ErrorMessage;
-                var exceptions = result.Exception;
+                var errors = result.ErrorMessages;
+                var exceptions = result.Exceptions;
                 var statusCode = (int)result.StatusCode!;
 
                 return StatusCode(statusCode, new
@@ -74,8 +74,8 @@ namespace AMT.Api.Controllers
             }
             else
             {
-                var errors = result.ErrorMessage;
-                var exceptions = result.Exception;
+                var errors = result.ErrorMessages;
+                var exceptions = result.Exceptions;
                 var statusCode = (int)result.StatusCode!;
 
                 return StatusCode(statusCode, new

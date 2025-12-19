@@ -8,13 +8,15 @@ using AMT.Domain.Utils;
 using AMT.Infrastructure.Exceptions;
 using AMT.Infrastructure.Interfaces;
 using FluentValidation;
+using Serilog;
 
 namespace AMT.Application.Services;
 
-public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator) : IFlightService
+public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator,ILogger logger) : IFlightService
 {
     public async Task<Result<Flight, Exception>> CreateFlightAsync(CreateFlightDto flightRequest)
     {
+        logger.Information("Creating flight");
         var flightResult =  await this.GetFlightEntity(flightRequest);
         if (flightResult.IsSuccess)
         {
@@ -22,6 +24,7 @@ public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator) 
             await unitOfWork.SaveChangesAsync();
             return Result<Flight, Exception>.Success(flightResult.Value!);
         }
+        logger.Warning("Found errors trying to save flight");
         return flightResult;
     }
 

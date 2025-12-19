@@ -9,6 +9,7 @@ public interface IUnitOfWork : IAsyncDisposable
     IAirportRepository Airports { get; }
     IAircraftRepository Aircraft { get; }
     IFlightRepository Flights { get; }
+    IGateRepository Gates { get; }
     IFlightScheduleRepository FlightSchedules { get; }
     ITicketRepository Tickets { get; }
     IBookingRepository Bookings { get; }

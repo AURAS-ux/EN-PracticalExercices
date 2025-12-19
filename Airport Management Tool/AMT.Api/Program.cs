@@ -34,12 +34,15 @@ builder.Services.AddScoped<IFlightRepository, FlightRepository>();
 builder.Services.AddScoped<IFlightScheduleRepository, FlightScheduleRepositroy>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<IGateRepository, GateRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<FlightValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<ScheduleValidator>();
 
 builder.Services.AddScoped<IFlightService, FlightService>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

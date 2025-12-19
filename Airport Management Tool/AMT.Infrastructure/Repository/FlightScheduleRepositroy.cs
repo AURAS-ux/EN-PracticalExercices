@@ -40,6 +40,12 @@ public class FlightScheduleRepositroy(AirportManagementContext context) : IFligh
             .FirstOrDefault();
     }
 
+    public int GetFlightSchedulesCountForDate(DateTime departureTimeUtc)
+    {
+        return context.FlightSchedules
+            .Count(fs => fs.ScheduledDepartureUtc.Date == departureTimeUtc.Date);
+    }
+
     public void Update(FlightSchedule entity)
     {
         var oldEntity = context.FlightSchedules.Find(entity.Id);

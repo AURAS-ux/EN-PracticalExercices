@@ -5,5 +5,5 @@ namespace AMT.Infrastructure.Interfaces.Repos;
 
 public interface IFlightScheduleRepository : IGenericRepository<FlightSchedule>
 {
-
+    int GetFlightSchedulesCountForDate(DateTime departureTimeUtc);
 }
