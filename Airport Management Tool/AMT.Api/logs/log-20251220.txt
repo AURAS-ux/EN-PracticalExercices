@@ -384,3 +384,59 @@ SELECT [b].[Id], [b].[ConfirmationCode], [b].[CreatedUtc], [b].[FlightId], [b].[
 FROM [Booking] AS [b]
 INNER JOIN [Ticket] AS [t] ON [b].[TicketId] = [t].[Id]
 INNER JOIN [Flight] AS [f] ON [b].[FlightId] = [f].[Id]
+2025-12-20 17:34:07.422 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 17:34:07.463 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 17:34:07.464 +02:00 [INF] Hosting environment: Development
+2025-12-20 17:34:07.464 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 17:34:20.082 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 17:34:20.382 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","Quantity":2000,"$type":"CreateBookingDto"}
+2025-12-20 17:34:21.966 +02:00 [INF] Executed DbCommand (36ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-20 17:34:22.212 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Ticket] AS [t]
+INNER JOIN [Flight] AS [f] ON [t].[FlightId] = [f].[Id]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [t].[Id] = @__id_0
+2025-12-20 17:34:22.262 +02:00 [WRN] Booking validation failed: [{"PropertyName":"","ErrorMessage":"The requested quantity exceeds the available seat inventory.","AttemptedValue":{"Id":0,"Flight":{"Id":5,"Airline":{"Id":1,"Iatacode":"","Name":"","$type":"Airline"},"FlightNumber":"110X","OriginAirport":{"Id":1,"IATACode":"","Name":"","City":"","Country":"","Timezone":"","$type":"Airport"},"DestinationAirport":{"Id":2,"IATACode":"","Name":"","City":"","Country":"","Timezone":"","$type":"Airport"},"DefaultAircraft":{"Id":1,"TailNumber":"N12345","Model":"Boeing 737","SeatCapacity":160,"OwnedByAirline":{"Id":1,"Iatacode":"","Name":"","$type":"Airline"},"$type":"Aircraft"},"IsActive":true,"$type":"Flight"},"Ticket":{"Id":2,"Flight":{"Id":5,"Airline":{"Id":1,"Iatacode":"DL","Name":"Delta Air Lines","$type":"Airline"},"FlightNumber":"110X","OriginAirport":{"Id":1,"IATACode":"JFK","Name":"John F. Kennedy International Airport","City":"New York","Country":"USA","Timezone":"America/New_York","$type":"Airport"},"DestinationAirport":{"Id":2,"IATACode":"LAX","Name":"Los Angeles International Airport","City":"Los Angeles","Country":"USA","Timezone":"America/Los_Angeles","$type":"Airport"},"DefaultAircraft":{"Id":1,"TailNumber":"N12345","Model":"Boeing 737","SeatCapacity":160,"OwnedByAirline":{"Id":1,"Iatacode":"DL","Name":"Delta Air Lines","$type":"Airline"},"$type":"Aircraft"},"IsActive":true,"$type":"Flight"},"FareClass":"J","BasePrice":100.00,"Taxes":200.00,"Currency":"JJA","IsRefundable":false,"SeatInventory":980,"$type":"Ticket"},"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","ConfirmationCode":"NFUWWYEU","Quantity":2000,"CreatedUtc":"2025-12-20T15:34:22.2546657Z","Status":"ACTIVE","$type":"Booking"},"CustomState":null,"Severity":"Error","ErrorCode":"PredicateValidator","FormattedMessagePlaceholderValues":{"PropertyName":null,"PropertyValue":{"Id":0,"Flight":{"Id":5,"Airline":{"Id":1,"Iatacode":"","Name":"","$type":"Airline"},"FlightNumber":"110X","OriginAirport":{"Id":1,"IATACode":"","Name":"","City":"","Country":"","Timezone":"","$type":"Airport"},"DestinationAirport":{"Id":2,"IATACode":"","Name":"","City":"","Country":"","Timezone":"","$type":"Airport"},"DefaultAircraft":{"Id":1,"TailNumber":"N12345","Model":"Boeing 737","SeatCapacity":160,"OwnedByAirline":{"Id":1,"Iatacode":"","Name":"","$type":"Airline"},"$type":"Aircraft"},"IsActive":true,"$type":"Flight"},"Ticket":{"Id":2,"Flight":{"Id":5,"Airline":{"Id":1,"Iatacode":"DL","Name":"Delta Air Lines","$type":"Airline"},"FlightNumber":"110X","OriginAirport":{"Id":1,"IATACode":"JFK","Name":"John F. Kennedy International Airport","City":"New York","Country":"USA","Timezone":"America/New_York","$type":"Airport"},"DestinationAirport":{"Id":2,"IATACode":"LAX","Name":"Los Angeles International Airport","City":"Los Angeles","Country":"USA","Timezone":"America/Los_Angeles","$type":"Airport"},"DefaultAircraft":{"Id":1,"TailNumber":"N12345","Model":"Boeing 737","SeatCapacity":160,"OwnedByAirline":{"Id":1,"Iatacode":"DL","Name":"Delta Air Lines","$type":"Airline"},"$type":"Aircraft"},"IsActive":true,"$type":"Flight"},"FareClass":"J","BasePrice":100.00,"Taxes":200.00,"Currency":"JJA","IsRefundable":false,"SeatInventory":980,"$type":"Ticket"},"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","ConfirmationCode":"NFUWWYEU","Quantity":2000,"CreatedUtc":"2025-12-20T15:34:22.2546657Z","Status":"ACTIVE","$type":"Booking"},"PropertyPath":""},"$type":"ValidationFailure"}]
+2025-12-20 17:34:30.490 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","Quantity":90,"$type":"CreateBookingDto"}
+2025-12-20 17:34:30.543 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-20 17:34:30.569 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Ticket] AS [t]
+INNER JOIN [Flight] AS [f] ON [t].[FlightId] = [f].[Id]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [t].[Id] = @__id_0
+2025-12-20 17:34:30.867 +02:00 [INF] Executed DbCommand (42ms) [Parameters=[@p0='?' (Size = 8), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Int32), @p3='?' (Size = 120), @p4='?' (Size = 120), @p5='?' (DbType = Int32), @p6='?' (Size = 1) (DbType = Byte), @p7='?' (DbType = Int32), @p9='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Booking] ([ConfirmationCode], [CreatedUtc], [FlightId], [PassagerEmail], [PassagerFullName], [Quantity], [Status], [TicketId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE [Ticket] SET [SeatInventory] = @p8
+OUTPUT INSERTED.[TotalPrice]
+WHERE [Id] = @p9;
+2025-12-20 17:34:30.900 +02:00 [INF] Booking created successfully with confirmation code: G6W0BD0O
+2025-12-20 17:34:30.925 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[ConfirmationCode], [b].[CreatedUtc], [b].[FlightId], [b].[PassagerEmail], [b].[PassagerFullName], [b].[Quantity], [b].[Status], [b].[TicketId], [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Booking] AS [b]
+INNER JOIN [Ticket] AS [t] ON [b].[TicketId] = [t].[Id]
+INNER JOIN [Flight] AS [f] ON [b].[FlightId] = [f].[Id]

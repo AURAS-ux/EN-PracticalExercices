@@ -5,11 +5,12 @@ using AMT.Domain.Models;
 using AMT.Domain.Utils;
 using AMT.Infrastructure.Exceptions;
 using AMT.Infrastructure.Interfaces;
+using FluentValidation;
 using Serilog;
 
 namespace AMT.Application.Services;
 
-public class BookingService(IUnitOfWork unitOfWork, ILogger logger) : IBookingService
+public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Booking> validator) : IBookingService
 {
     public async Task<Result<BookingCreatedDto, Exception>> CreateBookingAsync(CreateBookingDto bookingDto)
     {
@@ -52,6 +53,18 @@ public class BookingService(IUnitOfWork unitOfWork, ILogger logger) : IBookingSe
             CreatedUtc = DateTime.UtcNow,
             Status = Booking.BookingStatus.ACTIVE
         };
+
+        var validationResults = validator.Validate(booking);
+        if (!validationResults.IsValid)
+        {
+            logger.Warning("Booking validation failed: {@Errors}", validationResults.Errors);
+            return Result<BookingCreatedDto, Exception>.Failure(
+                validationResults.Errors.Select(e => e.ErrorMessage).ToList(),
+                validationResults.Errors.Select(e => new Infrastructure.Exceptions.ValidationException(e.ErrorMessage)).ToList<Exception>(),
+                System.Net.HttpStatusCode.BadRequest
+            );
+        }
+
         await unitOfWork.Bookings.AddAsync(booking);
         ticket.SeatInventory -= bookingDto.Quantity;
         unitOfWork.Tickets.Update(ticket);
