@@ -131,3 +131,256 @@ UPDATE [Ticket] SET [SeatInventory] = @p0
 OUTPUT INSERTED.[TotalPrice]
 WHERE [Id] = @p1;
 2025-12-20 03:52:54.228 +02:00 [INF] Ticket ID: 2 inventory updated to 1050
+2025-12-20 15:21:46.274 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 15:21:46.324 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 15:21:46.324 +02:00 [INF] Hosting environment: Development
+2025-12-20 15:21:46.324 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 15:23:29.955 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 15:23:29.993 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 15:23:29.994 +02:00 [INF] Hosting environment: Development
+2025-12-20 15:23:29.994 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 15:25:50.731 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 15:29:08.239 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 15:29:08.302 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 15:29:08.303 +02:00 [INF] Hosting environment: Development
+2025-12-20 15:29:08.303 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 15:30:04.206 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 15:30:04.490 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":1,"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","Quantity":10,"$type":"CreateBookingDto"}
+2025-12-20 15:30:06.590 +02:00 [INF] Executed DbCommand (52ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status]
+FROM [FlightSchedule] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-20 15:30:06.722 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice]
+FROM [Ticket] AS [t]
+WHERE [t].[Id] = @__id_0
+2025-12-20 15:30:06.724 +02:00 [WRN] Ticket with ID 1 not found.
+2025-12-20 15:30:11.934 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","Quantity":10,"$type":"CreateBookingDto"}
+2025-12-20 15:30:11.987 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status]
+FROM [FlightSchedule] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-20 15:30:11.999 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice]
+FROM [Ticket] AS [t]
+WHERE [t].[Id] = @__id_0
+2025-12-20 15:30:12.562 +02:00 [INF] Executed DbCommand (28ms) [Parameters=[@p0='?' (Size = 8), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Int32), @p3='?' (Size = 120), @p4='?' (Size = 120), @p5='?' (DbType = Int32), @p6='?' (Size = 1) (DbType = Byte), @p7='?' (DbType = Int32), @p9='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Booking] ([ConfirmationCode], [CreatedUtc], [FlightId], [PassagerEmail], [PassagerFullName], [Quantity], [Status], [TicketId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE [Ticket] SET [SeatInventory] = @p8
+OUTPUT INSERTED.[TotalPrice]
+WHERE [Id] = @p9;
+2025-12-20 15:30:12.615 +02:00 [INF] Booking created successfully with confirmation code: U2DM0M5S
+2025-12-20 15:39:15.740 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 15:39:15.801 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 15:39:15.802 +02:00 [INF] Hosting environment: Development
+2025-12-20 15:39:15.802 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 15:39:53.894 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 15:39:54.230 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","Quantity":10,"$type":"CreateBookingDto"}
+2025-12-20 15:39:55.833 +02:00 [INF] Executed DbCommand (61ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-20 15:39:56.104 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Ticket] AS [t]
+INNER JOIN [Flight] AS [f] ON [t].[FlightId] = [f].[Id]
+WHERE [t].[Id] = @__id_0
+2025-12-20 15:39:56.403 +02:00 [INF] Executed DbCommand (19ms) [Parameters=[@p0='?' (Size = 8), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Int32), @p3='?' (Size = 120), @p4='?' (Size = 120), @p5='?' (DbType = Int32), @p6='?' (Size = 1) (DbType = Byte), @p7='?' (DbType = Int32), @p9='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Booking] ([ConfirmationCode], [CreatedUtc], [FlightId], [PassagerEmail], [PassagerFullName], [Quantity], [Status], [TicketId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE [Ticket] SET [SeatInventory] = @p8
+OUTPUT INSERTED.[TotalPrice]
+WHERE [Id] = @p9;
+2025-12-20 15:39:56.467 +02:00 [INF] Booking created successfully with confirmation code: PCDGO3T8
+2025-12-20 15:40:02.142 +02:00 [INF] Retrieving booking with confirmation code: 1
+2025-12-20 15:40:02.227 +02:00 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[ConfirmationCode], [b].[CreatedUtc], [b].[FlightId], [b].[PassagerEmail], [b].[PassagerFullName], [b].[Quantity], [b].[Status], [b].[TicketId], [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Booking] AS [b]
+INNER JOIN [Ticket] AS [t] ON [b].[TicketId] = [t].[Id]
+INNER JOIN [Flight] AS [f] ON [b].[FlightId] = [f].[Id]
+2025-12-20 15:51:07.235 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 15:51:07.295 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 15:51:07.295 +02:00 [INF] Hosting environment: Development
+2025-12-20 15:51:07.295 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 15:51:12.178 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 15:51:12.429 +02:00 [INF] Retrieving booking with confirmation code: 1
+2025-12-20 15:51:13.969 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[ConfirmationCode], [b].[CreatedUtc], [b].[FlightId], [b].[PassagerEmail], [b].[PassagerFullName], [b].[Quantity], [b].[Status], [b].[TicketId], [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Booking] AS [b]
+INNER JOIN [Ticket] AS [t] ON [b].[TicketId] = [t].[Id]
+INNER JOIN [Flight] AS [f] ON [b].[FlightId] = [f].[Id]
+2025-12-20 15:51:32.656 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","Quantity":10,"$type":"CreateBookingDto"}
+2025-12-20 15:51:32.840 +02:00 [INF] Executed DbCommand (33ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-20 15:51:33.006 +02:00 [INF] Executed DbCommand (33ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Ticket] AS [t]
+INNER JOIN [Flight] AS [f] ON [t].[FlightId] = [f].[Id]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [t].[Id] = @__id_0
+2025-12-20 15:51:33.442 +02:00 [INF] Executed DbCommand (32ms) [Parameters=[@p0='?' (Size = 8), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Int32), @p3='?' (Size = 120), @p4='?' (Size = 120), @p5='?' (DbType = Int32), @p6='?' (Size = 1) (DbType = Byte), @p7='?' (DbType = Int32), @p9='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Booking] ([ConfirmationCode], [CreatedUtc], [FlightId], [PassagerEmail], [PassagerFullName], [Quantity], [Status], [TicketId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE [Ticket] SET [SeatInventory] = @p8
+OUTPUT INSERTED.[TotalPrice]
+WHERE [Id] = @p9;
+2025-12-20 15:51:33.489 +02:00 [INF] Booking created successfully with confirmation code: 5QZPASVQ
+2025-12-20 15:58:53.700 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 15:58:53.771 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 15:58:53.772 +02:00 [INF] Hosting environment: Development
+2025-12-20 15:58:53.772 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 16:00:12.779 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 16:00:13.127 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","Quantity":10,"$type":"CreateBookingDto"}
+2025-12-20 16:00:14.961 +02:00 [INF] Executed DbCommand (33ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-20 16:00:15.130 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Ticket] AS [t]
+INNER JOIN [Flight] AS [f] ON [t].[FlightId] = [f].[Id]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [t].[Id] = @__id_0
+2025-12-20 16:00:15.386 +02:00 [INF] Executed DbCommand (16ms) [Parameters=[@p0='?' (Size = 8), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Int32), @p3='?' (Size = 120), @p4='?' (Size = 120), @p5='?' (DbType = Int32), @p6='?' (Size = 1) (DbType = Byte), @p7='?' (DbType = Int32), @p9='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Booking] ([ConfirmationCode], [CreatedUtc], [FlightId], [PassagerEmail], [PassagerFullName], [Quantity], [Status], [TicketId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE [Ticket] SET [SeatInventory] = @p8
+OUTPUT INSERTED.[TotalPrice]
+WHERE [Id] = @p9;
+2025-12-20 16:00:15.440 +02:00 [INF] Booking created successfully with confirmation code: S1MRXUEG
+2025-12-20 16:05:41.539 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 16:05:41.610 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 16:05:41.611 +02:00 [INF] Hosting environment: Development
+2025-12-20 16:05:41.611 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 16:07:08.364 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 16:07:08.723 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","Quantity":10,"$type":"CreateBookingDto"}
+2025-12-20 16:07:10.517 +02:00 [INF] Executed DbCommand (56ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-20 16:07:11.003 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Ticket] AS [t]
+INNER JOIN [Flight] AS [f] ON [t].[FlightId] = [f].[Id]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [t].[Id] = @__id_0
+2025-12-20 16:07:11.546 +02:00 [INF] Executed DbCommand (28ms) [Parameters=[@p0='?' (Size = 8), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Int32), @p3='?' (Size = 120), @p4='?' (Size = 120), @p5='?' (DbType = Int32), @p6='?' (Size = 1) (DbType = Byte), @p7='?' (DbType = Int32), @p9='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Booking] ([ConfirmationCode], [CreatedUtc], [FlightId], [PassagerEmail], [PassagerFullName], [Quantity], [Status], [TicketId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE [Ticket] SET [SeatInventory] = @p8
+OUTPUT INSERTED.[TotalPrice]
+WHERE [Id] = @p9;
+2025-12-20 16:07:11.601 +02:00 [INF] Booking created successfully with confirmation code: X5KDDWT5
+2025-12-20 16:07:11.642 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[ConfirmationCode], [b].[CreatedUtc], [b].[FlightId], [b].[PassagerEmail], [b].[PassagerFullName], [b].[Quantity], [b].[Status], [b].[TicketId], [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Booking] AS [b]
+INNER JOIN [Ticket] AS [t] ON [b].[TicketId] = [t].[Id]
+INNER JOIN [Flight] AS [f] ON [b].[FlightId] = [f].[Id]
+2025-12-20 16:07:11.648 +02:00 [ERR] Failed to retrieve the newly created booking with ID: 0
+2025-12-20 16:07:17.405 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","Quantity":10,"$type":"CreateBookingDto"}
+2025-12-20 16:07:17.506 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-20 16:07:17.524 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Ticket] AS [t]
+INNER JOIN [Flight] AS [f] ON [t].[FlightId] = [f].[Id]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [t].[Id] = @__id_0
+2025-12-20 16:07:17.560 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[@p0='?' (Size = 8), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Int32), @p3='?' (Size = 120), @p4='?' (Size = 120), @p5='?' (DbType = Int32), @p6='?' (Size = 1) (DbType = Byte), @p7='?' (DbType = Int32), @p9='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Booking] ([ConfirmationCode], [CreatedUtc], [FlightId], [PassagerEmail], [PassagerFullName], [Quantity], [Status], [TicketId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE [Ticket] SET [SeatInventory] = @p8
+OUTPUT INSERTED.[TotalPrice]
+WHERE [Id] = @p9;
+2025-12-20 16:07:17.576 +02:00 [INF] Booking created successfully with confirmation code: PZIUK77V
+2025-12-20 16:07:17.590 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[ConfirmationCode], [b].[CreatedUtc], [b].[FlightId], [b].[PassagerEmail], [b].[PassagerFullName], [b].[Quantity], [b].[Status], [b].[TicketId], [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Booking] AS [b]
+INNER JOIN [Ticket] AS [t] ON [b].[TicketId] = [t].[Id]
+INNER JOIN [Flight] AS [f] ON [b].[FlightId] = [f].[Id]
+2025-12-20 16:07:17.593 +02:00 [ERR] Failed to retrieve the newly created booking with ID: 0
+2025-12-20 16:11:00.683 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 16:11:00.738 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 16:11:00.739 +02:00 [INF] Hosting environment: Development
+2025-12-20 16:11:00.739 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 16:11:03.174 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 16:11:03.433 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Batbie ken","PassengerEmail":"ken@gaml.com","Quantity":10,"$type":"CreateBookingDto"}
+2025-12-20 16:11:05.054 +02:00 [INF] Executed DbCommand (36ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-20 16:11:05.292 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Ticket] AS [t]
+INNER JOIN [Flight] AS [f] ON [t].[FlightId] = [f].[Id]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [t].[Id] = @__id_0
+2025-12-20 16:11:05.621 +02:00 [INF] Executed DbCommand (21ms) [Parameters=[@p0='?' (Size = 8), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Int32), @p3='?' (Size = 120), @p4='?' (Size = 120), @p5='?' (DbType = Int32), @p6='?' (Size = 1) (DbType = Byte), @p7='?' (DbType = Int32), @p9='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Booking] ([ConfirmationCode], [CreatedUtc], [FlightId], [PassagerEmail], [PassagerFullName], [Quantity], [Status], [TicketId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE [Ticket] SET [SeatInventory] = @p8
+OUTPUT INSERTED.[TotalPrice]
+WHERE [Id] = @p9;
+2025-12-20 16:11:05.668 +02:00 [INF] Booking created successfully with confirmation code: GZ26VELL
+2025-12-20 16:11:05.694 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[ConfirmationCode], [b].[CreatedUtc], [b].[FlightId], [b].[PassagerEmail], [b].[PassagerFullName], [b].[Quantity], [b].[Status], [b].[TicketId], [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Booking] AS [b]
+INNER JOIN [Ticket] AS [t] ON [b].[TicketId] = [t].[Id]
+INNER JOIN [Flight] AS [f] ON [b].[FlightId] = [f].[Id]

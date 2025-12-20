@@ -4,6 +4,7 @@ using AMT.Infrastructure.Data;
 using AMT.Infrastructure.Exceptions;
 using AMT.Infrastructure.Interfaces.Repos;
 using AMT.Infrastructure.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace AMT.Infrastructure.Repository;
 
@@ -35,6 +36,7 @@ public class GateRepository(AirportManagementContext context) : IGateRepository
     public Gate? GetByGateCode(string gateCode)
     {
         return context.Gates
+            .Include(g => g.Airport)
             .Where(g => g.Code == gateCode)
             .Select(GateMap.ToDomain)
             .FirstOrDefault();

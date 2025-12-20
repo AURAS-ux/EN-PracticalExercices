@@ -45,6 +45,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<TicketValidator>();
 builder.Services.AddScoped<IFlightService, FlightService>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -36,6 +36,9 @@ public class FlightScheduleRepositroy(AirportManagementContext context) : IFligh
     public FlightSchedule? GetById(int id)
     {
         return context.FlightSchedules
+            .Include(fs => fs.Flight)
+            .Include(fs => fs.Gate)
+            .Include(fs => fs.AssignedAircraft)
             .Where(fs => fs.Id == id)
             .Select(FlightScheduleMap.ToDomain)
             .FirstOrDefault();

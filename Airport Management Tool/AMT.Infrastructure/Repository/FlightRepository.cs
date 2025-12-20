@@ -4,6 +4,7 @@ using AMT.Infrastructure.Data;
 using AMT.Infrastructure.Exceptions;
 using AMT.Infrastructure.Interfaces.Repos;
 using AMT.Infrastructure.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace AMT.Infrastructure.Repository;
 
@@ -35,6 +36,11 @@ public class FlightRepository(AirportManagementContext context) : IFlightReposit
     public Flight? GetById(int id)
     {
         return context.Flights
+            .Include(f => f.Airline)
+            .Include(f => f.OriginAirport)
+            .Include(f => f.DestinationAirport)
+            .Include(f => f.DefaultAircraft)
+                .ThenInclude(a => a!.OwnedByAirline)
             .Where(f => f.Id == id)
             .Select(FlightMap.ToDomain)
             .FirstOrDefault();

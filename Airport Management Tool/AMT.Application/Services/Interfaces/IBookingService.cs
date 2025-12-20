@@ -7,7 +7,7 @@ namespace AMT.Application.Services.Interfaces;
 
 public interface IBookingService
 {
-    Task<Result<Booking, Exception>> CreateBookingAsync(CreateBookingDto bookingDto);
-    Result<Booking, Exception> GetBookingByCode(string bookingCode);
+    Task<Result<BookingCreatedDto, Exception>> CreateBookingAsync(CreateBookingDto bookingDto);
+    Result<Booking, Exception> GetBookingByCode(int bookingCode);
     Task<Result<string, Exception>> DeleteBookingAsync(int bookingId);
 }
