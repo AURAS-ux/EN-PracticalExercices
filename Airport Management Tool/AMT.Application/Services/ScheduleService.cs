@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 using System.Text.Json;
 using AMT.Application.Dtos;
@@ -8,9 +7,7 @@ using AMT.Domain.Models;
 using AMT.Domain.Utils;
 using AMT.Infrastructure.Exceptions;
 using AMT.Infrastructure.Interfaces;
-using AMT.Infrastructure.Interfaces.Repos;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Serilog;
 
 namespace AMT.Application.Services;

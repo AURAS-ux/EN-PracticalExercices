@@ -21,3 +21,4 @@ SELECT * FROM [AirportManagement].[dbo].[Airline];
 SELECT * FROM [AirportManagement].[dbo].[Gate];
 SELECT * FROM [AirportManagement].[dbo].[FlightSchedule];
 SELECT * FROM [AirportManagement].[dbo].[Flight];
+SELECT * FROM [AirportManagement].[dbo].[Ticket];

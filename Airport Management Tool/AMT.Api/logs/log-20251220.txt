@@ -1,0 +1,133 @@
+2025-12-20 03:38:12.837 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 03:38:12.903 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 03:38:12.904 +02:00 [INF] Hosting environment: Development
+2025-12-20 03:38:12.904 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 03:38:41.830 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 03:42:03.472 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 03:42:03.517 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 03:42:03.529 +02:00 [INF] Hosting environment: Development
+2025-12-20 03:42:03.529 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 03:45:21.996 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 03:45:23.003 +02:00 [INF] Creating ticket for flight ID: 4
+2025-12-20 03:45:25.128 +02:00 [INF] Executed DbCommand (305ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-20 03:45:25.144 +02:00 [ERR] Flight with ID 4 not found.
+2025-12-20 03:45:31.877 +02:00 [INF] Creating ticket for flight ID: 5
+2025-12-20 03:45:31.924 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-20 03:45:31.997 +02:00 [ERR] Ticket validation failed: FareClass must be either 'Y', 'J', 'M', or 'F'.
+2025-12-20 03:45:39.237 +02:00 [INF] Creating ticket for flight ID: 5
+2025-12-20 03:45:39.306 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-20 03:45:39.498 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[@p0='?' (Precision = 10) (Scale = 2) (DbType = Decimal), @p1='?' (Size = 4000), @p2='?' (Size = 2), @p3='?' (DbType = Int32), @p4='?' (DbType = Boolean), @p5='?' (DbType = Int32), @p6='?' (Precision = 10) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Ticket] ([BasePrice], [Currency], [FareClass], [FlightId], [IsRefundable], [SeatInventory], [Taxes])
+OUTPUT INSERTED.[Id], INSERTED.[TotalPrice]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-12-20 03:45:39.536 +02:00 [ERR] An exception occurred in the database while saving changes for context type 'AMT.Infrastructure.Data.AirportManagementContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'AirportManagement.dbo.Ticket', column 'Currency'. Truncated value: 'JJD'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:2043595d-acc1-4dae-8f9f-43afebab75c9
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'AirportManagement.dbo.Ticket', column 'Currency'. Truncated value: 'JJD'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:2043595d-acc1-4dae-8f9f-43afebab75c9
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-12-20 03:48:44.254 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 03:48:44.395 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 03:48:44.396 +02:00 [INF] Hosting environment: Development
+2025-12-20 03:48:44.396 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 03:48:46.854 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 03:48:47.091 +02:00 [INF] Creating ticket for flight ID: 5
+2025-12-20 03:48:48.294 +02:00 [INF] Executed DbCommand (31ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-20 03:48:48.380 +02:00 [ERR] Ticket validation failed: Currency code must be exactly 3 characters.
+2025-12-20 03:48:53.795 +02:00 [INF] Creating ticket for flight ID: 5
+2025-12-20 03:48:53.897 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-20 03:48:54.212 +02:00 [INF] Executed DbCommand (21ms) [Parameters=[@p0='?' (Precision = 10) (Scale = 2) (DbType = Decimal), @p1='?' (Size = 3), @p2='?' (Size = 2), @p3='?' (DbType = Int32), @p4='?' (DbType = Boolean), @p5='?' (DbType = Int32), @p6='?' (Precision = 10) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Ticket] ([BasePrice], [Currency], [FareClass], [FlightId], [IsRefundable], [SeatInventory], [Taxes])
+OUTPUT INSERTED.[Id], INSERTED.[TotalPrice]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-12-20 03:48:54.246 +02:00 [INF] Ticket created successfully with ID: 0
+2025-12-20 03:49:56.990 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice]
+FROM [Ticket] AS [t]
+WHERE [t].[Id] = @__id_0
+2025-12-20 03:52:49.989 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-20 03:52:50.036 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-20 03:52:50.036 +02:00 [INF] Hosting environment: Development
+2025-12-20 03:52:50.036 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-20 03:52:52.619 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-20 03:52:54.000 +02:00 [INF] Executed DbCommand (28ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice]
+FROM [Ticket] AS [t]
+WHERE [t].[Id] = @__id_0
+2025-12-20 03:52:54.201 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Ticket] SET [SeatInventory] = @p0
+OUTPUT INSERTED.[TotalPrice]
+WHERE [Id] = @p1;
+2025-12-20 03:52:54.228 +02:00 [INF] Ticket ID: 2 inventory updated to 1050

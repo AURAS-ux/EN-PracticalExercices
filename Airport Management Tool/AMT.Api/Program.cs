@@ -40,9 +40,11 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<FlightValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<ScheduleValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<TicketValidator>();
 
 builder.Services.AddScoped<IFlightService, FlightService>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

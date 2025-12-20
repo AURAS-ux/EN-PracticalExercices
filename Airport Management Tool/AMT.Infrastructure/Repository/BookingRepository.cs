@@ -14,6 +14,11 @@ public class BookingRepository(AirportManagementContext context) : IBookingRepos
         await context.Bookings.AddAsync(BookingMap.ToEntity(entity));
     }
 
+    public bool BookingExistsForTicket(int ticketId)
+    {
+        return context.Bookings.Any(b => b.TicketId == ticketId);
+    }
+
     public void Delete(int id)
     {
         var entity = context.Bookings.Find(id);

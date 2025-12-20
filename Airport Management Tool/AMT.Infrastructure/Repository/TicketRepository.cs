@@ -32,6 +32,14 @@ public class TicketRepository(AirportManagementContext context) : ITicketReposit
         return context.Tickets.Select(TicketMap.ToDomain);
     }
 
+    public Ticket? GetByFlightId(int flightId)
+    {
+        return context.Tickets
+            .Where(t => t.FlightId == flightId)
+            .Select(TicketMap.ToDomain)
+            .FirstOrDefault();
+    }
+
     public Ticket? GetById(int id)
     {
         return context.Tickets
@@ -45,7 +53,13 @@ public class TicketRepository(AirportManagementContext context) : ITicketReposit
         var oldEntity = context.Tickets.Find(entity.Id);
         if (oldEntity != null)
         {
-            context.Tickets.Update(TicketMap.ToEntity(entity));
+            oldEntity.FlightId = entity.Flight.Id;
+            oldEntity.FareClass = entity.FareClass;
+            oldEntity.BasePrice = entity.BasePrice;
+            oldEntity.Taxes = entity.Taxes;
+            oldEntity.Currency = entity.Currency;
+            oldEntity.IsRefundable = entity.IsRefundable;
+            oldEntity.SeatInventory = entity.SeatInventory;
         }
         else
         {
