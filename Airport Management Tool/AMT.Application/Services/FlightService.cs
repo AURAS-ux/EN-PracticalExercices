@@ -1,3 +1,4 @@
+using System.Data;
 using System.Net;
 using System.Text.Json;
 using AMT.Application.Dtos;
@@ -20,6 +21,14 @@ public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator,I
         var flightResult =  await this.GetFlightEntity(flightRequest);
         if (flightResult.IsSuccess)
         {
+            if (unitOfWork.Flights.ActiveFlightExists(flightRequest.FlightNumber))
+            {
+                logger.Warning("Flight with the same flight number already exists");
+                return Result<Flight, Exception>
+                .Failure(new List<string> { "Flight with the same flight number already exists." }, 
+                new List<Exception> { new DuplicateNameException("Flight with the same flight number already exists.") }, 
+                HttpStatusCode.Conflict);
+            }
             await unitOfWork.Flights.AddAsync(flightResult.Value!);
             await unitOfWork.SaveChangesAsync();
             return Result<Flight, Exception>.Success(flightResult.Value!);

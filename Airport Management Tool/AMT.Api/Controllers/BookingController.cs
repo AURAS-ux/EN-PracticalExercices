@@ -20,7 +20,7 @@ namespace AMT.Api.Controllers
             var result = await bookingService.CreateBookingAsync(request);
             if (result.IsSuccess)
             {
-                return CreatedAtAction(nameof(GetBookingById), new { code = result.Value.ConfirmationCode }, result.Value);
+                return CreatedAtAction(nameof(GetBookingById), new { code = result.Value!.ConfirmationCode }, result.Value);
             }
             return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
         }

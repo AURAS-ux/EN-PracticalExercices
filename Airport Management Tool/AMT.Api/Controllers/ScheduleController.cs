@@ -10,6 +10,8 @@ namespace AMT.Api.Controllers
     [ApiController]
     public class ScheduleController(IScheduleService scheduleService) : ControllerBase
     {
+        private const int MaxFileSizeInBytes = 2 * 1024 * 1024; // 2 MB
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -60,12 +62,16 @@ namespace AMT.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> BulkCreateSchedules([FromForm] ScheduleImportRequest request)
+        public async Task<IActionResult> BulkCreateSchedules([FromForm] IFormFile file)
         {
-            var file = request.File;
             if (file == null || file.Length == 0)
             {
                 return BadRequest(new { Errors = new[] { "No file uploaded or file is empty." } });
+            }
+
+            if(file.Length > MaxFileSizeInBytes)
+            {
+                return BadRequest(new { Errors = new[] { "File size exceeds the 2MB limit." } });
             }
 
             string rawData;
@@ -81,10 +87,17 @@ namespace AMT.Api.Controllers
             }
             return StatusCode(StatusCodes.Status207MultiStatus, result);
         }
-    }
 
-    public class ScheduleImportRequest
-{
-    public IFormFile File { get; set; } = null!;
-}
+
+        [HttpGet("flights")]
+        public IActionResult FilterFlights([FromQuery] string? origin = null, [FromQuery] string? destination = null, [FromQuery] string? date = null)
+        {
+            var result = scheduleService.FilterFlights(origin, destination, date);
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
+            return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages });
+        }
+    }
 }

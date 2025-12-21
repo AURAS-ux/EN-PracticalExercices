@@ -10,6 +10,11 @@ namespace AMT.Infrastructure.Repository;
 
 public class BookingRepository(AirportManagementContext context) : IBookingRepository
 {
+    public bool ActiveBookingExistsForEmail(string email)
+    {
+        return context.Bookings.Any(b => b.PassagerEmail == email && b.Status == 0);
+    }
+
     public async Task AddAsync(Booking entity)
     {
         await context.Bookings.AddAsync(BookingMap.ToEntity(entity));

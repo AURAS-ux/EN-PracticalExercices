@@ -10,6 +10,11 @@ namespace AMT.Infrastructure.Repository;
 
 public class FlightRepository(AirportManagementContext context) : IFlightRepository
 {
+    public bool ActiveFlightExists(string flightNumber)
+    {
+        return context.Flights.Any(f => f.FlightNumber == flightNumber && (f.IsActive == null || f.IsActive == true));
+    }
+
     public async Task AddAsync(Flight entity)
     {
         await context.AddAsync(FlightMap.ToEntity(entity));
@@ -42,6 +47,19 @@ public class FlightRepository(AirportManagementContext context) : IFlightReposit
             .Include(f => f.DefaultAircraft)
                 .ThenInclude(a => a!.OwnedByAirline)
             .Where(f => f.Id == id)
+            .Select(FlightMap.ToDomain)
+            .FirstOrDefault();
+    }
+
+    public Flight? GetFlightByFlightNumber(string flightNumber)
+    {
+        return context.Flights
+            .Include(f => f.Airline)
+            .Include(f => f.OriginAirport)
+            .Include(f => f.DestinationAirport)
+            .Include(f => f.DefaultAircraft)
+                .ThenInclude(a => a!.OwnedByAirline)
+            .Where(f => f.FlightNumber == flightNumber)
             .Select(FlightMap.ToDomain)
             .FirstOrDefault();
     }

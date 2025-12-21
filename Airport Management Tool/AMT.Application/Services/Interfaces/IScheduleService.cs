@@ -11,4 +11,5 @@ public interface IScheduleService
     Result<List<UpcomingFlightsDto>,Exception> GetUpcomingSchedules(string date);
     Task<Result<FlightSchedule,Exception>> CreateScheduleAsync(CreateScheduleDto scheduleRequest);
     Task<BulkImportResultDto> BulkCreateSchedulesAsync(string rawData);
+    Result<List<FilteredFlightsDto>,Exception> FilterFlights(string? origin, string? destination, string? date);
 }

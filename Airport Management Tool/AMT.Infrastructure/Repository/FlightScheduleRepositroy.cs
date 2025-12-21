@@ -28,6 +28,19 @@ public class FlightScheduleRepositroy(AirportManagementContext context) : IFligh
         }
     }
 
+    public IEnumerable<FlightSchedule> FilterFlightSchedules(string? origin, string? destination, DateTime? date)
+    {
+        return context.FlightSchedules
+            .Include(fs => fs.Flight)
+            .Include(fs => fs.Gate)
+            .Include(fs => fs.AssignedAircraft)
+            .Where(fs =>
+                (string.IsNullOrEmpty(origin) || fs.Flight.OriginAirport.Iatacode.Equals(origin, StringComparison.OrdinalIgnoreCase)) &&
+                (string.IsNullOrEmpty(destination) || fs.Flight.DestinationAirport.Iatacode.Equals(destination, StringComparison.OrdinalIgnoreCase)) &&
+                (!date.HasValue || fs.ScheduledDepartureUtc.Date == date.Value.Date))
+            .Select(FlightScheduleMap.ToDomain);
+    }
+
     public IEnumerable<FlightSchedule> GetAll()
     {
         return context.FlightSchedules.Select(FlightScheduleMap.ToDomain);
@@ -48,6 +61,12 @@ public class FlightScheduleRepositroy(AirportManagementContext context) : IFligh
     {
         return context.FlightSchedules
             .Count(fs => fs.ScheduledDepartureUtc.Date == departureTimeUtc.Date);
+    }
+
+    public bool IsScheduleConflictForGate(int gateId, DateTime time)
+    {
+        return context.FlightSchedules
+            .Any(fs => fs.GateId == gateId && fs.ScheduledDepartureUtc == time);
     }
 
     public void Update(FlightSchedule entity)

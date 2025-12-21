@@ -69,6 +69,19 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
         var flightScheuleResult = this.GetSchedule(scheduleRequest);
         if (flightScheuleResult.IsSuccess)
         {
+            if(unitOfWork.FlightSchedules.IsScheduleConflictForGate(flightScheuleResult.Value!.Gate.Id, flightScheuleResult.Value.ScheduledDepartureUtc) ||
+               unitOfWork.FlightSchedules.IsScheduleConflictForGate(flightScheuleResult.Value.Gate.Id, flightScheuleResult.Value.ScheduledArrivalUtc))
+            {
+                logger.Warning("Schedule conflict detected for gate {GateId} at time {DepartureTime} or {ArrivalTime}.",
+                    flightScheuleResult.Value.Gate.Id,
+                    flightScheuleResult.Value.ScheduledDepartureUtc,
+                    flightScheuleResult.Value.ScheduledArrivalUtc);
+                return Result<FlightSchedule, Exception>
+                .Failure(new List<string> 
+                { $"Schedule conflict detected for the specified gate at the given time {flightScheuleResult.Value.ScheduledDepartureUtc} or {flightScheuleResult.Value.ScheduledArrivalUtc}." },
+                [new Infrastructure.Exceptions.ValidationException("Schedule conflict detected.")],
+                HttpStatusCode.Conflict);
+            }
             await unitOfWork.FlightSchedules.AddAsync(flightScheuleResult.Value!);
             await unitOfWork.SaveChangesAsync();
             logger.Information("Schedule created successfully.");
@@ -76,6 +89,33 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
         }
         logger.Warning("Found errors trying to save schedule.");
         return flightScheuleResult;
+    }
+
+    public Result<List<FilteredFlightsDto>, Exception> FilterFlights(string? origin, string? destination, string? date)
+    {
+        List<FilteredFlightsDto> filteredFlights = new();
+        try
+        {
+            DateTime? parsedDate = null;
+            if (!string.IsNullOrEmpty(date))
+            {
+                parsedDate = DateTime.Parse(date);
+            }
+            var flights = unitOfWork.FlightSchedules.FilterFlightSchedules(origin, destination, parsedDate);
+            foreach (var flight in flights)
+            {
+                filteredFlights.Add(flight.ToFilteredFlightsDto());
+            }
+            return Result<List<FilteredFlightsDto>, Exception>.Success(filteredFlights);
+        }
+        catch (FormatException ex)
+        {
+            logger.Error("Error parsing date: {Message}", ex.Message);
+            return Result<List<FilteredFlightsDto>, Exception>
+            .Failure(new List<string> { "Invalid date format." },
+            [ex],
+            HttpStatusCode.BadRequest);
+        }
     }
 
     public Result<FlightSchedule, Exception> GetSchedule(int id)

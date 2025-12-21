@@ -20,3 +20,6 @@ SELECT * FROM [AirportManagement].[dbo].[FlightSchedule];
 SELECT * FROM [AirportManagement].[dbo].[Flight];
 SELECT * FROM [AirportManagement].[dbo].[Ticket];
 SELECT * FROM [AirportManagement].[dbo].[Booking];
+
+DELETE FROM [AirportManagement].[dbo].[FlightSchedule]
+WHERE Id != 1;

@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using AMT.Application.Dtos;
 using AMT.Application.Services.Interfaces;
 using AMT.Domain.Models;
@@ -64,7 +65,18 @@ public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Bo
                 System.Net.HttpStatusCode.BadRequest
             );
         }
-
+        if(unitOfWork.Bookings.ActiveBookingExistsForEmail(bookingDto.PassengerEmail))
+        {
+            logger.Warning("Active booking already exists for email: {PassengerEmail}", bookingDto.PassengerEmail);
+            return Result<BookingCreatedDto, Exception>.Failure(
+                new List<string> { "An active booking already exists for this email." },
+                new List<Exception>
+                {
+                new DuplicateNameException("An active booking already exists for this email.")
+                },
+                System.Net.HttpStatusCode.Conflict
+            );
+        }
         await unitOfWork.Bookings.AddAsync(booking);
         ticket.SeatInventory -= bookingDto.Quantity;
         unitOfWork.Tickets.Update(ticket);
@@ -107,7 +119,7 @@ public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Bo
                 System.Net.HttpStatusCode.NotFound
             );
         }
-        unitOfWork.Bookings.Delete(bookingId);
+        unitOfWork.Bookings.Delete(bookingId); //TODO: reset seat inventory on ticket deletion
         await unitOfWork.SaveChangesAsync();
         return Result<string, Exception>.Success("Booking deleted successfully.");
     }
