@@ -1,7 +1,9 @@
 using System;
+using AMT.Application.Dtos;
 using AMT.Application.Services.Interfaces;
 using AMT.Domain.Models;
 using AMT.Domain.Utils;
+using AMT.Infrastructure.Exceptions;
 using AMT.Infrastructure.Interfaces;
 using Serilog;
 
@@ -9,14 +11,32 @@ namespace AMT.Application.Services;
 
 public class AirportService(IUnitOfWork unitOfWork, ILogger logger) : IAirportService
 {
-    public Task<Result<Airport, Exception>> CreateAirportAsync(Airport airport)
+    public async Task<Result<Airport, Exception>> CreateAirportAsync(AirportCreateRequestDto airportCreateRequestDto)
     {
-        throw new NotImplementedException();
+        var airport = new Airport
+        {
+            IATACode = airportCreateRequestDto.IATACode,
+            Name = airportCreateRequestDto.Name,
+            City = airportCreateRequestDto.City,
+            Country = airportCreateRequestDto.Country,
+            Timezone = airportCreateRequestDto.Timezone
+        };
+        await unitOfWork.Airports.AddAsync(airport);
+        await unitOfWork.SaveChangesAsync();
+        return Result<Airport, Exception>.Success(airport);
     }
 
-    public Task<Result<Airport, Exception>> GetAirportById(int id)
+    public async Task<Result<Airport, Exception>> GetAirportById(int id)
     {
-        throw new NotImplementedException();
+        var airport = unitOfWork.Airports.GetById(id);
+        if(airport is null)
+        {
+            logger.Warning("Airport with ID {AirportId} not found.", id);
+            return Result<Airport, Exception>.Failure(new List<string> { "Airport not found." },
+            new List<Exception> { new GenericNotFound<Airport,int>(id) },
+            System.Net.HttpStatusCode.NotFound);
+        }
+        return Result<Airport, Exception>.Success(airport);
     }
 
     public Result<IEnumerable<Airport>, Exception> GetAllAirports()

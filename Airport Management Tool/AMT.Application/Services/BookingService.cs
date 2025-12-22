@@ -13,6 +13,51 @@ namespace AMT.Application.Services;
 
 public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Booking> validator) : IBookingService
 {
+    public async Task<Result<Booking, Exception>> CancelBooking(CancelBookingRequestDto cancelBookingRequestDto)
+    {
+        var booking = unitOfWork.Bookings.GetById(cancelBookingRequestDto.BookingId);
+        if (booking == null)
+        {
+            logger.Warning("Booking with ID {BookingId} not found.", cancelBookingRequestDto.BookingId);
+            return Result<Booking, Exception>.Failure(
+                new List<string> { "Booking not found." },
+                new List<Exception>
+                {
+                new GenericNotFound<Booking,int>(cancelBookingRequestDto.BookingId)
+                },
+                System.Net.HttpStatusCode.NotFound
+            );
+        }
+        if(booking.Status == Booking.BookingStatus.CANCELLED)
+        {
+            logger.Warning("Booking with ID {BookingId} is already cancelled.", cancelBookingRequestDto.BookingId);
+            return Result<Booking, Exception>.Failure(
+                new List<string> { "Booking is already cancelled." },
+                new List<Exception>
+                {
+                new InvalidOperationException("Booking is already cancelled.")
+                },
+                System.Net.HttpStatusCode.BadRequest
+            );
+        }
+        if(booking.ConfirmationCode != cancelBookingRequestDto.ConfirmationCode)
+        {
+            logger.Warning("Invalid confirmation code for booking ID {BookingId}.", cancelBookingRequestDto.BookingId);
+            return Result<Booking, Exception>.Failure(
+                new List<string> { "Invalid confirmation code." },
+                new List<Exception>
+                {
+                new UnauthorizedAccessException("Invalid confirmation code.")
+                },
+                System.Net.HttpStatusCode.Unauthorized
+            );
+        }
+        booking.Status = Booking.BookingStatus.CANCELLED;
+        await unitOfWork.SaveChangesAsync();
+        logger.Information("Booking with ID {BookingId} has been cancelled.", cancelBookingRequestDto.BookingId);
+        return Result<Booking, Exception>.Success(booking);
+    }
+
     public async Task<Result<BookingCreatedDto, Exception>> CreateBookingAsync(CreateBookingDto bookingDto)
     {
         logger.Information("Creating booking with data: {@BookingDto}", bookingDto);

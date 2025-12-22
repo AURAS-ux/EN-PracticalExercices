@@ -11,4 +11,5 @@ public interface IBookingService
     Result<Booking, Exception> GetBookingByCode(int bookingCode);
     Task<Result<string, Exception>> DeleteBookingAsync(int bookingId);
     Result<IEnumerable<Booking>, Exception> GetAllBookings();
+    Task<Result<Booking, Exception>> CancelBooking(CancelBookingRequestDto cancelBookingRequestDto);
 }

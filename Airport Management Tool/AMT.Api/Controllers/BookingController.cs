@@ -1,5 +1,6 @@
 using AMT.Application.Dtos;
 using AMT.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,7 +42,18 @@ namespace AMT.Api.Controllers
             return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
         }
 
+        public async Task<IActionResult> CancelBooking([FromBody] CancelBookingRequestDto cancelBookingRequestDto)
+        {
+            var result = await bookingService.CancelBooking(cancelBookingRequestDto);
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
+            return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
+        }
+
         [HttpDelete("{code}")]
+        [Authorize(Policy = "AirportAdmin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
