@@ -4,6 +4,7 @@ using AMT.Application.Validators;
 using AMT.Infrastructure.Data;
 using AMT.Infrastructure.Interfaces;
 using AMT.Infrastructure.Interfaces.Repos;
+using AMT.Infrastructure.Middlewares;
 using AMT.Infrastructure.Repository;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +51,6 @@ builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-//TODO: middle ware exception for unhandled exceptions in results 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -61,6 +61,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 app.Run();
