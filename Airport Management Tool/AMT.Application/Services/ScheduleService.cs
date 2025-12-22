@@ -14,10 +14,12 @@ namespace AMT.Application.Services;
 
 public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<FlightSchedule> validator) : IScheduleService
 {
-    public async Task<BulkImportResultDto> BulkCreateSchedulesAsync(string rawData)
+    public async Task<BulkImportResultDto> BulkCreateSchedulesAsync(Stream fileStream)
     {
         try
         {
+            using var reader = new StreamReader(fileStream);
+            var rawData = await reader.ReadToEndAsync();
             var importResults = new Dictionary<BulkImportResultDto.ImportStatus, Result<FlightSchedule, Exception>?>();
             var scheduleDtos = JsonSerializer.Deserialize<List<CreateScheduleDto>>(rawData
             , new JsonSerializerOptions{PropertyNameCaseInsensitive =  true});
@@ -56,6 +58,32 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
                 {
                     { BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
                         new List<string> { "Invalid JSON format." },
+                        [ex],
+                        HttpStatusCode.BadRequest) }
+                }
+            };
+        }catch(ArgumentNullException ex)
+        {
+            logger.Error("Error reading bulk schedule data: {Message}", ex.Message);
+            return new BulkImportResultDto
+            {
+                ImportResults = new Dictionary<BulkImportResultDto.ImportStatus, Result<FlightSchedule, Exception>?>
+                {
+                    { BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
+                        new List<string> { "Input data is null." },
+                        [ex],
+                        HttpStatusCode.BadRequest) }
+                }
+            };
+        }catch(ArgumentException ex)
+        {
+            logger.Error("Error reading bulk schedule data: {Message}", ex.Message);
+            return new BulkImportResultDto
+            {
+                ImportResults = new Dictionary<BulkImportResultDto.ImportStatus, Result<FlightSchedule, Exception>?>
+                {
+                    { BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
+                        new List<string> { "Error reading input data." },
                         [ex],
                         HttpStatusCode.BadRequest) }
                 }

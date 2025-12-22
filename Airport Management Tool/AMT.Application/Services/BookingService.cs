@@ -119,7 +119,7 @@ public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Bo
                 System.Net.HttpStatusCode.NotFound
             );
         }
-        unitOfWork.Bookings.Delete(bookingId); //TODO: reset seat inventory on ticket deletion
+        unitOfWork.Bookings.Delete(bookingId); //TODO: reset seat inventory on ticket deletion LATER OR NEVER MAI VEDEM 
         await unitOfWork.SaveChangesAsync();
         return Result<string, Exception>.Success("Booking deleted successfully.");
     }

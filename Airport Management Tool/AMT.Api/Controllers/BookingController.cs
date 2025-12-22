@@ -31,7 +31,7 @@ namespace AMT.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetBookingById(int code)
+        public IActionResult GetBookingById(int code)
         {
             var result = bookingService.GetBookingByCode(code);
             if (result.IsSuccess)

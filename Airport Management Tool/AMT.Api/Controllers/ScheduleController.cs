@@ -62,24 +62,24 @@ namespace AMT.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> BulkCreateSchedules([FromForm] IFormFile file)
+        public async Task<IActionResult> BulkCreateSchedules([FromForm] FileUploadDto fileUpload)
         {
-            if (file == null || file.Length == 0)
+            if (fileUpload.File == null || fileUpload.File.Length == 0)
             {
                 return BadRequest(new { Errors = new[] { "No file uploaded or file is empty." } });
             }
 
-            if(file.Length > MaxFileSizeInBytes)
+            if(fileUpload.File.Length > MaxFileSizeInBytes)
             {
                 return BadRequest(new { Errors = new[] { "File size exceeds the 2MB limit." } });
             }
 
-            string rawData;
-            using (var reader = new StreamReader(file.OpenReadStream()))
+            if(fileUpload.File.ContentType != "application/json")
             {
-                rawData = await reader.ReadToEndAsync();
+                return BadRequest(new { Errors = new[] { "Invalid file type. Only JSON files are accepted." } });
             }
-            var result = await scheduleService.BulkCreateSchedulesAsync(rawData);
+
+            var result = await scheduleService.BulkCreateSchedulesAsync(fileUpload.File.OpenReadStream());
             bool allSuccess = result.ImportResults.All(r => r.Value != null && r.Value.IsSuccess);
             if (allSuccess)
             {

@@ -18,7 +18,7 @@ public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator,I
     public async Task<Result<Flight, Exception>> CreateFlightAsync(CreateFlightDto flightRequest)
     {
         logger.Information("Creating flight");
-        var flightResult =  await this.GetFlightEntity(flightRequest);
+        var flightResult =  this.GetFlightEntity(flightRequest);
         if (flightResult.IsSuccess)
         {
             if (unitOfWork.Flights.ActiveFlightExists(flightRequest.FlightNumber))
@@ -134,7 +134,7 @@ public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator,I
         return Result<Flight, Exception>.Success(flight);
     }
 
-    private async Task<Result<Flight, Exception>> GetFlightEntity(CreateFlightDto flightRequest)
+    private Result<Flight, Exception> GetFlightEntity(CreateFlightDto flightRequest)
     {
         var airline = unitOfWork.Airlines.GetByIataCode(flightRequest.AirlineIata);
         var originAirport = unitOfWork.Airports.GetByIataCode(flightRequest.OriginIata);
@@ -144,22 +144,22 @@ public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator,I
         {
             return Result<Flight, Exception>
             .Failure(new List<string> { "Airline not found." }, 
-            [new GenericNotFound<Airline,string>(flightRequest.AirlineIata)], 
-            System.Net.HttpStatusCode.NotFound);
+            [new GenericNotFound<Airline,string>(flightRequest.AirlineIata)],
+            HttpStatusCode.NotFound);
         }
         if(originAirport == null)
         {
             return Result<Flight, Exception>
             .Failure(new List<string> { "Origin Airport not found." }, 
-            [new GenericNotFound<Airport,string>(flightRequest.OriginIata)], 
-            System.Net.HttpStatusCode.NotFound);
+            [new GenericNotFound<Airport,string>(flightRequest.OriginIata)],
+            HttpStatusCode.NotFound);
         }
         if(destinationAirport == null)
         {
             return Result<Flight, Exception>
             .Failure(new List<string> { "Destination Airport not found." }, 
-            [new GenericNotFound<Airport,string>(flightRequest.DestinationIata)], 
-            System.Net.HttpStatusCode.NotFound);
+            [new GenericNotFound<Airport,string>(flightRequest.DestinationIata)],
+            HttpStatusCode.NotFound);
         }
         if (!string.IsNullOrEmpty(flightRequest.DefaultAircraftTail))
         {
