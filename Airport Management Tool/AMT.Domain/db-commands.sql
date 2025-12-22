@@ -85,3 +85,108 @@ CREATE TABLE FlightSchedule(
     FOREIGN KEY (GateId) REFERENCES Gate(Id),
     FOREIGN KEY (AssignedAircraftId) REFERENCES Aircraft(Id)
 );
+
+
+---------------------------------------- INDEX CREATION ----------------------------------------
+-- Gate(AirportId, Code) unique index
+IF NOT EXISTS (
+  SELECT 1 FROM sys.indexes
+  WHERE name = 'UX_Gate_Airport_Code'
+    AND object_id = OBJECT_ID('dbo.Gate')
+)
+BEGIN
+  CREATE UNIQUE INDEX UX_Gate_Airport_Code ON dbo.Gate (AirportId, Code);
+END
+GO
+
+-- Flight(AirlineId, FlightNumber) nonclustered index
+IF NOT EXISTS (
+  SELECT 1 FROM sys.indexes
+  WHERE name = 'IX_Flight_Airline_FlightNumber'
+    AND object_id = OBJECT_ID('dbo.Flight')
+)
+BEGIN
+  CREATE NONCLUSTERED INDEX IX_Flight_Airline_FlightNumber
+  ON dbo.Flight (AirlineId, FlightNumber);
+END
+GO
+
+-- Optional: filtered index for active flights only
+IF NOT EXISTS (
+  SELECT 1 FROM sys.indexes
+  WHERE name = 'IX_Flight_Airline_FlightNumber_Active'
+    AND object_id = OBJECT_ID('dbo.Flight')
+)
+BEGIN
+  CREATE NONCLUSTERED INDEX IX_Flight_Airline_FlightNumber_Active
+  ON dbo.Flight (AirlineId, FlightNumber)
+  WHERE IsActive = 1;
+END
+GO
+
+-- Flight(OriginAirportId, DestinationAirportId) nonclustered index
+IF NOT EXISTS (
+  SELECT 1 FROM sys.indexes
+  WHERE name = 'IX_Flight_Origin_Destination'
+    AND object_id = OBJECT_ID('dbo.Flight')
+)
+BEGIN
+  CREATE NONCLUSTERED INDEX IX_Flight_Origin_Destination
+  ON dbo.Flight (OriginAirportId, DestinationAirportId);
+END
+GO
+
+-- FlightSchedule(FlightId, ScheduledDepartureUtc) nonclustered index
+IF NOT EXISTS (
+  SELECT 1 FROM sys.indexes
+  WHERE name = 'IX_FlightSchedule_Flight_Departure'
+    AND object_id = OBJECT_ID('dbo.FlightSchedule')
+)
+BEGIN
+  CREATE NONCLUSTERED INDEX IX_FlightSchedule_Flight_Departure
+  ON dbo.FlightSchedule (FlightId, ScheduledDepartureUtc);
+END
+GO
+
+-- Gate overlap prevention basics:
+-- 1) Check constraint: Arrival after Departure
+IF NOT EXISTS (
+  SELECT 1
+  FROM sys.check_constraints
+  WHERE name = 'CK_FlightSchedule_DepartureBeforeArrival'
+    AND parent_object_id = OBJECT_ID('dbo.FlightSchedule')
+)
+BEGIN
+  ALTER TABLE dbo.FlightSchedule
+  ADD CONSTRAINT CK_FlightSchedule_DepartureBeforeArrival
+  CHECK (ScheduledArrivalUtc > ScheduledDepartureUtc);
+END
+GO
+
+-- 2) Optional: prevent exact duplicate departures at same gate
+IF NOT EXISTS (
+  SELECT 1 FROM sys.indexes
+  WHERE name = 'UX_FlightSchedule_Gate_Departure'
+    AND object_id = OBJECT_ID('dbo.FlightSchedule')
+)
+BEGIN
+  CREATE UNIQUE INDEX UX_FlightSchedule_Gate_Departure
+  ON dbo.FlightSchedule (GateId, ScheduledDepartureUtc)
+  WHERE GateId IS NOT NULL;
+END
+GO
+
+-- Ticket(FlightId, FareClass) nonclustered index
+IF NOT EXISTS (
+  SELECT 1 FROM sys.indexes
+  WHERE name = 'IX_Ticket_Flight_FareClass'
+    AND object_id = OBJECT_ID('dbo.Ticket')
+)
+BEGIN
+  CREATE NONCLUSTERED INDEX IX_Ticket_Flight_FareClass
+  ON dbo.Ticket (FlightId, FareClass);
+END
+GO
+
+-- Note: Airport(IATACode), Airline(IATACode), Booking(ConfirmationCode)
+-- already defined as UNIQUE in table definitions; no extra index needed.

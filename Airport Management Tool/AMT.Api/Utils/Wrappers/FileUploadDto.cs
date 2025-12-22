@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Http;
 
-namespace AMT.Application.Dtos;
+namespace AMT.Api.Utils.Wrappers;
 
 public class FileUploadDto
 {

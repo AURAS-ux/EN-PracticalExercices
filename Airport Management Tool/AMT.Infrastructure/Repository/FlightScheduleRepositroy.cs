@@ -63,6 +63,11 @@ public class FlightScheduleRepositroy(AirportManagementContext context) : IFligh
             .Count(fs => fs.ScheduledDepartureUtc.Date == departureTimeUtc.Date);
     }
 
+    public bool IsGateOverlapped(DateTime departureTimeUtc)
+    {
+        return context.FlightSchedules.Any(fs => fs.ScheduledDepartureUtc <= departureTimeUtc && fs.ScheduledArrivalUtc >= departureTimeUtc);
+    }
+
     public bool IsScheduleConflictForGate(int gateId, DateTime time)
     {
         return context.FlightSchedules

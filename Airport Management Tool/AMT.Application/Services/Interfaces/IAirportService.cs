@@ -8,6 +8,6 @@ namespace AMT.Application.Services.Interfaces;
 public interface IAirportService
 {
     Task<Result<Airport,Exception>> CreateAirportAsync(AirportCreateRequestDto airportCreateRequestDto);
-    Task<Result<Airport,Exception>> GetAirportById(int id);
+    Result<Airport,Exception> GetAirportById(int id);
     Result<IEnumerable<Airport>,Exception> GetAllAirports();
 }

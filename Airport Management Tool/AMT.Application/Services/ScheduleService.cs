@@ -110,6 +110,17 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
                 [new Infrastructure.Exceptions.ValidationException("Schedule conflict detected.")],
                 HttpStatusCode.Conflict);
             }
+
+            if (unitOfWork.FlightSchedules.IsGateOverlapped(flightScheuleResult.Value.ScheduledDepartureUtc))
+            {
+                logger.Warning("Gate overlapping detected at time {DepartureTime}.",
+                    flightScheuleResult.Value.ScheduledDepartureUtc);
+                return Result<FlightSchedule, Exception>
+                .Failure(new List<string>
+                { $"Gate overlapping detected at the given time {flightScheuleResult.Value.ScheduledDepartureUtc}." },
+                [new Infrastructure.Exceptions.ValidationException("Gate overlapping detected.")],
+                HttpStatusCode.Conflict);
+            }
             await unitOfWork.FlightSchedules.AddAsync(flightScheuleResult.Value!);
             await unitOfWork.SaveChangesAsync();
             logger.Information("Schedule created successfully.");

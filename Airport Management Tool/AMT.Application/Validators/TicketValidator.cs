@@ -19,5 +19,17 @@ public class TicketValidator : AbstractValidator<Ticket>
         RuleFor(t => t.Currency)
         .Must(c => c.Length == 3)
         .WithMessage("Currency code must be exactly 3 characters.");
+
+        RuleFor(t => t.BasePrice)
+        .GreaterThan(0).WithMessage("BasePrice must be greater than 0.");
+
+        RuleFor(t => t.Taxes)
+        .GreaterThanOrEqualTo(0).WithMessage("Taxes must be greater than or equal to 0.");
+
+        RuleFor(t => t.SeatInventory)
+        .GreaterThanOrEqualTo(0).WithMessage("SeatInventory must be greater than or equal to 0.");
+        
+        RuleFor(t => t).Must(t => t.SeatInventory <= t.Flight?.DefaultAircraft?.SeatCapacity)
+        .WithMessage("SeatInventory must not exceed the seat capacity of the default aircraft.");
     }
 }

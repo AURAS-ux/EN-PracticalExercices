@@ -26,7 +26,7 @@ public class AirportService(IUnitOfWork unitOfWork, ILogger logger) : IAirportSe
         return Result<Airport, Exception>.Success(airport);
     }
 
-    public async Task<Result<Airport, Exception>> GetAirportById(int id)
+    public Result<Airport, Exception> GetAirportById(int id)
     {
         var airport = unitOfWork.Airports.GetById(id);
         if(airport is null)

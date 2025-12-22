@@ -14,9 +14,9 @@ namespace AMT.Api.Controllers
     {
         [HttpGet("{id}")]
         [Authorize(Policy = "AirportAdmin")]
-        public async Task<IActionResult> GetAirportById(int id)
+        public IActionResult GetAirportById(int id)
         {
-            var result = await service.GetAirportById(id);
+            var result = service.GetAirportById(id);
             if (!result.IsSuccess)
             {
                 return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages });
@@ -38,15 +38,7 @@ namespace AMT.Api.Controllers
         [Authorize(Policy = "AirportAdmin")]
         public async Task<IActionResult> CreateAirport([FromBody] AirportCreateRequestDto airportCreateRequestDto)
         {
-            var airport = new Airport
-            {
-                IATACode = airportCreateRequestDto.IATACode,
-                Name = airportCreateRequestDto.Name,
-                City = airportCreateRequestDto.City,
-                Country = airportCreateRequestDto.Country,
-                Timezone = airportCreateRequestDto.Timezone
-            };
-            var result = await service.CreateAirportAsync(airport);
+            var result = await service.CreateAirportAsync(airportCreateRequestDto);
             if (!result.IsSuccess)
             {
                 return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages });
