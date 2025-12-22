@@ -10,4 +10,5 @@ public interface IFlightService
     Task<Result<Flight, Exception>> CreateFlightAsync(CreateFlightDto flightRequest);
     Task<Result<Flight, Exception>> UpdateFlightAsync(int id, UpdateFlightDto flightRequest);
     Task<Result<string, Exception>> DeleteFlightAsync(int flightId);
+    Result<IEnumerable<Flight>, Exception> GetAllFlights();
 }

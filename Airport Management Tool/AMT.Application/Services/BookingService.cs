@@ -124,6 +124,13 @@ public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Bo
         return Result<string, Exception>.Success("Booking deleted successfully.");
     }
 
+    public Result<IEnumerable<Booking>, Exception> GetAllBookings()
+    {
+        logger.Information("Retrieving all bookings");
+        var bookings = unitOfWork.Bookings.GetAll();
+        return Result<IEnumerable<Booking>, Exception>.Success(bookings);
+    }
+
     public Result<Booking, Exception> GetBookingByCode(int bookingCode)
     {
         logger.Information("Retrieving booking with confirmation code: {BookingCode}", bookingCode);

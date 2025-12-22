@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using AMT.Infrastructure.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AMT.Infrastructure.Data;
 
-public partial class AirportManagementContext : DbContext
+public partial class AirportManagementContext : IdentityDbContext<IdentityUser>
 {
     public AirportManagementContext()
     {
@@ -38,6 +40,7 @@ public partial class AirportManagementContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Aircraft>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Aircraft__3214EC07778B447D");

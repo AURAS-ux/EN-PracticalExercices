@@ -55,6 +55,12 @@ public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator,I
         }
     }
 
+    public Result<IEnumerable<Flight>, Exception> GetAllFlights()
+    {
+        var flights = unitOfWork.Flights.GetAll();
+        return Result<IEnumerable<Flight>, Exception>.Success(flights);
+    }
+
     public async Task<Result<Flight, Exception>> UpdateFlightAsync(int id, UpdateFlightDto flightRequest)
     {
         var flight = unitOfWork.Flights.GetById(id);

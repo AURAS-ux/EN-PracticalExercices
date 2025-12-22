@@ -8,4 +8,5 @@ public interface IAirportService
 {
     Task<Result<Airport,Exception>> CreateAirportAsync(Airport airport);
     Task<Result<Airport,Exception>> GetAirportById(int id);
+    Result<IEnumerable<Airport>,Exception> GetAllAirports();
 }

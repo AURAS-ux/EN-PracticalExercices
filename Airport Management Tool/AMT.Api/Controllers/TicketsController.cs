@@ -63,5 +63,18 @@ namespace AMT.Api.Controllers
             }
             return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages });
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetAllTickets()
+        {
+            var result = ticketService.GetAllTickets();
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
+            return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
+        }
     }
 }

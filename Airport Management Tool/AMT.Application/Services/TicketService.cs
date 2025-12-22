@@ -72,6 +72,12 @@ public class TicketService(IUnitOfWork unitOfWork, ILogger logger, IValidator<Ti
         return Result<string, Exception>.Success($"Ticket ID {ticketId} deleted successfully.");
     }
 
+    public Result<IEnumerable<Ticket>, Exception> GetAllTickets()
+    {
+        var tickets = unitOfWork.Tickets.GetAll();
+        return Result<IEnumerable<Ticket>, Exception>.Success(tickets);
+    }
+
     public Result<Ticket, Exception> GetTicketByFlightId(int flightId)
     {
         var ticket = unitOfWork.Tickets.GetByFlightId(flightId);

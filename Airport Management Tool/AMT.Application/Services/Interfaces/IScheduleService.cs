@@ -12,4 +12,5 @@ public interface IScheduleService
     Task<Result<FlightSchedule,Exception>> CreateScheduleAsync(CreateScheduleDto scheduleRequest);
     Task<BulkImportResultDto> BulkCreateSchedulesAsync(Stream fileStream);
     Result<List<FilteredFlightsDto>,Exception> FilterFlights(string? origin, string? destination, string? date);
+    Result<IEnumerable<FlightSchedule>,Exception> GetAllSchedules();
 }

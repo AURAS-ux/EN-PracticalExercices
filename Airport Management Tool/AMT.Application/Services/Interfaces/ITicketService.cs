@@ -11,4 +11,5 @@ public interface ITicketService
     Task<Result<Ticket, Exception>> CreateTicket(CreateTicketDto ticket);
     Task<Result<Ticket, Exception>> UpdateTicketInventory(UpdateTicketInventoryDto updateTicketInventoryDto);
     Task<Result<string, Exception>> DeleteTicketAsync(int ticketId);
+    Result<IEnumerable<Ticket>, Exception> GetAllTickets();
 }

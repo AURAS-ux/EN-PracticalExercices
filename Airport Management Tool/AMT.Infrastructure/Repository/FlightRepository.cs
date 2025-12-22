@@ -35,7 +35,13 @@ public class FlightRepository(AirportManagementContext context) : IFlightReposit
 
     public IEnumerable<Flight> GetAll()
     {
-        return context.Flights.Select(FlightMap.ToDomain);
+        return context.Flights
+        .Include(f => f.Airline)
+        .Include(f => f.OriginAirport)
+        .Include(f => f.DestinationAirport)
+        .Include(f => f.DefaultAircraft)
+            .ThenInclude(a => a!.OwnedByAirline)
+        .Select(FlightMap.ToDomain);
     }
 
     public Flight? GetById(int id)

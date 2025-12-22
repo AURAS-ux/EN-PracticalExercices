@@ -10,4 +10,5 @@ public interface IBookingService
     Task<Result<BookingCreatedDto, Exception>> CreateBookingAsync(CreateBookingDto bookingDto);
     Result<Booking, Exception> GetBookingByCode(int bookingCode);
     Task<Result<string, Exception>> DeleteBookingAsync(int bookingId);
+    Result<IEnumerable<Booking>, Exception> GetAllBookings();
 }

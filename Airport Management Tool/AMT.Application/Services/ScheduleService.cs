@@ -146,6 +146,12 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
         }
     }
 
+    public Result<IEnumerable<FlightSchedule>, Exception> GetAllSchedules()
+    {
+        var schedules = unitOfWork.FlightSchedules.GetAll().ToList();
+        return Result<IEnumerable<FlightSchedule>, Exception>.Success(schedules);
+    }
+
     public Result<FlightSchedule, Exception> GetSchedule(int id)
     {
         var schedule = unitOfWork.FlightSchedules.GetById(id);
