@@ -42,6 +42,7 @@ namespace AMT.Api.Controllers
             return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
         }
 
+        [HttpPost("cancel")]
         public async Task<IActionResult> CancelBooking([FromBody] CancelBookingRequestDto cancelBookingRequestDto)
         {
             var result = await bookingService.CancelBooking(cancelBookingRequestDto);
