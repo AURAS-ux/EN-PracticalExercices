@@ -38,10 +38,7 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
                 {
                     importResults[BulkImportResultDto.ImportStatus.SUCCESS] = result;
                 }
-                else
-                {
-                    importResults[BulkImportResultDto.ImportStatus.FAILED] = result;
-                }
+                importResults[BulkImportResultDto.ImportStatus.FAILED] = result;
             }
             logger.Information("Bulk schedule import completed.");
             return new BulkImportResultDto
@@ -111,13 +108,14 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
                 HttpStatusCode.Conflict);
             }
 
-            if (unitOfWork.FlightSchedules.IsGateOverlapped(flightScheuleResult.Value.ScheduledDepartureUtc))
+            if (unitOfWork.FlightSchedules
+            .IsGateOverlapped(flightScheuleResult.Value.ScheduledDepartureUtc, flightScheuleResult.Value.Gate.Id))
             {
                 logger.Warning("Gate overlapping detected at time {DepartureTime}.",
                     flightScheuleResult.Value.ScheduledDepartureUtc);
                 return Result<FlightSchedule, Exception>
                 .Failure(new List<string>
-                { $"Gate overlapping detected at the given time {flightScheuleResult.Value.ScheduledDepartureUtc}." },
+                { $"Gate overlapping detected at the given time {flightScheuleResult.Value.ScheduledDepartureUtc} for gate {flightScheuleResult.Value.Gate.Code}." },
                 [new Infrastructure.Exceptions.ValidationException("Gate overlapping detected.")],
                 HttpStatusCode.Conflict);
             }

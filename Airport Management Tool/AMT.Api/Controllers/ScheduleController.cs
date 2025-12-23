@@ -82,11 +82,12 @@ namespace AMT.Api.Controllers
 
             var result = await scheduleService.BulkCreateSchedulesAsync(fileUpload.File.OpenReadStream());
             bool allSuccess = result.ImportResults.All(r => r.Value != null && r.Value.IsSuccess);
+            bool allFailed = result.ImportResults.All(r => r.Value != null && !r.Value.IsSuccess);
             if (allSuccess)
             {
                 return CreatedAtAction(nameof(BulkCreateSchedules), result);
             }
-            return StatusCode(StatusCodes.Status207MultiStatus, result);
+            return StatusCode(!allSuccess && !allFailed ? StatusCodes.Status207MultiStatus : StatusCodes.Status400BadRequest, result);
         }
 
 

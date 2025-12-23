@@ -9,6 +9,7 @@ using AMT.Domain.Utils;
 using AMT.Infrastructure.Exceptions;
 using AMT.Infrastructure.Interfaces;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace AMT.Application.Services;
@@ -52,6 +53,31 @@ public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator,I
                 new List<string> { ex.Message },
                 new List<Exception> { ex },
                 HttpStatusCode.NotFound);
+        }catch (DbUpdateException ex)
+        {
+            logger.Error("Cannot delete flight as it is referenced by other records.", ex);
+            var scheduleId = unitOfWork.FlightSchedules.GetScheduleIdByFlightId(flightId);
+            var ticketId = unitOfWork.Tickets.GetTicketIdByFlightId(flightId);
+            var confirmationCode = unitOfWork.Bookings.GetConfirmationCodeForFlightId(flightId);
+            List<string> errorMessages = new List<string>();
+            if (scheduleId != null)
+            {
+                errorMessages.Add("Flight is associated with a flight schedule.");
+            }
+            if (ticketId != null)
+            {
+                errorMessages.Add("Flight is associated with a ticket.");
+            }
+            if (confirmationCode != null)
+            {
+                errorMessages.Add("Flight is associated with a booking.");
+            }
+            errorMessages.Add("Cannot delete flight as it is referenced by other records.");
+            logger.Error(ex.StackTrace ?? string.Empty);
+            return Result<string, Exception>.Failure(
+                errorMessages,
+                new List<Exception> { ex },
+                HttpStatusCode.InternalServerError);
         }
     }
 

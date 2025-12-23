@@ -89,6 +89,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -102,7 +103,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 app.Run();

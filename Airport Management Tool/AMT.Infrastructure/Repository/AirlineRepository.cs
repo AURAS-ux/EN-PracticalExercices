@@ -7,7 +7,7 @@ using AMT.Infrastructure.Mappers;
 
 namespace AMT.Infrastructure.Repository;
 
-public class AirlineRepository(AirportManagementContext context) : IAirlineRepository //TODO : Implement Repository
+public class AirlineRepository(AirportManagementContext context) : IAirlineRepository
 {
     public async Task AddAsync(Airline entity)
     {

@@ -7,6 +7,7 @@ using AMT.Domain.Utils;
 using AMT.Infrastructure.Exceptions;
 using AMT.Infrastructure.Interfaces;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace AMT.Application.Services;
@@ -163,6 +164,12 @@ public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Bo
                 },
                 System.Net.HttpStatusCode.NotFound
             );
+        }
+        var ticket = unitOfWork.Tickets.GetTicketByBookingId(bookingId);
+        if(ticket != null)
+        {
+            ticket.SeatInventory += unitOfWork.Bookings.GetById(bookingId)!.Quantity;
+            unitOfWork.Tickets.Update(ticket);
         }
         unitOfWork.Bookings.Delete(bookingId); //TODO: reset seat inventory on ticket deletion LATER OR NEVER MAI VEDEM 
         await unitOfWork.SaveChangesAsync();

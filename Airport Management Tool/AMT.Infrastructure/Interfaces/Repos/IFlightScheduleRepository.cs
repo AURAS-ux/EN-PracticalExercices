@@ -8,5 +8,6 @@ public interface IFlightScheduleRepository : IGenericRepository<FlightSchedule>
     int GetFlightSchedulesCountForDate(DateTime departureTimeUtc);
     IEnumerable<FlightSchedule> FilterFlightSchedules(string? origin, string? destination, DateTime? date);
     bool IsScheduleConflictForGate(int gateId, DateTime time);
-    bool IsGateOverlapped(DateTime departureTimeUtc);
+    bool IsGateOverlapped(DateTime departureTimeUtc, int gateId);
+    int? GetScheduleIdByFlightId(int flightId);
 }

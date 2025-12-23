@@ -9,4 +9,5 @@ public interface IBookingRepository : IGenericRepository<Booking>
     bool BookingExists(int bookingId);
     Booking? GetByConfirmationCode(string confirmationCode);
     bool ActiveBookingExistsForEmail(string email);
+    string? GetConfirmationCodeForFlightId(int flightId);
 }

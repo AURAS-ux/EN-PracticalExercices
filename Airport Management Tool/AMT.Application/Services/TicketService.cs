@@ -6,6 +6,7 @@ using AMT.Domain.Models;
 using AMT.Domain.Utils;
 using AMT.Infrastructure.Interfaces;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace AMT.Application.Services;
@@ -65,11 +66,23 @@ public class TicketService(IUnitOfWork unitOfWork, ILogger logger, IValidator<Ti
                 [new InvalidOperationException(errorMessage)],
                 System.Net.HttpStatusCode.BadRequest);
         }
-        logger.Information("Deleting ticket ID: {TicketId}", ticketId);
-        unitOfWork.Tickets.Delete(ticketId);
-        await unitOfWork.SaveChangesAsync();
-        logger.Information("Ticket ID: {TicketId} deleted successfully", ticketId);
-        return Result<string, Exception>.Success($"Ticket ID {ticketId} deleted successfully.");
+        try
+        {
+            logger.Information("Deleting ticket ID: {TicketId}", ticketId);
+            unitOfWork.Tickets.Delete(ticketId);
+            await unitOfWork.SaveChangesAsync();
+            logger.Information("Ticket ID: {TicketId} deleted successfully", ticketId);
+            return Result<string, Exception>.Success($"Ticket ID {ticketId} deleted successfully.");
+        }catch (DbUpdateException ex)
+        {
+            logger.Error("Error deleting ticket ID: {TicketId}. Exception: {ExceptionMessage}", ticketId, ex.Message);
+            logger.Error("Stack Trace: {StackTrace}", ex.StackTrace);
+            return Result<string, Exception>.Failure(
+                new List<string> { "Could not delete ticket. Due to existing related records for Booking." },
+                new List<Exception> { ex },
+                System.Net.HttpStatusCode.InternalServerError);
+        }
+        
     }
 
     public Result<IEnumerable<Ticket>, Exception> GetAllTickets()

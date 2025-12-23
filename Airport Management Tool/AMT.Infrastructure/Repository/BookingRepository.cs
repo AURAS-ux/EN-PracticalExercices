@@ -66,6 +66,14 @@ public class BookingRepository(AirportManagementContext context) : IBookingRepos
         .FirstOrDefault(b => b.Id == id);
     }
 
+    public string? GetConfirmationCodeForFlightId(int flightId)
+    {
+        return context.Bookings
+            .Where(b => b.FlightId == flightId)
+            .Select(b => b.ConfirmationCode)
+            .FirstOrDefault();
+    }
+
     public void Update(Booking entity)
     {
         var oldEntity = context.Bookings.Find(entity.Id);
