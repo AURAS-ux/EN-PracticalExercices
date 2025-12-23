@@ -31,9 +31,6 @@ public class FlightScheduleRepositroy(AirportManagementContext context) : IFligh
     public IEnumerable<FlightSchedule> FilterFlightSchedules(string? origin, string? destination, DateTime? date)
     {
         return context.FlightSchedules
-            .Include(fs => fs.Flight)
-            .Include(fs => fs.Gate)
-            .Include(fs => fs.AssignedAircraft)
             .Where(fs =>
                 (string.IsNullOrEmpty(origin) || fs.Flight.OriginAirport.Iatacode.Equals(origin, StringComparison.OrdinalIgnoreCase)) &&
                 (string.IsNullOrEmpty(destination) || fs.Flight.DestinationAirport.Iatacode.Equals(destination, StringComparison.OrdinalIgnoreCase)) &&
@@ -43,7 +40,16 @@ public class FlightScheduleRepositroy(AirportManagementContext context) : IFligh
 
     public IEnumerable<FlightSchedule> GetAll()
     {
-        return context.FlightSchedules.Select(FlightScheduleMap.ToDomain);
+        return context.FlightSchedules
+            .Include(fs => fs.Flight)
+                .ThenInclude(f => f.OriginAirport)
+            .Include(fs => fs.Flight)
+                .ThenInclude(f => f.DestinationAirport)
+            .Include(fs => fs.Gate)
+                .ThenInclude(g => g!.Airport)
+            .Include(fs => fs.AssignedAircraft)
+                .ThenInclude(aircraft => aircraft!.OwnedByAirline)
+        .Select(FlightScheduleMap.ToDomain);
     }
 
     public FlightSchedule? GetById(int id)
