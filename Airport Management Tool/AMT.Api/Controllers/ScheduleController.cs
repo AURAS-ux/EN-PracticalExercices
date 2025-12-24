@@ -64,8 +64,8 @@ namespace AMT.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> BulkCreateSchedules([FromForm] FileUploadDto fileUpload)
-        {
-            if (fileUpload.File == null || fileUpload.File.Length == 0)
+        {//TODO: update, search for existing schedule by flight id and departure time in order to update, better result returning
+            if (fileUpload.File.Length == 0)
             {
                 return BadRequest(new { Errors = new[] { "No file uploaded or file is empty." } });
             }
@@ -81,8 +81,8 @@ namespace AMT.Api.Controllers
             }
 
             var result = await scheduleService.BulkCreateSchedulesAsync(fileUpload.File.OpenReadStream());
-            bool allSuccess = result.ImportResults.All(r => r.Value != null && r.Value.IsSuccess);
-            bool allFailed = result.ImportResults.All(r => r.Value != null && !r.Value.IsSuccess);
+            bool allSuccess = result.ImportResults.All(r => r.Value != null && r.Key == BulkImportResultDto.ImportStatus.SUCCESS);
+            bool allFailed = result.ImportResults.All(r => r.Value != null && r.Key == BulkImportResultDto.ImportStatus.FAILED);
             if (allSuccess)
             {
                 return CreatedAtAction(nameof(BulkCreateSchedules), result);

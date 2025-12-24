@@ -32,7 +32,8 @@ public class FlightService(IUnitOfWork unitOfWork,IValidator<Flight> validator,I
             }
             await unitOfWork.Flights.AddAsync(flightResult.Value!);
             await unitOfWork.SaveChangesAsync();
-            return Result<Flight, Exception>.Success(flightResult.Value!);
+            var savedFlight = unitOfWork.Flights.GetFlightByFlightNumber(flightRequest.FlightNumber);
+            return Result<Flight, Exception>.Success(savedFlight!);
         }
         logger.Warning("Found errors trying to save flight");
         return flightResult;

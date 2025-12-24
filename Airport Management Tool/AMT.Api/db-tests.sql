@@ -30,3 +30,5 @@ SELECT * FROM [AirportManagement].[dbo].[AspNetUserRoles];
 
 INSERT INTO [AirportManagement].[dbo].[AspNetUserRoles] (UserId, RoleId)
 VALUES ('5f451d86-cc1e-43ef-8530-e26e749f5a18', 'F969ED41-632B-42CA-86DD-61AD1C8362E3');
+
+DELETE FROM [Airline] WHERE Id = 1;

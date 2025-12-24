@@ -84,6 +84,7 @@ builder.Services.AddScoped<IAirportService, AirportService>();
 builder.Services.AddScoped<IGateService, GateService>();
 builder.Services.AddScoped<IAirlineService, AirlineService>();
 builder.Services.AddScoped<IAircraftService, AircraftService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -29,7 +29,7 @@ public class FlightScheduleRepositroy(AirportManagementContext context) : IFligh
     }
 
     public IEnumerable<FlightSchedule> FilterFlightSchedules(string? origin, string? destination, DateTime? date)
-    {
+    {//TODO: if for each field
         return context.FlightSchedules
             .Where(fs =>
                 (string.IsNullOrEmpty(origin) || fs.Flight.OriginAirport.Iatacode.Equals(origin, StringComparison.OrdinalIgnoreCase)) &&

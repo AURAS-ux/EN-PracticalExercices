@@ -16,7 +16,7 @@ public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Bo
 {
     public async Task<Result<Booking, Exception>> CancelBooking(CancelBookingRequestDto cancelBookingRequestDto)
     {
-        var booking = unitOfWork.Bookings.GetById(cancelBookingRequestDto.BookingId);
+        var booking = unitOfWork.Bookings.GetByConfirmationCode(cancelBookingRequestDto.ConfirmationCode);
         if (booking == null)
         {
             logger.Warning("Booking with ID {BookingId} not found.", cancelBookingRequestDto.BookingId);
@@ -29,6 +29,18 @@ public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Bo
                 System.Net.HttpStatusCode.NotFound
             );
         }
+        if(booking.Id != cancelBookingRequestDto.BookingId)
+        {
+            logger.Warning("Booking ID {BookingId} does not match the confirmation code provided.", cancelBookingRequestDto.BookingId);
+            return Result<Booking, Exception>.Failure(
+                new List<string> { "Booking ID does not match the confirmation code." },
+                new List<Exception>
+                {
+                new UnauthorizedAccessException("Booking ID does not match the confirmation code.")
+                },
+                System.Net.HttpStatusCode.Unauthorized
+            );
+        }
         if(booking.Status == Booking.BookingStatus.CANCELLED)
         {
             logger.Warning("Booking with ID {BookingId} is already cancelled.", cancelBookingRequestDto.BookingId);
@@ -39,18 +51,6 @@ public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Bo
                 new InvalidOperationException("Booking is already cancelled.")
                 },
                 System.Net.HttpStatusCode.BadRequest
-            );
-        }
-        if(booking.ConfirmationCode != cancelBookingRequestDto.ConfirmationCode)
-        {
-            logger.Warning("Invalid confirmation code for booking ID {BookingId}.", cancelBookingRequestDto.BookingId);
-            return Result<Booking, Exception>.Failure(
-                new List<string> { "Invalid confirmation code." },
-                new List<Exception>
-                {
-                new UnauthorizedAccessException("Invalid confirmation code.")
-                },
-                System.Net.HttpStatusCode.Unauthorized
             );
         }
         booking.Status = Booking.BookingStatus.CANCELLED;

@@ -21,7 +21,7 @@ namespace AMT.Api.Controllers
             var result = await bookingService.CreateBookingAsync(request);
             if (result.IsSuccess)
             {
-                return CreatedAtAction(nameof(GetBookingById), new { code = result.Value!.ConfirmationCode }, result.Value);
+                return CreatedAtAction(nameof(GetBookingByCode), new { code = result.Value!.ConfirmationCode }, result.Value);
             }
             return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
         }
@@ -32,7 +32,7 @@ namespace AMT.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetBookingById(int code)
+        public IActionResult GetBookingByCode(int code)
         {
             var result = bookingService.GetBookingByCode(code);
             if (result.IsSuccess)
