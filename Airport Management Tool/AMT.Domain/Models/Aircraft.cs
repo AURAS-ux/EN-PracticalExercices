@@ -12,4 +12,15 @@ public class Aircraft
     [Range(0, int.MaxValue, ErrorMessage = "Seat capacity must be a non-negative integer.")]
     public int SeatCapacity { get; set; }
     public Airline OwnedByAirline { get; set; } = null!;
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Aircraft other)
+            return false;
+
+        return TailNumber == other.TailNumber &&
+               Model == other.Model &&
+               SeatCapacity == other.SeatCapacity &&
+               OwnedByAirline.Equals(other.OwnedByAirline);
+    }
 }

@@ -1,4 +1,9 @@
 <Solution>
+  <Folder Name="/tests/">
+    <Project Path="tests/AMT.Api.Tests/AMT.Api.Tests.csproj" />
+    <Project Path="tests/AMT.Application.Tests/AMT.Application.Tests.csproj" />
+    <Project Path="tests/AMT.Infrastructure.Tests/AMT.Infrastructure.Tests.csproj" />
+  </Folder>
   <Project Path="AMT.Api/AMT.Api.csproj" />
   <Project Path="AMT.Application/AMT.Application.csproj" />
   <Project Path="AMT.Domain/AMT.Domain.csproj" />

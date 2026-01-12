@@ -9,4 +9,13 @@ public class Airline
     public string Iatacode { get; set; } = null!;
     [StringLength(100, ErrorMessage = "Airline name cannot exceed 100 characters.")]
     public string Name { get; set; } = null!;
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Airline other)
+            return false;
+
+        return Iatacode == other.Iatacode &&
+               Name == other.Name;
+    }
 }
