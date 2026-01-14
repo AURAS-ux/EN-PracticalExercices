@@ -1,0 +1,85 @@
+using AMT.Application.Dtos;
+using AMT.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace AMT.Api.Controllers
+{
+    [Route("api/bookings")]
+    [ApiController]
+    public class BookingController(IBookingService bookingService) : ControllerBase
+    {
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> CreateBooking([FromBody] CreateBookingDto request)
+        {
+            var result = await bookingService.CreateBookingAsync(request);
+            if (result.IsSuccess)
+            {
+                return CreatedAtAction(nameof(GetBookingByCode), new { code = result.Value!.ConfirmationCode }, result.Value);
+            }
+            return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
+        }
+
+        [HttpGet("{code}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetBookingByCode(int code)
+        {
+            var result = bookingService.GetBookingByCode(code);
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
+            return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
+        }
+
+        [HttpPost("cancel")]
+        public async Task<IActionResult> CancelBooking([FromBody] CancelBookingRequestDto cancelBookingRequestDto)
+        {
+            var result = await bookingService.CancelBooking(cancelBookingRequestDto);
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
+            return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
+        }
+
+        [HttpDelete("{code}")]
+        [Authorize(Policy = "AirportAdmin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> DeleteBooking(int code)
+        {
+            var result = await bookingService.DeleteBookingAsync(code);
+            if (result.IsSuccess)
+            {
+                return NoContent();
+            }
+            return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetAllBookings()
+        {
+            var result = bookingService.GetAllBookings();
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
+            return StatusCode((int)result.StatusCode!, new { Errors = result.ErrorMessages! });
+        }
+    }
+}

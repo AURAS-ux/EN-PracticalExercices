@@ -1,0 +1,182 @@
+digraph CSharpDependencies {
+  graph [rankdir=LR, fontname="Helvetica", fontsize=14, splines=sprite, overlap=false, nodesep=0.2, ranksep=0.8];
+  node [shape=box, style=filled, fillcolor=lightblue, fontname="Helvetica", fontsize=11];
+  edge [fontname="Helvetica", fontsize=9];
+
+  subgraph "cluster_AMT.Api" {
+    label="AMT.Api (net9.0)";
+    style="filled";
+    color="lightgray";
+
+    "AMT.Api.AircraftController" [label="AircraftController", fillcolor=white, tooltip="AMT.Api.Controllers.AircraftController"];
+    "AMT.Api.AirlineController" [label="AirlineController", fillcolor=white, tooltip="AMT.Api.Controllers.AirlineController"];
+    "AMT.Api.AirportController" [label="AirportController", fillcolor=white, tooltip="AMT.Api.Controllers.AirportController"];
+    "AMT.Api.AuthController" [label="AuthController", fillcolor=white, tooltip="AMT.Api.Controllers.AuthController"];
+    "AMT.Api.BookingController" [label="BookingController", fillcolor=white, tooltip="AMT.Api.Controllers.BookingController"];
+    "AMT.Api.FlightsController" [label="FlightsController", fillcolor=white, tooltip="AMT.Api.Controllers.FlightsController"];
+    "AMT.Api.GateController" [label="GateController", fillcolor=white, tooltip="AMT.Api.Controllers.GateController"];
+    "AMT.Api.ScheduleController" [label="ScheduleController", fillcolor=white, tooltip="AMT.Api.Controllers.ScheduleController"];
+    "AMT.Api.TicketsController" [label="TicketsController", fillcolor=white, tooltip="AMT.Api.Controllers.TicketsController"];
+    "AMT.Api.FileUploadDto" [label="FileUploadDto", fillcolor=white, tooltip="AMT.Api.Utils.Wrappers.FileUploadDto"];
+  }
+
+  subgraph "cluster_AMT.Application" {
+    label="AMT.Application (net9.0)";
+    style="filled";
+    color="lightgray";
+
+    "AMT.Application.AircraftCreateRequestDto" [label="AircraftCreateRequestDto", fillcolor=white, tooltip="AMT.Application.Dtos.AircraftCreateRequestDto"];
+    "AMT.Application.AirlineCreateRequestDto" [label="AirlineCreateRequestDto", fillcolor=white, tooltip="AMT.Application.Dtos.AirlineCreateRequestDto"];
+    "AMT.Application.AirportCreateRequestDto" [label="AirportCreateRequestDto", fillcolor=white, tooltip="AMT.Application.Dtos.AirportCreateRequestDto"];
+    "AMT.Application.BookingCreatedDto" [label="BookingCreatedDto", fillcolor=white, tooltip="AMT.Application.Dtos.BookingCreatedDto"];
+    "AMT.Application.BulkImportResultDto" [label="BulkImportResultDto", fillcolor=white, tooltip="AMT.Application.Dtos.BulkImportResultDto"];
+    "AMT.Application.CancelBookingRequestDto" [label="CancelBookingRequestDto", fillcolor=white, tooltip="AMT.Application.Dtos.CancelBookingRequestDto"];
+    "AMT.Application.CreateBookingDto" [label="CreateBookingDto", fillcolor=white, tooltip="AMT.Application.Dtos.CreateBookingDto"];
+    "AMT.Application.CreateTicketDto" [label="CreateTicketDto", fillcolor=white, tooltip="AMT.Application.Dtos.CreateTicketDto"];
+    "AMT.Application.FilteredFlightsExtentions" [label="FilteredFlightsExtentions", fillcolor=white, tooltip="AMT.Application.Dtos.Extentions.FilteredFlightsExtentions"];
+    "AMT.Application.FlightExtensions" [label="FlightExtensions", fillcolor=white, tooltip="AMT.Application.Dtos.Extentions.FlightExtensions"];
+    "AMT.Application.ScheduleExtention" [label="ScheduleExtention", fillcolor=white, tooltip="AMT.Application.Dtos.Extentions.ScheduleExtention"];
+    "AMT.Application.FilteredFlightsDto" [label="FilteredFlightsDto", fillcolor=white, tooltip="AMT.Application.Dtos.FilteredFlightsDto"];
+    "AMT.Application.GateCreateRequestDto" [label="GateCreateRequestDto", fillcolor=white, tooltip="AMT.Application.Dtos.GateCreateRequestDto"];
+    "AMT.Application.UpcomingFlightsDto" [label="UpcomingFlightsDto", fillcolor=white, tooltip="AMT.Application.Dtos.UpcomingFlightsDto"];
+    "AMT.Application.UpdateFlightDto" [label="UpdateFlightDto", fillcolor=white, tooltip="AMT.Application.Dtos.UpdateFlightDto"];
+    "AMT.Application.UpdateTicketInventoryDto" [label="UpdateTicketInventoryDto", fillcolor=white, tooltip="AMT.Application.Dtos.UpdateTicketInventoryDto"];
+    "AMT.Application.AircraftService" [label="AircraftService", fillcolor=white, tooltip="AMT.Application.Services.AircraftService"];
+    "AMT.Application.AirlineService" [label="AirlineService", fillcolor=white, tooltip="AMT.Application.Services.AirlineService"];
+    "AMT.Application.AirportService" [label="AirportService", fillcolor=white, tooltip="AMT.Application.Services.AirportService"];
+    "AMT.Application.AuthService" [label="AuthService", fillcolor=white, tooltip="AMT.Application.Services.AuthService"];
+    "AMT.Application.BookingService" [label="BookingService", fillcolor=white, tooltip="AMT.Application.Services.BookingService"];
+    "AMT.Application.FlightService" [label="FlightService", fillcolor=white, tooltip="AMT.Application.Services.FlightService"];
+    "AMT.Application.GateService" [label="GateService", fillcolor=white, tooltip="AMT.Application.Services.GateService"];
+    "AMT.Application.ScheduleService" [label="ScheduleService", fillcolor=white, tooltip="AMT.Application.Services.ScheduleService"];
+    "AMT.Application.TicketService" [label="TicketService", fillcolor=white, tooltip="AMT.Application.Services.TicketService"];
+    "AMT.Application.BookingValidator" [label="BookingValidator", fillcolor=white, tooltip="AMT.Application.Validators.BookingValidator"];
+    "AMT.Application.FlightValidator" [label="FlightValidator", fillcolor=white, tooltip="AMT.Application.Validators.FlightValidator"];
+    "AMT.Application.ScheduleValidator" [label="ScheduleValidator", fillcolor=white, tooltip="AMT.Application.Validators.ScheduleValidator"];
+    "AMT.Application.TicketValidator" [label="TicketValidator", fillcolor=white, tooltip="AMT.Application.Validators.TicketValidator"];
+  }
+
+  subgraph "cluster_AMT.Domain" {
+    label="AMT.Domain (net9.0)";
+    style="filled";
+    color="lightgray";
+
+    "AMT.Domain.Aircraft" [label="Aircraft", fillcolor=white, tooltip="AMT.Domain.Models.Aircraft"];
+    "AMT.Domain.Airline" [label="Airline", fillcolor=white, tooltip="AMT.Domain.Models.Airline"];
+    "AMT.Domain.Airport" [label="Airport", fillcolor=white, tooltip="AMT.Domain.Models.Airport"];
+    "AMT.Domain.Booking" [label="Booking", fillcolor=white, tooltip="AMT.Domain.Models.Booking"];
+    "AMT.Domain.Flight" [label="Flight", fillcolor=white, tooltip="AMT.Domain.Models.Flight"];
+    "AMT.Domain.FlightSchedule" [label="FlightSchedule", fillcolor=white, tooltip="AMT.Domain.Models.FlightSchedule"];
+    "AMT.Domain.Gate" [label="Gate", fillcolor=white, tooltip="AMT.Domain.Models.Gate"];
+    "AMT.Domain.Ticket" [label="Ticket", fillcolor=white, tooltip="AMT.Domain.Models.Ticket"];
+    "AMT.Domain.must" [label="must", fillcolor=white, tooltip="AMT.Domain.Models.must"];
+    "AMT.Domain.Result" [label="Result", fillcolor=white, tooltip="AMT.Domain.Utils.Result"];
+  }
+
+  subgraph "cluster_AMT.Infrastructure" {
+    label="AMT.Infrastructure (net9.0)";
+    style="filled";
+    color="lightgray";
+
+    "AMT.Infrastructure.AirportManagementContext" [label="AirportManagementContext", fillcolor=white, tooltip="AMT.Infrastructure.Data.AirportManagementContext"];
+    "AMT.Infrastructure.Aircraft" [label="Aircraft", fillcolor=white, tooltip="AMT.Infrastructure.Entities.Aircraft"];
+    "AMT.Infrastructure.Airline" [label="Airline", fillcolor=white, tooltip="AMT.Infrastructure.Entities.Airline"];
+    "AMT.Infrastructure.Airport" [label="Airport", fillcolor=white, tooltip="AMT.Infrastructure.Entities.Airport"];
+    "AMT.Infrastructure.Booking" [label="Booking", fillcolor=white, tooltip="AMT.Infrastructure.Entities.Booking"];
+    "AMT.Infrastructure.Flight" [label="Flight", fillcolor=white, tooltip="AMT.Infrastructure.Entities.Flight"];
+    "AMT.Infrastructure.FlightSchedule" [label="FlightSchedule", fillcolor=white, tooltip="AMT.Infrastructure.Entities.FlightSchedule"];
+    "AMT.Infrastructure.Gate" [label="Gate", fillcolor=white, tooltip="AMT.Infrastructure.Entities.Gate"];
+    "AMT.Infrastructure.Ticket" [label="Ticket", fillcolor=white, tooltip="AMT.Infrastructure.Entities.Ticket"];
+    "AMT.Infrastructure.GenericNotFound" [label="GenericNotFound", fillcolor=white, tooltip="AMT.Infrastructure.Exceptions.GenericNotFound"];
+    "AMT.Infrastructure.ValidationException" [label="ValidationException", fillcolor=white, tooltip="AMT.Infrastructure.Exceptions.ValidationException"];
+    "AMT.Infrastructure.AircraftMap" [label="AircraftMap", fillcolor=white, tooltip="AMT.Infrastructure.Mappers.AircraftMap"];
+    "AMT.Infrastructure.AirlineMap" [label="AirlineMap", fillcolor=white, tooltip="AMT.Infrastructure.Mappers.AirlineMap"];
+    "AMT.Infrastructure.AirportMap" [label="AirportMap", fillcolor=white, tooltip="AMT.Infrastructure.Mappers.AirportMap"];
+    "AMT.Infrastructure.BookingMap" [label="BookingMap", fillcolor=white, tooltip="AMT.Infrastructure.Mappers.BookingMap"];
+    "AMT.Infrastructure.FlightMap" [label="FlightMap", fillcolor=white, tooltip="AMT.Infrastructure.Mappers.FlightMap"];
+    "AMT.Infrastructure.FlightScheduleMap" [label="FlightScheduleMap", fillcolor=white, tooltip="AMT.Infrastructure.Mappers.FlightScheduleMap"];
+    "AMT.Infrastructure.GateMap" [label="GateMap", fillcolor=white, tooltip="AMT.Infrastructure.Mappers.GateMap"];
+    "AMT.Infrastructure.TicketMap" [label="TicketMap", fillcolor=white, tooltip="AMT.Infrastructure.Mappers.TicketMap"];
+    "AMT.Infrastructure.ExceptionHandlingMiddleware" [label="ExceptionHandlingMiddleware", fillcolor=white, tooltip="AMT.Infrastructure.Middlewares.ExceptionHandlingMiddleware"];
+    "AMT.Infrastructure.AircraftRepository" [label="AircraftRepository", fillcolor=white, tooltip="AMT.Infrastructure.Repository.AircraftRepository"];
+    "AMT.Infrastructure.AirlineRepository" [label="AirlineRepository", fillcolor=white, tooltip="AMT.Infrastructure.Repository.AirlineRepository"];
+    "AMT.Infrastructure.AirportRepository" [label="AirportRepository", fillcolor=white, tooltip="AMT.Infrastructure.Repository.AirportRepository"];
+    "AMT.Infrastructure.BookingRepository" [label="BookingRepository", fillcolor=white, tooltip="AMT.Infrastructure.Repository.BookingRepository"];
+    "AMT.Infrastructure.FlightRepository" [label="FlightRepository", fillcolor=white, tooltip="AMT.Infrastructure.Repository.FlightRepository"];
+    "AMT.Infrastructure.FlightScheduleRepositroy" [label="FlightScheduleRepositroy", fillcolor=white, tooltip="AMT.Infrastructure.Repository.FlightScheduleRepositroy"];
+    "AMT.Infrastructure.GateRepository" [label="GateRepository", fillcolor=white, tooltip="AMT.Infrastructure.Repository.GateRepository"];
+    "AMT.Infrastructure.TicketRepository" [label="TicketRepository", fillcolor=white, tooltip="AMT.Infrastructure.Repository.TicketRepository"];
+    "AMT.Infrastructure.UnitOfWork" [label="UnitOfWork", fillcolor=white, tooltip="AMT.Infrastructure.Repository.UnitOfWork"];
+  }
+
+  "AMT.Api.AirlineController" -> "AMT.Application.AirlineCreateRequestDto" [penwidth=1.5];
+  "AMT.Api.TicketsController" -> "AMT.Application.UpdateTicketInventoryDto" [penwidth=1.5];
+  "AMT.Application.FlightExtensions" -> "AMT.Domain.Flight" [penwidth=1.5];
+  "AMT.Application.ScheduleExtention" -> "AMT.Domain.FlightSchedule" [penwidth=1.5];
+  "AMT.Application.AircraftService" -> "AMT.Domain.Aircraft" [penwidth=1.5];
+  "AMT.Application.AirlineService" -> "AMT.Domain.Airline" [penwidth=1.5];
+  "AMT.Application.AirlineService" -> "AMT.Infrastructure.GenericNotFound" [penwidth=1.5];
+  "AMT.Application.AirportService" -> "AMT.Domain.Airport" [penwidth=1.5];
+  "AMT.Application.AirportService" -> "AMT.Infrastructure.GenericNotFound" [penwidth=1.5];
+  "AMT.Application.BookingService" -> "AMT.Infrastructure.GenericNotFound" [penwidth=1.5];
+  "AMT.Application.BookingService" -> "AMT.Domain.Booking" [penwidth=1.5];
+  "AMT.Application.BookingService" -> "AMT.Application.BookingCreatedDto" [penwidth=1.5];
+  "AMT.Application.FlightService" -> "AMT.Infrastructure.GenericNotFound" [penwidth=1.5];
+  "AMT.Application.FlightService" -> "AMT.Domain.Aircraft" [penwidth=1.5];
+  "AMT.Application.GateService" -> "AMT.Infrastructure.GenericNotFound" [penwidth=1.5];
+  "AMT.Application.GateService" -> "AMT.Domain.Gate" [penwidth=1.5];
+  "AMT.Application.ScheduleService" -> "AMT.Application.BulkImportResultDto" [penwidth=1.5];
+  "AMT.Application.ScheduleService" -> "AMT.Application.UpcomingFlightsDto" [penwidth=1.5];
+  "AMT.Application.ScheduleService" -> "AMT.Domain.Aircraft" [penwidth=1.5];
+  "AMT.Application.TicketService" -> "AMT.Domain.Ticket" [penwidth=1.5];
+  "AMT.Domain.Aircraft" -> "AMT.Domain.Airline" [penwidth=1.5];
+  "AMT.Domain.Booking" -> "AMT.Domain.Flight" [penwidth=1.5];
+  "AMT.Domain.Booking" -> "AMT.Domain.Ticket" [penwidth=1.5];
+  "AMT.Domain.Flight" -> "AMT.Domain.Airline" [penwidth=1.5];
+  "AMT.Domain.Flight" -> "AMT.Domain.Airport" [penwidth=1.5];
+  "AMT.Domain.Flight" -> "AMT.Domain.Aircraft" [penwidth=1.5];
+  "AMT.Domain.FlightSchedule" -> "AMT.Domain.Flight" [penwidth=1.5];
+  "AMT.Domain.FlightSchedule" -> "AMT.Domain.Gate" [penwidth=1.5];
+  "AMT.Domain.FlightSchedule" -> "AMT.Domain.Aircraft" [penwidth=1.5];
+  "AMT.Domain.Gate" -> "AMT.Domain.Airport" [penwidth=1.5];
+  "AMT.Domain.Ticket" -> "AMT.Domain.Flight" [penwidth=1.5];
+  "AMT.Infrastructure.Aircraft" -> "AMT.Infrastructure.Airline" [penwidth=1.5];
+  "AMT.Infrastructure.Booking" -> "AMT.Infrastructure.Flight" [penwidth=1.5];
+  "AMT.Infrastructure.Booking" -> "AMT.Infrastructure.Ticket" [penwidth=1.5];
+  "AMT.Infrastructure.Flight" -> "AMT.Infrastructure.Airline" [penwidth=1.5];
+  "AMT.Infrastructure.Flight" -> "AMT.Infrastructure.Airport" [penwidth=1.5];
+  "AMT.Infrastructure.FlightSchedule" -> "AMT.Infrastructure.Flight" [penwidth=1.5];
+  "AMT.Infrastructure.Gate" -> "AMT.Infrastructure.Airport" [penwidth=1.5];
+  "AMT.Infrastructure.Ticket" -> "AMT.Infrastructure.Flight" [penwidth=1.5];
+  "AMT.Infrastructure.AircraftMap" -> "AMT.Infrastructure.AirlineMap" [penwidth=1.5];
+  "AMT.Infrastructure.BookingMap" -> "AMT.Infrastructure.FlightMap" [penwidth=1.5];
+  "AMT.Infrastructure.BookingMap" -> "AMT.Infrastructure.TicketMap" [penwidth=1.5];
+  "AMT.Infrastructure.FlightMap" -> "AMT.Infrastructure.AirlineMap" [penwidth=1.5];
+  "AMT.Infrastructure.FlightMap" -> "AMT.Infrastructure.AirportMap" [penwidth=1.5];
+  "AMT.Infrastructure.FlightMap" -> "AMT.Infrastructure.AircraftMap" [penwidth=1.5];
+  "AMT.Infrastructure.FlightScheduleMap" -> "AMT.Infrastructure.FlightMap" [penwidth=1.5];
+  "AMT.Infrastructure.FlightScheduleMap" -> "AMT.Infrastructure.GateMap" [penwidth=1.5];
+  "AMT.Infrastructure.FlightScheduleMap" -> "AMT.Infrastructure.AircraftMap" [penwidth=1.5];
+  "AMT.Infrastructure.GateMap" -> "AMT.Infrastructure.AirportMap" [penwidth=1.5];
+  "AMT.Infrastructure.TicketMap" -> "AMT.Infrastructure.FlightMap" [penwidth=1.5];
+  "AMT.Infrastructure.AircraftRepository" -> "AMT.Domain.Aircraft" [penwidth=1.5];
+  "AMT.Infrastructure.AircraftRepository" -> "AMT.Infrastructure.AircraftMap" [penwidth=1.5];
+  "AMT.Infrastructure.AirlineRepository" -> "AMT.Infrastructure.AirlineMap" [penwidth=1.5];
+  "AMT.Infrastructure.AirlineRepository" -> "AMT.Domain.Airline" [penwidth=1.5];
+  "AMT.Infrastructure.AirportRepository" -> "AMT.Infrastructure.AirportMap" [penwidth=1.5];
+  "AMT.Infrastructure.AirportRepository" -> "AMT.Domain.Airport" [penwidth=1.5];
+  "AMT.Infrastructure.BookingRepository" -> "AMT.Infrastructure.BookingMap" [penwidth=1.5];
+  "AMT.Infrastructure.BookingRepository" -> "AMT.Domain.Booking" [penwidth=1.5];
+  "AMT.Infrastructure.FlightRepository" -> "AMT.Infrastructure.FlightMap" [penwidth=1.5];
+  "AMT.Infrastructure.FlightRepository" -> "AMT.Domain.Flight" [penwidth=1.5];
+  "AMT.Infrastructure.FlightScheduleRepositroy" -> "AMT.Infrastructure.GenericNotFound" [penwidth=1.5];
+  "AMT.Infrastructure.FlightScheduleRepositroy" -> "AMT.Infrastructure.FlightScheduleMap" [penwidth=1.5];
+  "AMT.Infrastructure.FlightScheduleRepositroy" -> "AMT.Domain.FlightSchedule" [penwidth=1.5];
+  "AMT.Infrastructure.GateRepository" -> "AMT.Infrastructure.GenericNotFound" [penwidth=1.5];
+  "AMT.Infrastructure.GateRepository" -> "AMT.Infrastructure.GateMap" [penwidth=1.5];
+  "AMT.Infrastructure.GateRepository" -> "AMT.Domain.Gate" [penwidth=1.5];
+  "AMT.Infrastructure.TicketRepository" -> "AMT.Infrastructure.GenericNotFound" [penwidth=1.5];
+  "AMT.Infrastructure.TicketRepository" -> "AMT.Infrastructure.TicketMap" [penwidth=1.5];
+  "AMT.Infrastructure.TicketRepository" -> "AMT.Domain.Ticket" [penwidth=1.5];
+  "AMT.Infrastructure.UnitOfWork" -> "AMT.Infrastructure.AirportManagementContext" [penwidth=1.5];
+}

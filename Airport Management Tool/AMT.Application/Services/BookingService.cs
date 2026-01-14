@@ -1,0 +1,209 @@
+using System;
+using System.Data;
+using AMT.Application.Dtos;
+using AMT.Application.Services.Interfaces;
+using AMT.Domain.Models;
+using AMT.Domain.Utils;
+using AMT.Infrastructure.Exceptions;
+using AMT.Infrastructure.Interfaces;
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+
+namespace AMT.Application.Services;
+
+public class BookingService(IUnitOfWork unitOfWork, ILogger logger,IValidator<Booking> validator) : IBookingService
+{
+    public async Task<Result<Booking, Exception>> CancelBooking(CancelBookingRequestDto cancelBookingRequestDto)
+    {
+        var booking = unitOfWork.Bookings.GetByConfirmationCode(cancelBookingRequestDto.ConfirmationCode);
+        if (booking == null)
+        {
+            logger.Warning("Booking with ID {BookingId} not found.", cancelBookingRequestDto.BookingId);
+            return Result<Booking, Exception>.Failure(
+                new List<string> { "Booking not found." },
+                new List<Exception>
+                {
+                new GenericNotFound<Booking,int>(cancelBookingRequestDto.BookingId)
+                },
+                System.Net.HttpStatusCode.NotFound
+            );
+        }
+        if(booking.Id != cancelBookingRequestDto.BookingId)
+        {
+            logger.Warning("Booking ID {BookingId} does not match the confirmation code provided.", cancelBookingRequestDto.BookingId);
+            return Result<Booking, Exception>.Failure(
+                new List<string> { "Booking ID does not match the confirmation code." },
+                new List<Exception>
+                {
+                new UnauthorizedAccessException("Booking ID does not match the confirmation code.")
+                },
+                System.Net.HttpStatusCode.Unauthorized
+            );
+        }
+        if(booking.Status == Booking.BookingStatus.CANCELLED)
+        {
+            logger.Warning("Booking with ID {BookingId} is already cancelled.", cancelBookingRequestDto.BookingId);
+            return Result<Booking, Exception>.Failure(
+                new List<string> { "Booking is already cancelled." },
+                new List<Exception>
+                {
+                new InvalidOperationException("Booking is already cancelled.")
+                },
+                System.Net.HttpStatusCode.BadRequest
+            );
+        }
+        booking.Status = Booking.BookingStatus.CANCELLED;
+        await unitOfWork.SaveChangesAsync();
+        logger.Information("Booking with ID {BookingId} has been cancelled.", cancelBookingRequestDto.BookingId);
+        return Result<Booking, Exception>.Success(booking);
+    }
+
+    public async Task<Result<BookingCreatedDto, Exception>> CreateBookingAsync(CreateBookingDto bookingDto)
+    {
+        logger.Information("Creating booking with data: {@BookingDto}", bookingDto);
+        var flightSchedule = unitOfWork.FlightSchedules.GetById(bookingDto.FlightScheduleId);
+        if (flightSchedule == null)
+        {
+            logger.Warning("Flight schedule with ID {FlightScheduleId} not found.", bookingDto.FlightScheduleId);
+            return Result<BookingCreatedDto, Exception>.Failure(
+                new List<string> { "Flight schedule not found." },
+                new List<Exception>
+                {
+                new GenericNotFound<FlightSchedule,int>(bookingDto.FlightScheduleId)
+                },
+                System.Net.HttpStatusCode.NotFound
+            );
+        }
+        var ticket = unitOfWork.Tickets.GetById(bookingDto.TicketId);
+        if (ticket == null)
+        {
+            logger.Warning("Ticket with ID {TicketId} not found.", bookingDto.TicketId);
+            return Result<BookingCreatedDto, Exception>.Failure(
+                new List<string> { "Ticket not found." },
+                new List<Exception>
+                {
+                new GenericNotFound<Ticket,int>(bookingDto.TicketId)
+                },
+                System.Net.HttpStatusCode.NotFound
+            );
+        }
+
+        var booking = new Booking
+        {
+            Flight = flightSchedule.Flight,
+            Ticket = ticket,
+            PassengerFullName = bookingDto.PassengerFullName,
+            PassengerEmail = bookingDto.PassengerEmail,
+            ConfirmationCode = GenerateConfirmationCode(),
+            Quantity = bookingDto.Quantity,
+            CreatedUtc = DateTime.UtcNow,
+            Status = Booking.BookingStatus.ACTIVE
+        };
+
+        var validationResults = validator.Validate(booking);
+        if (!validationResults.IsValid)
+        {
+            logger.Warning("Booking validation failed: {@Errors}", validationResults.Errors);
+            return Result<BookingCreatedDto, Exception>.Failure(
+                validationResults.Errors.Select(e => e.ErrorMessage).ToList(),
+                validationResults.Errors.Select(e => new Infrastructure.Exceptions.ValidationException(e.ErrorMessage)).ToList<Exception>(),
+                System.Net.HttpStatusCode.BadRequest
+            );
+        }
+        if(unitOfWork.Bookings.ActiveBookingExistsForEmail(bookingDto.PassengerEmail))
+        {
+            logger.Warning("Active booking already exists for email: {PassengerEmail}", bookingDto.PassengerEmail);
+            return Result<BookingCreatedDto, Exception>.Failure(
+                new List<string> { "An active booking already exists for this email." },
+                new List<Exception>
+                {
+                new DuplicateNameException("An active booking already exists for this email.")
+                },
+                System.Net.HttpStatusCode.Conflict
+            );
+        }
+        await unitOfWork.Bookings.AddAsync(booking);
+        ticket.SeatInventory -= bookingDto.Quantity;
+        unitOfWork.Tickets.Update(ticket);
+        await unitOfWork.SaveChangesAsync();
+        logger.Information("Booking created successfully with confirmation code: {ConfirmationCode}", booking.ConfirmationCode);
+        
+        var savedBooking = unitOfWork.Bookings.GetByConfirmationCode(booking.ConfirmationCode);
+        if (savedBooking == null)
+        {
+            logger.Error("Failed to retrieve the newly created booking with ConfirmationCode: {ConfirmationCode}", booking.ConfirmationCode);
+            return Result<BookingCreatedDto, Exception>.Failure(
+                new List<string> { "Failed to retrieve the newly created booking." },
+                new List<Exception>
+                {
+                new Exception("Booking retrieval failed after creation.")
+                },
+                System.Net.HttpStatusCode.InternalServerError
+            );
+        }
+        
+        return Result<BookingCreatedDto, Exception>.Success(new BookingCreatedDto
+        {
+            BookingId = savedBooking.Id,
+            ConfirmationCode = savedBooking.ConfirmationCode
+        });
+    }
+
+    public async Task<Result<string, Exception>> DeleteBookingAsync(int bookingId)
+    {
+        logger.Information("Deleting booking with ID: {BookingId}", bookingId);
+        if(!unitOfWork.Bookings.BookingExists(bookingId))
+        {
+            logger.Warning("Booking with ID {BookingId} not found.", bookingId);
+            return Result<string, Exception>.Failure(
+                new List<string> { "Booking not found." },
+                new List<Exception>
+                {
+                new GenericNotFound<Booking,int>(bookingId)
+                },
+                System.Net.HttpStatusCode.NotFound
+            );
+        }
+        var ticket = unitOfWork.Tickets.GetTicketByBookingId(bookingId);
+        if(ticket != null)
+        {
+            ticket.SeatInventory += unitOfWork.Bookings.GetById(bookingId)!.Quantity;
+            unitOfWork.Tickets.Update(ticket);
+        }
+        unitOfWork.Bookings.Delete(bookingId); //TODO: reset seat inventory on ticket deletion LATER OR NEVER MAI VEDEM 
+        await unitOfWork.SaveChangesAsync();
+        return Result<string, Exception>.Success("Booking deleted successfully.");
+    }
+
+    public Result<IEnumerable<Booking>, Exception> GetAllBookings()
+    {
+        logger.Information("Retrieving all bookings");
+        var bookings = unitOfWork.Bookings.GetAll();
+        return Result<IEnumerable<Booking>, Exception>.Success(bookings);
+    }
+
+    public Result<Booking, Exception> GetBookingByCode(int bookingCode)
+    {
+        logger.Information("Retrieving booking with confirmation code: {BookingCode}", bookingCode);
+        var booking = unitOfWork.Bookings.GetById(bookingCode);
+        if (booking == null)
+        {
+            logger.Warning("Booking with confirmation code {BookingCode} not found.", bookingCode);
+            return Result<Booking, Exception>.Failure(
+                ["Booking not found."],
+                [new GenericNotFound<Booking,int>(bookingCode)],
+                System.Net.HttpStatusCode.NotFound
+            );
+        }
+        return Result<Booking, Exception>.Success(booking);
+    }
+
+    private string GenerateConfirmationCode()
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var random = new Random();
+        return new string(Enumerable.Repeat(chars, 8)
+            .Select(s => s[random.Next(s.Length)]).ToArray());
+    }
+}

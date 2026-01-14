@@ -1,0 +1,277 @@
+2025-12-19 10:18:46.885 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-19 10:18:47.042 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-19 10:18:47.044 +02:00 [INF] Hosting environment: Development
+2025-12-19 10:18:47.045 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-19 15:05:23.692 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-19 15:05:23.745 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-19 15:05:23.746 +02:00 [INF] Hosting environment: Development
+2025-12-19 15:05:23.747 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-19 15:05:32.368 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Failed to generate Operation for action - AMT.Api.Controllers.ScheduleController.BulkCreateSchedules (AMT.Api). See inner exception
+ ---> Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Error reading parameter(s) for action AMT.Api.Controllers.ScheduleController.BulkCreateSchedules (AMT.Api) as [FromForm] attribute used with IFormFile. Please refer to https://github.com/domaindrivendev/Swashbuckle.AspNetCore/tree/master/docs/configure-and-customize-swaggergen.md#handle-forms-and-file-uploads for more information
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateParametersAsync(ApiDescription apiDescription, SchemaRepository schemaRepository, Func`3 parameterGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateParametersAsync(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationAsync(OpenApiDocument document, ApiDescription apiDescription, SchemaRepository schemaRepository, Func`3 parametersGenerator, Func`3 bodyGenerator, Func`3 applyFilters)
+   --- End of inner exception stack trace ---
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationAsync(OpenApiDocument document, ApiDescription apiDescription, SchemaRepository schemaRepository, Func`3 parametersGenerator, Func`3 bodyGenerator, Func`3 applyFilters)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationAsync(OpenApiDocument document, ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-12-19 15:09:17.916 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-19 15:09:17.971 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-19 15:09:17.971 +02:00 [INF] Hosting environment: Development
+2025-12-19 15:09:17.971 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-19 15:09:24.858 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Failed to generate Operation for action - AMT.Api.Controllers.ScheduleController.BulkCreateSchedules (AMT.Api). See inner exception
+ ---> Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Error reading parameter(s) for action AMT.Api.Controllers.ScheduleController.BulkCreateSchedules (AMT.Api) as [FromForm] attribute used with IFormFile. Please refer to https://github.com/domaindrivendev/Swashbuckle.AspNetCore/tree/master/docs/configure-and-customize-swaggergen.md#handle-forms-and-file-uploads for more information
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateParametersAsync(ApiDescription apiDescription, SchemaRepository schemaRepository, Func`3 parameterGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateParametersAsync(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationAsync(OpenApiDocument document, ApiDescription apiDescription, SchemaRepository schemaRepository, Func`3 parametersGenerator, Func`3 bodyGenerator, Func`3 applyFilters)
+   --- End of inner exception stack trace ---
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationAsync(OpenApiDocument document, ApiDescription apiDescription, SchemaRepository schemaRepository, Func`3 parametersGenerator, Func`3 bodyGenerator, Func`3 applyFilters)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationAsync(OpenApiDocument document, ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-12-19 15:15:07.152 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-19 15:15:07.200 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-19 15:15:07.200 +02:00 [INF] Hosting environment: Development
+2025-12-19 15:15:07.200 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-19 15:16:55.041 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-19 16:04:27.470 +02:00 [INF] Creating flight
+2025-12-19 16:04:29.457 +02:00 [INF] Executed DbCommand (243ms) [Parameters=[@__iataCode_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-19 16:04:29.492 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__iataCode_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-19 16:04:29.500 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__iataCode_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-19 16:04:29.502 +02:00 [WRN] Found errors trying to save flight
+2025-12-19 16:04:47.628 +02:00 [INF] Creating flight
+2025-12-19 16:04:47.745 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__iataCode_0='?' (Size = 2) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-19 16:04:47.809 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-19 16:04:47.833 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-19 16:04:47.850 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-19 16:04:48.168 +02:00 [INF] Executed DbCommand (21ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 8), @p4='?' (DbType = Boolean), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Flight] ([AirlineId], [DefaultAircraftId], [DestinationAirportId], [FlightNumber], [IsActive], [OriginAirportId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-19 16:21:04.399 +02:00 [INF] Schedule creation started.
+2025-12-19 16:21:04.500 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-19 16:21:04.503 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-19 16:21:12.109 +02:00 [INF] Schedule creation started.
+2025-12-19 16:21:12.117 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-19 16:21:12.138 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code]
+FROM [Gate] AS [g]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-19 16:21:12.157 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-19 16:21:12.274 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2), @p4='?' (DbType = DateTime2), @p5='?' (Size = 1) (DbType = Byte)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [FlightSchedule] ([AssignedAircraftId], [FlightId], [GateId], [ScheduledArrivalUtc], [ScheduledDepartureUtc], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-19 16:21:12.281 +02:00 [INF] Schedule created successfully.
+2025-12-19 16:22:09.935 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status]
+FROM [FlightSchedule] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-19 16:57:38.020 +02:00 [INF] Executed DbCommand (24ms) [Parameters=[@__departureTimeUtc_Date_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [FlightSchedule] AS [f]
+WHERE CONVERT(date, [f].[ScheduledDepartureUtc]) = @__departureTimeUtc_Date_0
+2025-12-19 16:57:38.042 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__departureTimeUtc_Date_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [FlightSchedule] AS [f]
+WHERE CONVERT(date, [f].[ScheduledDepartureUtc]) = @__departureTimeUtc_Date_0
+2025-12-19 16:57:38.060 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__departureTimeUtc_Date_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [FlightSchedule] AS [f]
+WHERE CONVERT(date, [f].[ScheduledDepartureUtc]) = @__departureTimeUtc_Date_0
+2025-12-19 16:57:38.077 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__departureTimeUtc_Date_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [FlightSchedule] AS [f]
+WHERE CONVERT(date, [f].[ScheduledDepartureUtc]) = @__departureTimeUtc_Date_0
+2025-12-19 16:57:38.097 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__departureTimeUtc_Date_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [FlightSchedule] AS [f]
+WHERE CONVERT(date, [f].[ScheduledDepartureUtc]) = @__departureTimeUtc_Date_0
+2025-12-19 16:57:38.110 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__departureTimeUtc_Date_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [FlightSchedule] AS [f]
+WHERE CONVERT(date, [f].[ScheduledDepartureUtc]) = @__departureTimeUtc_Date_0
+2025-12-19 16:57:38.122 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__departureTimeUtc_Date_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [FlightSchedule] AS [f]
+WHERE CONVERT(date, [f].[ScheduledDepartureUtc]) = @__departureTimeUtc_Date_0
+2025-12-19 17:48:20.534 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-19 17:48:20.581 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-19 17:48:20.581 +02:00 [INF] Hosting environment: Development
+2025-12-19 17:48:20.582 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-19 17:48:29.454 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-19 17:48:29.898 +02:00 [ERR] Error parsing bulk schedule data: JSON deserialization for type 'AMT.Application.Dtos.CreateScheduleDto' was missing required properties including: 'ScheduleDepartureUtc', 'ScheduleArrivalUtc', 'GateCode', 'AssignedAircraftTail'.
+2025-12-19 17:48:29.988 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NotSupportedException: Serialization and deserialization of 'System.Reflection.MethodBase' instances is not supported. Path: $.ImportResults.Exceptions.TargetSite.
+ ---> System.NotSupportedException: Serialization and deserialization of 'System.Reflection.MethodBase' instances is not supported.
+   at System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1.Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.ListOfTConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.DictionaryOfTKeyTValueConverter`3.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonDictionaryConverter`3.OnTryWrite(Utf8JsonWriter writer, TDictionary dictionary, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   --- End of inner exception stack trace ---
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException(WriteStack& state, Exception innerException)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter.WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-12-19 17:50:53.022 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-19 17:50:53.103 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-19 17:50:53.104 +02:00 [INF] Hosting environment: Development
+2025-12-19 17:50:53.104 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-19 17:50:56.150 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-19 17:50:56.524 +02:00 [ERR] Error parsing bulk schedule data: JSON deserialization for type 'AMT.Application.Dtos.CreateScheduleDto' was missing required properties including: 'ScheduleDepartureUtc', 'ScheduleArrivalUtc', 'GateCode', 'AssignedAircraftTail'.
+2025-12-19 17:54:31.846 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-19 17:54:31.999 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-19 17:54:32.002 +02:00 [INF] Hosting environment: Development
+2025-12-19 17:54:32.003 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-19 17:54:51.817 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-19 17:54:52.160 +02:00 [INF] Schedule creation started.
+2025-12-19 17:54:53.597 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-19 17:54:53.738 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code]
+FROM [Gate] AS [g]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-19 17:54:53.776 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-19 17:54:54.120 +02:00 [INF] Executed DbCommand (25ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2), @p4='?' (DbType = DateTime2), @p5='?' (Size = 1) (DbType = Byte)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [FlightSchedule] ([AssignedAircraftId], [FlightId], [GateId], [ScheduledArrivalUtc], [ScheduledDepartureUtc], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-19 17:54:54.160 +02:00 [INF] Schedule created successfully.
+2025-12-19 17:54:54.161 +02:00 [INF] Schedule creation started.
+2025-12-19 17:54:54.171 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-19 17:54:54.179 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code]
+FROM [Gate] AS [g]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-19 17:54:54.188 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-19 17:54:54.196 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-19 17:54:54.196 +02:00 [INF] Schedule creation started.
+2025-12-19 17:54:54.205 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-19 17:54:54.213 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code]
+FROM [Gate] AS [g]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-19 17:54:54.221 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-19 17:54:54.240 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2), @p4='?' (DbType = DateTime2), @p5='?' (Size = 1) (DbType = Byte)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [FlightSchedule] ([AssignedAircraftId], [FlightId], [GateId], [ScheduledArrivalUtc], [ScheduledDepartureUtc], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-19 17:54:54.242 +02:00 [INF] Schedule created successfully.
+2025-12-19 17:54:54.242 +02:00 [INF] Schedule creation started.
+2025-12-19 17:54:54.249 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__id_0
+2025-12-19 17:54:54.257 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code]
+FROM [Gate] AS [g]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-19 17:54:54.265 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-19 17:54:54.266 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-19 17:54:54.267 +02:00 [INF] Bulk schedule import completed.

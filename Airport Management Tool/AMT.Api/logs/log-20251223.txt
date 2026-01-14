@@ -1,0 +1,1851 @@
+2025-12-23 09:44:44.520 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 09:44:44.561 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 09:44:44.561 +02:00 [INF] Hosting environment: Development
+2025-12-23 09:44:44.561 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 09:44:57.818 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 09:45:01.586 +02:00 [INF] Executed DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+2025-12-23 09:45:11.203 +02:00 [INF] Executed DbCommand (238ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__p_0
+2025-12-23 09:45:11.359 +02:00 [INF] Executed DbCommand (43ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [Flight]
+OUTPUT 1
+WHERE [Id] = @p0;
+2025-12-23 09:45:11.396 +02:00 [ERR] An exception occurred in the database while saving changes for context type 'AMT.Infrastructure.Data.AirportManagementContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:dccbbe0e-818e-4930-a421-14a31fc944f3
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:dccbbe0e-818e-4930-a421-14a31fc944f3
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-12-23 09:50:58.000 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 09:50:58.079 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 09:50:58.080 +02:00 [INF] Hosting environment: Development
+2025-12-23 09:50:58.080 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 09:52:53.470 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 09:52:55.142 +02:00 [INF] Executed DbCommand (43ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__p_0
+2025-12-23 09:52:55.444 +02:00 [INF] Executed DbCommand (20ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [Flight]
+OUTPUT 1
+WHERE [Id] = @p0;
+2025-12-23 09:52:55.478 +02:00 [ERR] An exception occurred in the database while saving changes for context type 'AMT.Infrastructure.Data.AirportManagementContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:23fb5183-f9a4-4e4b-953e-6fcb5b1426be
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:23fb5183-f9a4-4e4b-953e-6fcb5b1426be
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-12-23 10:00:57.728 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 10:00:57.768 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 10:00:57.768 +02:00 [INF] Hosting environment: Development
+2025-12-23 10:00:57.768 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 10:01:04.060 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 10:01:08.348 +02:00 [INF] Executed DbCommand (296ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__p_0
+2025-12-23 10:01:08.635 +02:00 [INF] Executed DbCommand (25ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [Flight]
+OUTPUT 1
+WHERE [Id] = @p0;
+2025-12-23 10:01:08.677 +02:00 [ERR] An exception occurred in the database while saving changes for context type 'AMT.Infrastructure.Data.AirportManagementContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:081ed93d-f04f-47ad-a68f-1bc80429c028
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:081ed93d-f04f-47ad-a68f-1bc80429c028
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-12-23 10:20:37.582 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 10:20:37.671 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 10:20:37.672 +02:00 [INF] Hosting environment: Development
+2025-12-23 10:20:37.673 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 10:20:58.276 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 10:20:58.925 +02:00 [INF] Schedule creation started.
+2025-12-23 10:21:01.195 +02:00 [INF] Executed DbCommand (66ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 10:21:01.462 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 10:21:01.498 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 10:21:01.572 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 10:21:01.575 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-19T00:00:00.0000000Z" or "2025-12-20T00:00:00.0000000Z".
+2025-12-23 10:21:01.584 +02:00 [INF] Schedule creation started.
+2025-12-23 10:21:01.595 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 10:21:01.605 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 10:21:01.614 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 10:21:01.624 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-23 10:21:01.625 +02:00 [INF] Schedule creation started.
+2025-12-23 10:21:01.633 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 10:21:01.642 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 10:21:01.651 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 10:21:01.662 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 10:21:01.670 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 10:21:01.697 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[@__departureTimeUtc_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[ScheduledDepartureUtc] <= @__departureTimeUtc_0 AND [f].[ScheduledArrivalUtc] >= @__departureTimeUtc_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 10:21:02.023 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2), @p4='?' (DbType = DateTime2), @p5='?' (Size = 1) (DbType = Byte)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [FlightSchedule] ([AssignedAircraftId], [FlightId], [GateId], [ScheduledArrivalUtc], [ScheduledDepartureUtc], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-23 10:21:02.071 +02:00 [INF] Schedule created successfully.
+2025-12-23 10:21:02.071 +02:00 [INF] Schedule creation started.
+2025-12-23 10:21:02.080 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 10:21:02.088 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 10:21:02.098 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 10:21:02.100 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-23 10:21:02.100 +02:00 [INF] Bulk schedule import completed.
+2025-12-23 10:21:44.403 +02:00 [ERR] Error parsing bulk schedule data: The JSON value could not be converted to System.Collections.Generic.List`1[AMT.Application.Dtos.CreateScheduleDto]. Path: $ | LineNumber: 0 | BytePositionInLine: 1.
+2025-12-23 10:33:48.025 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 10:33:48.082 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 10:33:48.083 +02:00 [INF] Hosting environment: Development
+2025-12-23 10:33:48.083 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 10:33:54.352 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 10:33:57.097 +02:00 [INF] Executed DbCommand (45ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__p_0
+2025-12-23 10:33:57.376 +02:00 [INF] Executed DbCommand (22ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [Flight]
+OUTPUT 1
+WHERE [Id] = @p0;
+2025-12-23 10:33:57.415 +02:00 [ERR] An exception occurred in the database while saving changes for context type 'AMT.Infrastructure.Data.AirportManagementContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:9f96a9c6-c47c-44e5-bff5-79c0e6a0a512
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:9f96a9c6-c47c-44e5-bff5-79c0e6a0a512
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-12-23 10:35:24.569 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 10:35:24.646 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 10:35:24.685 +02:00 [INF] Hosting environment: Development
+2025-12-23 10:35:24.724 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 10:35:28.256 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 10:35:30.703 +02:00 [INF] Executed DbCommand (40ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__p_0
+2025-12-23 10:35:31.096 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [Flight]
+OUTPUT 1
+WHERE [Id] = @p0;
+2025-12-23 10:35:31.150 +02:00 [ERR] An exception occurred in the database while saving changes for context type 'AMT.Infrastructure.Data.AirportManagementContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:348ab706-e236-4abe-885e-cd1265d5ec60
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:348ab706-e236-4abe-885e-cd1265d5ec60
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-12-23 10:35:31.193 +02:00 [ERR] An unhandled exception occurred while processing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:348ab706-e236-4abe-885e-cd1265d5ec60
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at AMT.Application.Services.FlightService.DeleteFlightAsync(Int32 flightId) in c:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Application\Services\FlightService.cs:line 46
+   at AMT.Api.Controllers.FlightsController.DeleteFligt(Int32 flightId) in C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api\Controllers\FlightsController.cs:line 70
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AMT.Infrastructure.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Infrastructure\Middlewares\ExceptionHandlingMiddleware.cs:line 23
+2025-12-23 10:35:55.302 +02:00 [INF] Application is shutting down...
+2025-12-23 10:53:18.400 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 10:53:18.475 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 10:53:18.476 +02:00 [INF] Hosting environment: Development
+2025-12-23 10:53:18.476 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 10:53:22.873 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 10:53:29.495 +02:00 [INF] Executed DbCommand (459ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__p_0
+2025-12-23 10:53:29.862 +02:00 [INF] Executed DbCommand (31ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [Flight]
+OUTPUT 1
+WHERE [Id] = @p0;
+2025-12-23 10:53:29.914 +02:00 [ERR] An exception occurred in the database while saving changes for context type 'AMT.Infrastructure.Data.AirportManagementContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:758186d6-8551-48f3-8eef-77156d2055a0
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:758186d6-8551-48f3-8eef-77156d2055a0
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-12-23 10:53:30.150 +02:00 [ERR] Cannot delete flight as it is referenced by other records.
+2025-12-23 10:53:30.189 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__flightId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status]
+FROM [FlightSchedule] AS [f]
+WHERE [f].[FlightId] = @__flightId_0
+2025-12-23 10:53:30.283 +02:00 [INF] Executed DbCommand (12ms) [Parameters=[@__flightId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice]
+FROM [Ticket] AS [t]
+WHERE [t].[FlightId] = @__flightId_0
+2025-12-23 10:53:30.352 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__flightId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[ConfirmationCode]
+FROM [Booking] AS [b]
+WHERE [b].[FlightId] = @__flightId_0
+2025-12-23 13:44:14.078 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 13:44:14.127 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 13:44:14.127 +02:00 [INF] Hosting environment: Development
+2025-12-23 13:44:14.127 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 13:44:20.009 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 13:44:24.255 +02:00 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+2025-12-23 13:44:30.141 +02:00 [INF] Executed DbCommand (333ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber], [a0].[Id], [a0].[IATACode], [a0].[Name]
+FROM [Aircraft] AS [a]
+INNER JOIN [Airline] AS [a0] ON [a].[OwnedByAirlineId] = [a0].[Id]
+WHERE [a].[Id] = @__id_0
+2025-12-23 13:45:39.164 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Flight] AS [f]
+WHERE [f].[Id] = @__p_0
+2025-12-23 13:45:39.407 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [Flight]
+OUTPUT 1
+WHERE [Id] = @p0;
+2025-12-23 13:45:39.456 +02:00 [ERR] An exception occurred in the database while saving changes for context type 'AMT.Infrastructure.Data.AirportManagementContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:6c3e0d5a-f3ca-4596-8330-83b5f5224831
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK__Ticket__FlightId__4AB81AF0". The conflict occurred in database "AirportManagement", table "dbo.Ticket", column 'FlightId'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:6c3e0d5a-f3ca-4596-8330-83b5f5224831
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-12-23 13:45:39.680 +02:00 [ERR] Cannot delete flight as it is referenced by other records.
+2025-12-23 13:45:39.701 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__flightId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status]
+FROM [FlightSchedule] AS [f]
+WHERE [f].[FlightId] = @__flightId_0
+2025-12-23 13:45:39.738 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__flightId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice]
+FROM [Ticket] AS [t]
+WHERE [t].[FlightId] = @__flightId_0
+2025-12-23 13:45:39.798 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__flightId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[ConfirmationCode]
+FROM [Booking] AS [b]
+WHERE [b].[FlightId] = @__flightId_0
+2025-12-23 13:45:39.824 +02:00 [ERR]    at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at AMT.Application.Services.FlightService.DeleteFlightAsync(Int32 flightId) in c:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Application\Services\FlightService.cs:line 46
+2025-12-23 13:46:03.650 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status]
+FROM [FlightSchedule] AS [f]
+2025-12-23 13:48:09.672 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 13:48:09.751 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 13:48:09.751 +02:00 [INF] Hosting environment: Development
+2025-12-23 13:48:09.751 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 13:48:14.707 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 13:48:16.890 +02:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+2025-12-23 13:48:34.082 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 13:48:34.145 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 13:48:34.146 +02:00 [INF] Hosting environment: Development
+2025-12-23 13:48:34.146 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 13:48:42.110 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 13:48:44.830 +02:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+2025-12-23 13:53:56.817 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 13:53:56.869 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 13:53:56.869 +02:00 [INF] Hosting environment: Development
+2025-12-23 13:53:56.869 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 13:54:25.539 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 13:54:27.238 +02:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+2025-12-23 13:56:06.110 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 13:56:06.150 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 13:56:06.150 +02:00 [INF] Hosting environment: Development
+2025-12-23 13:56:06.150 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 13:56:20.471 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 13:56:22.757 +02:00 [INF] Executed DbCommand (31ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [g].[Id], [g].[AirportId], [g].[Code], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+INNER JOIN [Airport] AS [a] ON [f0].[OriginAirportId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f0].[DestinationAirportId] = [a0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Airport] AS [a1] ON [g].[AirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[AssignedAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+2025-12-23 15:22:23.888 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 15:22:23.968 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 15:22:23.969 +02:00 [INF] Hosting environment: Development
+2025-12-23 15:22:23.969 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 15:23:14.319 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 15:23:17.681 +02:00 [INF] Executed DbCommand (34ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+2025-12-23 15:23:17.783 +02:00 [INF] Retrieved all airlines, count: 3
+2025-12-23 15:23:17.814 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+2025-12-23 15:23:40.177 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+2025-12-23 15:23:40.220 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+2025-12-23 15:24:13.749 +02:00 [INF] Creating flight
+2025-12-23 15:24:14.373 +02:00 [INF] Executed DbCommand (70ms) [Parameters=[@__iataCode_0='?' (Size = 2) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-23 15:24:14.432 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-23 15:24:14.473 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-23 15:24:14.541 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:24:14.784 +02:00 [INF] Executed DbCommand (22ms) [Parameters=[@__flightNumber_0='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Flight] AS [f]
+        WHERE [f].[FlightNumber] = @__flightNumber_0 AND ([f].[IsActive] IS NULL OR [f].[IsActive] = CAST(1 AS bit))) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:24:15.191 +02:00 [INF] Executed DbCommand (55ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 8), @p4='?' (DbType = Boolean), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Flight] ([AirlineId], [DefaultAircraftId], [DestinationAirportId], [FlightNumber], [IsActive], [OriginAirportId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-23 15:27:44.779 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 15:27:44.828 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 15:27:44.829 +02:00 [INF] Hosting environment: Development
+2025-12-23 15:27:44.829 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 15:27:49.177 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 15:27:49.837 +02:00 [INF] Creating flight
+2025-12-23 15:27:52.079 +02:00 [INF] Executed DbCommand (37ms) [Parameters=[@__iataCode_0='?' (Size = 2) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-23 15:27:52.181 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-23 15:27:52.208 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-23 15:27:52.221 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:27:52.359 +02:00 [INF] Executed DbCommand (42ms) [Parameters=[@__flightNumber_0='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Flight] AS [f]
+        WHERE [f].[FlightNumber] = @__flightNumber_0 AND ([f].[IsActive] IS NULL OR [f].[IsActive] = CAST(1 AS bit))) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:27:52.363 +02:00 [WRN] Flight with the same flight number already exists
+2025-12-23 15:28:02.840 +02:00 [INF] Creating flight
+2025-12-23 15:28:02.924 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__iataCode_0='?' (Size = 2) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-23 15:28:02.943 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-23 15:28:02.959 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__iataCode_0='?' (Size = 3) (DbType = StringFixedLength)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Airport] AS [a]
+WHERE [a].[IATACode] = @__iataCode_0
+2025-12-23 15:28:02.973 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:28:02.989 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__flightNumber_0='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Flight] AS [f]
+        WHERE [f].[FlightNumber] = @__flightNumber_0 AND ([f].[IsActive] IS NULL OR [f].[IsActive] = CAST(1 AS bit))) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:28:03.378 +02:00 [INF] Executed DbCommand (68ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 8), @p4='?' (DbType = Boolean), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Flight] ([AirlineId], [DefaultAircraftId], [DestinationAirportId], [FlightNumber], [IsActive], [OriginAirportId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-23 15:28:03.686 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[@__flightNumber_0='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[FlightNumber] = @__flightNumber_0
+2025-12-23 15:31:33.783 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [g].[Id], [g].[AirportId], [g].[Code], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+INNER JOIN [Airport] AS [a] ON [f0].[OriginAirportId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f0].[DestinationAirportId] = [a0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Airport] AS [a1] ON [g].[AirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[AssignedAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+2025-12-23 15:32:42.720 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+2025-12-23 15:33:02.976 +02:00 [INF] Schedule creation started.
+2025-12-23 15:33:03.072 +02:00 [INF] Executed DbCommand (48ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:33:03.118 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:33:03.140 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:33:03.188 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:33:03.196 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-19T00:00:00.0000000Z" or "2025-12-20T00:00:00.0000000Z".
+2025-12-23 15:40:29.774 +02:00 [INF] Schedule creation started.
+2025-12-23 15:40:29.801 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:40:29.815 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:40:29.826 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:40:29.838 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:40:29.839 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-19T00:00:00.0000000Z" or "2025-12-20T00:00:00.0000000Z".
+2025-12-23 15:40:29.841 +02:00 [INF] Schedule creation started.
+2025-12-23 15:40:29.849 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:40:29.861 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:40:29.868 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:40:29.876 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-23 15:40:29.877 +02:00 [INF] Schedule creation started.
+2025-12-23 15:40:29.884 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:40:29.897 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:40:29.908 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:40:29.916 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:40:29.917 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-21T00:00:00.0000000Z" or "2025-12-22T00:00:00.0000000Z".
+2025-12-23 15:40:29.917 +02:00 [INF] Schedule creation started.
+2025-12-23 15:40:29.929 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:40:29.938 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:40:29.947 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:40:29.948 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-23 15:40:29.949 +02:00 [INF] Bulk schedule import completed.
+2025-12-23 15:40:51.723 +02:00 [INF] Schedule creation started.
+2025-12-23 15:40:51.747 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:40:51.764 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:40:51.783 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:40:51.802 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:40:51.804 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-19T00:00:00.0000000Z" or "2025-12-20T00:00:00.0000000Z".
+2025-12-23 15:40:51.804 +02:00 [INF] Schedule creation started.
+2025-12-23 15:40:51.829 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:40:51.847 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:40:51.857 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:40:51.858 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-23 15:40:51.858 +02:00 [INF] Schedule creation started.
+2025-12-23 15:40:51.874 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:40:51.885 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:40:51.895 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:40:51.906 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:40:51.907 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-21T00:00:00.0000000Z" or "2025-12-22T00:00:00.0000000Z".
+2025-12-23 15:40:51.907 +02:00 [INF] Schedule creation started.
+2025-12-23 15:40:51.917 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:40:51.926 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:40:51.942 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:40:51.955 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:40:51.974 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:40:52.001 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__departureTimeUtc_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] <= @__departureTimeUtc_1 AND [f].[ScheduledArrivalUtc] >= @__departureTimeUtc_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:40:52.115 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2), @p4='?' (DbType = DateTime2), @p5='?' (Size = 1) (DbType = Byte)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [FlightSchedule] ([AssignedAircraftId], [FlightId], [GateId], [ScheduledArrivalUtc], [ScheduledDepartureUtc], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-23 15:40:52.127 +02:00 [INF] Schedule created successfully.
+2025-12-23 15:40:52.127 +02:00 [INF] Bulk schedule import completed.
+2025-12-23 15:41:54.948 +02:00 [INF] Schedule creation started.
+2025-12-23 15:41:55.021 +02:00 [INF] Executed DbCommand (26ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:41:55.072 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:41:55.119 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:41:55.150 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:41:55.153 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-19T00:00:00.0000000Z" or "2025-12-20T00:00:00.0000000Z".
+2025-12-23 15:41:55.154 +02:00 [INF] Schedule creation started.
+2025-12-23 15:41:55.186 +02:00 [INF] Executed DbCommand (12ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:41:55.209 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:41:55.222 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:41:55.223 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-23 15:41:55.224 +02:00 [INF] Schedule creation started.
+2025-12-23 15:41:55.256 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:41:55.285 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:41:55.306 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:41:55.326 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:41:55.328 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-21T00:00:00.0000000Z" or "2025-12-22T00:00:00.0000000Z".
+2025-12-23 15:41:55.328 +02:00 [INF] Schedule creation started.
+2025-12-23 15:41:55.358 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:41:55.381 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:41:55.396 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:41:55.416 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:41:55.417 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-25T00:00:00.0000000Z" or "2025-12-26T00:00:00.0000000Z".
+2025-12-23 15:41:55.417 +02:00 [INF] Bulk schedule import completed.
+2025-12-23 15:42:37.758 +02:00 [INF] Schedule creation started.
+2025-12-23 15:42:37.789 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:42:37.819 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:42:37.859 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:42:37.888 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:42:37.890 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-19T00:00:00.0000000Z" or "2025-12-20T00:00:00.0000000Z".
+2025-12-23 15:42:37.890 +02:00 [INF] Schedule creation started.
+2025-12-23 15:42:37.914 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:42:37.935 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:42:37.949 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:42:37.950 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-23 15:42:37.951 +02:00 [INF] Schedule creation started.
+2025-12-23 15:42:37.966 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:42:37.977 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:42:37.986 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:42:38.002 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:42:38.003 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-21T00:00:00.0000000Z" or "2025-12-22T00:00:00.0000000Z".
+2025-12-23 15:42:38.003 +02:00 [INF] Schedule creation started.
+2025-12-23 15:42:38.014 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:42:38.024 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:42:38.037 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:42:38.048 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:42:38.060 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:42:38.074 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__departureTimeUtc_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] <= @__departureTimeUtc_1 AND [f].[ScheduledArrivalUtc] >= @__departureTimeUtc_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:42:38.139 +02:00 [INF] Executed DbCommand (46ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2), @p4='?' (DbType = DateTime2), @p5='?' (Size = 1) (DbType = Byte)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [FlightSchedule] ([AssignedAircraftId], [FlightId], [GateId], [ScheduledArrivalUtc], [ScheduledDepartureUtc], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-23 15:42:38.140 +02:00 [INF] Schedule created successfully.
+2025-12-23 15:42:38.141 +02:00 [INF] Bulk schedule import completed.
+2025-12-23 15:43:22.211 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 15:43:22.269 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 15:43:22.270 +02:00 [INF] Hosting environment: Development
+2025-12-23 15:43:22.270 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 15:43:36.683 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 15:43:45.955 +02:00 [INF] Schedule creation started.
+2025-12-23 15:43:48.495 +02:00 [INF] Executed DbCommand (38ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:43:48.695 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:43:48.720 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:43:48.758 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:43:48.761 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-19T00:00:00.0000000Z" or "2025-12-20T00:00:00.0000000Z".
+2025-12-23 15:43:48.766 +02:00 [INF] Schedule creation started.
+2025-12-23 15:43:48.778 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:43:48.785 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:43:48.792 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:43:48.797 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-23 15:43:48.798 +02:00 [INF] Schedule creation started.
+2025-12-23 15:43:48.805 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:43:48.815 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:43:48.821 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:43:48.828 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:43:48.829 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-21T00:00:00.0000000Z" or "2025-12-22T00:00:00.0000000Z".
+2025-12-23 15:43:48.829 +02:00 [INF] Schedule creation started.
+2025-12-23 15:43:48.835 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:43:48.846 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:43:48.857 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:43:48.864 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:43:48.872 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:43:48.888 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__departureTimeUtc_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] <= @__departureTimeUtc_1 AND [f].[ScheduledArrivalUtc] >= @__departureTimeUtc_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:43:49.249 +02:00 [INF] Executed DbCommand (23ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2), @p4='?' (DbType = DateTime2), @p5='?' (Size = 1) (DbType = Byte)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [FlightSchedule] ([AssignedAircraftId], [FlightId], [GateId], [ScheduledArrivalUtc], [ScheduledDepartureUtc], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-23 15:43:49.295 +02:00 [INF] Schedule created successfully.
+2025-12-23 15:43:49.296 +02:00 [INF] Bulk schedule import completed.
+2025-12-23 15:46:31.146 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 15:46:31.214 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 15:46:31.214 +02:00 [INF] Hosting environment: Development
+2025-12-23 15:46:31.214 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 15:46:38.350 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 15:46:39.208 +02:00 [INF] Schedule creation started.
+2025-12-23 15:46:41.396 +02:00 [INF] Executed DbCommand (60ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:46:41.639 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:46:41.687 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:46:41.790 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:46:41.796 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-19T00:00:00.0000000Z" or "2025-12-20T00:00:00.0000000Z".
+2025-12-23 15:46:41.808 +02:00 [INF] Schedule creation started.
+2025-12-23 15:46:41.834 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:46:41.848 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:46:41.862 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:46:41.870 +02:00 [WRN] Found errors trying to save schedule.
+2025-12-23 15:46:41.871 +02:00 [INF] Schedule creation started.
+2025-12-23 15:46:41.880 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:46:41.900 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:46:41.914 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:46:41.928 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:46:41.930 +02:00 [WRN] Schedule conflict detected for gate 1 at time "2025-12-21T00:00:00.0000000Z" or "2025-12-22T00:00:00.0000000Z".
+2025-12-23 15:46:41.930 +02:00 [INF] Schedule creation started.
+2025-12-23 15:46:41.941 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Flight] AS [f]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:46:41.952 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateCode_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone]
+FROM [Gate] AS [g]
+INNER JOIN [Airport] AS [a] ON [g].[AirportId] = [a].[Id]
+WHERE [g].[Code] = @__gateCode_0
+2025-12-23 15:46:41.965 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tailNumber_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
+WHERE [a].[TailNumber] = @__tailNumber_0
+2025-12-23 15:46:41.980 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:46:42.001 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__time_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] = @__time_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:46:42.035 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__gateId_0='?' (DbType = Int32), @__departureTimeUtc_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FlightSchedule] AS [f]
+        WHERE [f].[GateId] = @__gateId_0 AND [f].[ScheduledDepartureUtc] <= @__departureTimeUtc_1 AND [f].[ScheduledArrivalUtc] >= @__departureTimeUtc_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:46:42.430 +02:00 [INF] Executed DbCommand (23ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2), @p4='?' (DbType = DateTime2), @p5='?' (Size = 1) (DbType = Byte)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [FlightSchedule] ([AssignedAircraftId], [FlightId], [GateId], [ScheduledArrivalUtc], [ScheduledDepartureUtc], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-23 15:46:42.475 +02:00 [INF] Schedule created successfully.
+2025-12-23 15:46:42.476 +02:00 [INF] Bulk schedule import completed.
+2025-12-23 15:49:58.849 +02:00 [INF] Executed DbCommand (42ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice]
+FROM [Ticket] AS [t]
+2025-12-23 15:50:53.433 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Auras P.","PassengerEmail":"aurasauras","Quantity":90,"$type":"CreateBookingDto"}
+2025-12-23 15:50:53.647 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:50:53.722 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Ticket] AS [t]
+INNER JOIN [Flight] AS [f] ON [t].[FlightId] = [f].[Id]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [t].[Id] = @__id_0
+2025-12-23 15:50:53.759 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__email_0='?' (Size = 120)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Booking] AS [b]
+        WHERE [b].[PassagerEmail] = @__email_0 AND [b].[Status] = CAST(0 AS tinyint)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-12-23 15:50:53.893 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[@p0='?' (Size = 8), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Int32), @p3='?' (Size = 120), @p4='?' (Size = 120), @p5='?' (DbType = Int32), @p6='?' (Size = 1) (DbType = Byte), @p7='?' (DbType = Int32), @p9='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Booking] ([ConfirmationCode], [CreatedUtc], [FlightId], [PassagerEmail], [PassagerFullName], [Quantity], [Status], [TicketId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+UPDATE [Ticket] SET [SeatInventory] = @p8
+OUTPUT INSERTED.[TotalPrice]
+WHERE [Id] = @p9;
+2025-12-23 15:50:53.924 +02:00 [INF] Booking created successfully with confirmation code: L0UQ7OHO
+2025-12-23 15:50:53.957 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[ConfirmationCode], [b].[CreatedUtc], [b].[FlightId], [b].[PassagerEmail], [b].[PassagerFullName], [b].[Quantity], [b].[Status], [b].[TicketId], [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId]
+FROM [Booking] AS [b]
+INNER JOIN [Ticket] AS [t] ON [b].[TicketId] = [t].[Id]
+INNER JOIN [Flight] AS [f] ON [b].[FlightId] = [f].[Id]
+2025-12-23 15:51:23.287 +02:00 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice]
+FROM [Ticket] AS [t]
+2025-12-23 15:51:32.545 +02:00 [INF] Creating booking with data: {"FlightScheduleId":1,"TicketId":2,"PassengerFullName":"Auras P.","PassengerEmail":"auras@auras.com","Quantity":900,"$type":"CreateBookingDto"}
+2025-12-23 15:51:32.559 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [g].[Id], [g].[AirportId], [g].[Code], [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Aircraft] AS [a] ON [f].[AssignedAircraftId] = [a].[Id]
+WHERE [f].[Id] = @__id_0
+2025-12-23 15:51:32.588 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[BasePrice], [t].[Currency], [t].[FareClass], [t].[FlightId], [t].[IsRefundable], [t].[SeatInventory], [t].[Taxes], [t].[TotalPrice], [f].[Id], [f].[AirlineId], [f].[DefaultAircraftId], [f].[DestinationAirportId], [f].[FlightNumber], [f].[IsActive], [f].[OriginAirportId], [a].[Id], [a].[IATACode], [a].[Name], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [Ticket] AS [t]
+INNER JOIN [Flight] AS [f] ON [t].[FlightId] = [f].[Id]
+INNER JOIN [Airline] AS [a] ON [f].[AirlineId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f].[OriginAirportId] = [a0].[Id]
+INNER JOIN [Airport] AS [a1] ON [f].[DestinationAirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[DefaultAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+WHERE [t].[Id] = @__id_0
+2025-12-23 15:51:32.596 +02:00 [WRN] Booking validation failed: [{"PropertyName":"","ErrorMessage":"The requested quantity exceeds the available seat inventory.","AttemptedValue":{"Id":0,"Flight":{"Id":5,"Airline":{"Id":1,"Iatacode":"","Name":"","$type":"Airline"},"FlightNumber":"110X","OriginAirport":{"Id":1,"IATACode":"","Name":"","City":"","Country":"","Timezone":"","$type":"Airport"},"DestinationAirport":{"Id":2,"IATACode":"","Name":"","City":"","Country":"","Timezone":"","$type":"Airport"},"DefaultAircraft":{"Id":1,"TailNumber":"N12345","Model":"Boeing 737","SeatCapacity":160,"OwnedByAirline":{"Id":1,"Iatacode":"","Name":"","$type":"Airline"},"$type":"Aircraft"},"IsActive":true,"$type":"Flight"},"Ticket":{"Id":2,"Flight":{"Id":5,"Airline":{"Id":1,"Iatacode":"DL","Name":"Delta Air Lines","$type":"Airline"},"FlightNumber":"110X","OriginAirport":{"Id":1,"IATACode":"JFK","Name":"John F. Kennedy International Airport","City":"New York","Country":"USA","Timezone":"America/New_York","$type":"Airport"},"DestinationAirport":{"Id":2,"IATACode":"LAX","Name":"Los Angeles International Airport","City":"Los Angeles","Country":"USA","Timezone":"America/Los_Angeles","$type":"Airport"},"DefaultAircraft":{"Id":1,"TailNumber":"N12345","Model":"Boeing 737","SeatCapacity":160,"OwnedByAirline":{"Id":1,"Iatacode":"DL","Name":"Delta Air Lines","$type":"Airline"},"$type":"Aircraft"},"IsActive":true,"$type":"Flight"},"FareClass":"J","BasePrice":100.00,"Taxes":200.00,"Currency":"JJA","IsRefundable":false,"SeatInventory":800,"$type":"Ticket"},"PassengerFullName":"Auras P.","PassengerEmail":"auras@auras.com","ConfirmationCode":"UHEF4TIU","Quantity":900,"CreatedUtc":"2025-12-23T13:51:32.5932771Z","Status":"ACTIVE","$type":"Booking"},"CustomState":null,"Severity":"Error","ErrorCode":"PredicateValidator","FormattedMessagePlaceholderValues":{"PropertyName":null,"PropertyValue":{"Id":0,"Flight":{"Id":5,"Airline":{"Id":1,"Iatacode":"","Name":"","$type":"Airline"},"FlightNumber":"110X","OriginAirport":{"Id":1,"IATACode":"","Name":"","City":"","Country":"","Timezone":"","$type":"Airport"},"DestinationAirport":{"Id":2,"IATACode":"","Name":"","City":"","Country":"","Timezone":"","$type":"Airport"},"DefaultAircraft":{"Id":1,"TailNumber":"N12345","Model":"Boeing 737","SeatCapacity":160,"OwnedByAirline":{"Id":1,"Iatacode":"","Name":"","$type":"Airline"},"$type":"Aircraft"},"IsActive":true,"$type":"Flight"},"Ticket":{"Id":2,"Flight":{"Id":5,"Airline":{"Id":1,"Iatacode":"DL","Name":"Delta Air Lines","$type":"Airline"},"FlightNumber":"110X","OriginAirport":{"Id":1,"IATACode":"JFK","Name":"John F. Kennedy International Airport","City":"New York","Country":"USA","Timezone":"America/New_York","$type":"Airport"},"DestinationAirport":{"Id":2,"IATACode":"LAX","Name":"Los Angeles International Airport","City":"Los Angeles","Country":"USA","Timezone":"America/Los_Angeles","$type":"Airport"},"DefaultAircraft":{"Id":1,"TailNumber":"N12345","Model":"Boeing 737","SeatCapacity":160,"OwnedByAirline":{"Id":1,"Iatacode":"DL","Name":"Delta Air Lines","$type":"Airline"},"$type":"Aircraft"},"IsActive":true,"$type":"Flight"},"FareClass":"J","BasePrice":100.00,"Taxes":200.00,"Currency":"JJA","IsRefundable":false,"SeatInventory":800,"$type":"Ticket"},"PassengerFullName":"Auras P.","PassengerEmail":"auras@auras.com","ConfirmationCode":"UHEF4TIU","Quantity":900,"CreatedUtc":"2025-12-23T13:51:32.5932771Z","Status":"ACTIVE","$type":"Booking"},"PropertyPath":""},"$type":"ValidationFailure"}]
+2025-12-23 15:52:36.740 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[AssignedAircraftId], [f].[FlightId], [f].[GateId], [f].[ScheduledArrivalUtc], [f].[ScheduledDepartureUtc], [f].[Status], [f0].[Id], [f0].[AirlineId], [f0].[DefaultAircraftId], [f0].[DestinationAirportId], [f0].[FlightNumber], [f0].[IsActive], [f0].[OriginAirportId], [a].[Id], [a].[City], [a].[Country], [a].[IATACode], [a].[Name], [a].[Timezone], [a0].[Id], [a0].[City], [a0].[Country], [a0].[IATACode], [a0].[Name], [a0].[Timezone], [g].[Id], [g].[AirportId], [g].[Code], [a1].[Id], [a1].[City], [a1].[Country], [a1].[IATACode], [a1].[Name], [a1].[Timezone], [a2].[Id], [a2].[Model], [a2].[OwnedByAirlineId], [a2].[SeatCapacity], [a2].[TailNumber], [a3].[Id], [a3].[IATACode], [a3].[Name]
+FROM [FlightSchedule] AS [f]
+INNER JOIN [Flight] AS [f0] ON [f].[FlightId] = [f0].[Id]
+INNER JOIN [Airport] AS [a] ON [f0].[OriginAirportId] = [a].[Id]
+INNER JOIN [Airport] AS [a0] ON [f0].[DestinationAirportId] = [a0].[Id]
+LEFT JOIN [Gate] AS [g] ON [f].[GateId] = [g].[Id]
+LEFT JOIN [Airport] AS [a1] ON [g].[AirportId] = [a1].[Id]
+LEFT JOIN [Aircraft] AS [a2] ON [f].[AssignedAircraftId] = [a2].[Id]
+LEFT JOIN [Airline] AS [a3] ON [a2].[OwnedByAirlineId] = [a3].[Id]
+2025-12-23 15:53:05.099 +02:00 [ERR] An unhandled exception occurred while processing the request.
+System.InvalidOperationException: The LINQ expression 'DbSet<FlightSchedule>()
+    .Join(
+        inner: DbSet<Flight>(), 
+        outerKeySelector: f => EF.Property<int?>(f, "FlightId"), 
+        innerKeySelector: f0 => EF.Property<int?>(f0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<FlightSchedule, Flight>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Airport>(), 
+        outerKeySelector: f => EF.Property<int?>(f.Inner, "OriginAirportId"), 
+        innerKeySelector: a => EF.Property<int?>(a, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<FlightSchedule, Flight>, Airport>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Airport>(), 
+        outerKeySelector: f => EF.Property<int?>(f.Outer.Inner, "DestinationAirportId"), 
+        innerKeySelector: a0 => EF.Property<int?>(a0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<FlightSchedule, Flight>, Airport>, Airport>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Where(f => False || f.Outer.Inner.Iatacode.Equals(
+        value: __origin_0, 
+        comparisonType: OrdinalIgnoreCase) && False || f.Inner.Iatacode.Equals(
+        value: __destination_1, 
+        comparisonType: OrdinalIgnoreCase))' could not be translated. Additional information: Translation of the 'string.Equals' overload with a 'StringComparison' parameter is not supported. See https://go.microsoft.com/fwlink/?linkid=2129535 for more information.
+Translation of the 'string.Equals' overload with a 'StringComparison' parameter is not supported. See https://go.microsoft.com/fwlink/?linkid=2129535 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetEnumerator()
+   at System.Linq.Enumerable.IEnumerableSelectIterator`2.MoveNext()
+   at AMT.Application.Services.ScheduleService.FilterFlights(String origin, String destination, String date) in c:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Application\Services\ScheduleService.cs:line 142
+   at AMT.Api.Controllers.ScheduleController.FilterFlights(String origin, String destination, String date) in c:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api\Controllers\ScheduleController.cs:line 97
+   at lambda_method1078(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AMT.Infrastructure.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in c:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Infrastructure\Middlewares\ExceptionHandlingMiddleware.cs:line 23
+2025-12-23 16:03:12.277 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 16:03:12.361 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 16:03:12.361 +02:00 [INF] Hosting environment: Development
+2025-12-23 16:03:12.362 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 16:03:15.758 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 16:03:22.337 +02:00 [ERR] An unhandled exception occurred while processing the request.
+System.InvalidOperationException: Unable to resolve service for type 'AMT.Application.Services.Interfaces.IAuthService' while attempting to activate 'AMT.Api.Controllers.AuthController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ThrowHelperUnableToResolveService(Type type, Type requiredBy)
+   at lambda_method9(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AMT.Infrastructure.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in c:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Infrastructure\Middlewares\ExceptionHandlingMiddleware.cs:line 23
+2025-12-23 16:04:07.537 +02:00 [INF] Now listening on: http://localhost:5286
+2025-12-23 16:04:07.617 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-23 16:04:07.618 +02:00 [INF] Hosting environment: Development
+2025-12-23 16:04:07.618 +02:00 [INF] Content root path: C:\Endava\EndevLocal\SchooOfCsharp\PracticalExercises\Airport Management Tool\AMT.Api
+2025-12-23 16:04:11.019 +02:00 [WRN] Failed to determine the https port for redirect.
+2025-12-23 16:04:13.648 +02:00 [INF] Executed DbCommand (74ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-12-23 16:04:14.005 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-12-23 16:04:39.056 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[IATACode], [a].[Name]
+FROM [Airline] AS [a]
+WHERE [a].[Id] = @__id_0
+2025-12-23 16:04:39.371 +02:00 [INF] Executed DbCommand (42ms) [Parameters=[@p0='?' (Size = 60), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Aircraft] ([Model], [OwnedByAirlineId], [SeatCapacity], [TailNumber])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+2025-12-23 16:04:44.269 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Model], [a].[OwnedByAirlineId], [a].[SeatCapacity], [a].[TailNumber]
+FROM [Aircraft] AS [a]
