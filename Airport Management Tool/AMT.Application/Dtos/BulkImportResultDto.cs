@@ -6,8 +6,10 @@ namespace AMT.Application.Dtos;
 
 public class BulkImportResultDto
 {
-    public Dictionary<ImportStatus,Result<FlightSchedule,Exception>?> ImportResults { get; set; } = null!;
+    public Dictionary<Guid, ImportResult> ImportResults { get; set; } = null!;
     
+    public record ImportResult(ImportStatus Status, Result<FlightSchedule,Exception>? Result);
+
     public enum ImportStatus
     {
         SUCCESS,

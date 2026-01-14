@@ -4,6 +4,7 @@ using AMT.Application.Dtos;
 using AMT.Application.Services.Interfaces;
 using AMT.Domain.Models;
 using AMT.Domain.Utils;
+using AMT.Infrastructure.Exceptions;
 using AMT.Infrastructure.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -73,7 +74,17 @@ public class TicketService(IUnitOfWork unitOfWork, ILogger logger, IValidator<Ti
             await unitOfWork.SaveChangesAsync();
             logger.Information("Ticket ID: {TicketId} deleted successfully", ticketId);
             return Result<string, Exception>.Success($"Ticket ID {ticketId} deleted successfully.");
-        }catch (DbUpdateException ex)
+        }
+        catch (GenericNotFound<Ticket, int> ex)
+        {
+            var errorMessage = $"Ticket with ID {ticketId} not found.";
+            logger.Error(errorMessage);
+            return Result<string, Exception>.Failure(
+                new List<string> { errorMessage },
+                new List<Exception> { ex },
+                System.Net.HttpStatusCode.NotFound);
+        }
+        catch (DbUpdateException ex)
         {
             logger.Error("Error deleting ticket ID: {TicketId}. Exception: {ExceptionMessage}", ticketId, ex.Message);
             logger.Error("Stack Trace: {StackTrace}", ex.StackTrace);
@@ -103,7 +114,7 @@ public class TicketService(IUnitOfWork unitOfWork, ILogger logger, IValidator<Ti
                 [new KeyNotFoundException(errorMessage)],
                 System.Net.HttpStatusCode.NotFound);
         }
-        return Result<Ticket, Exception>.Success(ticket);
+        return new Result<Ticket, Exception>(true, ticket, null, null, System.Net.HttpStatusCode.OK);
     }
 
     public async Task<Result<Ticket, Exception>> UpdateTicketInventory(UpdateTicketInventoryDto updateTicketInventoryDto)
@@ -115,7 +126,7 @@ public class TicketService(IUnitOfWork unitOfWork, ILogger logger, IValidator<Ti
             logger.Error(errorMessage);
             return Result<Ticket, Exception>.Failure(
                 new List<string> { errorMessage },
-                [new KeyNotFoundException(errorMessage)],
+                [new GenericNotFound<Ticket,int>(updateTicketInventoryDto.TicketId)],
                 System.Net.HttpStatusCode.NotFound);
         }
         existingTicket.SeatInventory = updateTicketInventoryDto.NewSeatInventory;

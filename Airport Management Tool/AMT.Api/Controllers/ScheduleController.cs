@@ -19,7 +19,7 @@ namespace AMT.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetSchedule(int id)
         {
-            var result = scheduleService.GetSchedule(id);
+            var result = scheduleService.GetScheduleById(id);
             if (result.IsSuccess)
             {
                 return Ok(result.Value);
@@ -81,8 +81,8 @@ namespace AMT.Api.Controllers
             }
 
             var result = await scheduleService.BulkCreateSchedulesAsync(fileUpload.File.OpenReadStream());
-            bool allSuccess = result.ImportResults.All(r => r.Value != null && r.Key == BulkImportResultDto.ImportStatus.SUCCESS);
-            bool allFailed = result.ImportResults.All(r => r.Value != null && r.Key == BulkImportResultDto.ImportStatus.FAILED);
+            bool allSuccess = result.ImportResults.All(r => r.Value != null && r.Value.Status == BulkImportResultDto.ImportStatus.SUCCESS);
+            bool allFailed = result.ImportResults.All(r => r.Value != null && r.Value.Status == BulkImportResultDto.ImportStatus.FAILED);
             if (allSuccess)
             {
                 return CreatedAtAction(nameof(BulkCreateSchedules), result);

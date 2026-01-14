@@ -20,7 +20,7 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
         {
             using var reader = new StreamReader(fileStream);
             var rawData = await reader.ReadToEndAsync();
-            var importResults = new Dictionary<BulkImportResultDto.ImportStatus, Result<FlightSchedule, Exception>?>();
+            var importResults = new Dictionary<Guid,BulkImportResultDto.ImportResult>();
             var scheduleDtos = JsonSerializer.Deserialize<List<CreateScheduleDto>>(rawData
             , new JsonSerializerOptions{PropertyNameCaseInsensitive =  true});
             if (scheduleDtos == null || !scheduleDtos.Any())
@@ -28,7 +28,13 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
                 logger.Warning("No schedules found in the provided data.");
                 return new BulkImportResultDto
                 {
-                    ImportResults = importResults
+                    ImportResults = new Dictionary<Guid, BulkImportResultDto.ImportResult>
+                    {
+                        { Guid.NewGuid(), new BulkImportResultDto.ImportResult(BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
+                            new List<string> { "No schedules found in the provided data." },
+                            [new ArgumentException("No schedules found in the provided data.")],
+                            HttpStatusCode.NoContent)) }
+                    }
                 };
             }
             foreach (var scheduleDto in scheduleDtos)
@@ -36,9 +42,12 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
                 var result = await this.CreateScheduleAsync(scheduleDto);
                 if (result.IsSuccess)
                 {
-                    importResults[BulkImportResultDto.ImportStatus.SUCCESS] = result;
+                    importResults[Guid.NewGuid()] = new BulkImportResultDto.ImportResult(BulkImportResultDto.ImportStatus.SUCCESS, result);
                 }
-                importResults[BulkImportResultDto.ImportStatus.FAILED] = result;
+                else
+                {
+                    importResults[Guid.NewGuid()] = new BulkImportResultDto.ImportResult(BulkImportResultDto.ImportStatus.FAILED, result);
+                }
             }
             logger.Information("Bulk schedule import completed.");
             return new BulkImportResultDto
@@ -51,12 +60,13 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
             logger.Error("Error parsing bulk schedule data: {Message}", ex.Message);
             return new BulkImportResultDto
             {
-                ImportResults = new Dictionary<BulkImportResultDto.ImportStatus, Result<FlightSchedule, Exception>?>
+                ImportResults = new Dictionary<Guid, BulkImportResultDto.ImportResult>
                 {
-                    { BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
+                    { Guid.NewGuid(), new BulkImportResultDto.ImportResult(BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
                         new List<string> { "Invalid JSON format." },
                         [ex],
-                        HttpStatusCode.BadRequest) }
+                        HttpStatusCode.BadRequest)) 
+                    }
                 }
             };
         }catch(ArgumentNullException ex)
@@ -64,12 +74,12 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
             logger.Error("Error reading bulk schedule data: {Message}", ex.Message);
             return new BulkImportResultDto
             {
-                ImportResults = new Dictionary<BulkImportResultDto.ImportStatus, Result<FlightSchedule, Exception>?>
+                ImportResults = new Dictionary<Guid, BulkImportResultDto.ImportResult>
                 {
-                    { BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
+                    { Guid.NewGuid(), new BulkImportResultDto.ImportResult(BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
                         new List<string> { "Input data is null." },
                         [ex],
-                        HttpStatusCode.BadRequest) }
+                        HttpStatusCode.BadRequest)) }
                 }
             };
         }catch(ArgumentException ex)
@@ -77,12 +87,12 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
             logger.Error("Error reading bulk schedule data: {Message}", ex.Message);
             return new BulkImportResultDto
             {
-                ImportResults = new Dictionary<BulkImportResultDto.ImportStatus, Result<FlightSchedule, Exception>?>
+                ImportResults = new Dictionary<Guid, BulkImportResultDto.ImportResult>
                 {
-                    { BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
+                    { Guid.NewGuid(), new BulkImportResultDto.ImportResult(BulkImportResultDto.ImportStatus.FAILED, Result<FlightSchedule, Exception>.Failure(
                         new List<string> { "Error reading input data." },
                         [ex],
-                        HttpStatusCode.BadRequest) }
+                        HttpStatusCode.BadRequest)) }
                 }
             };
         }
@@ -161,7 +171,7 @@ public class ScheduleService(IUnitOfWork unitOfWork, ILogger logger, IValidator<
         return Result<IEnumerable<FlightSchedule>, Exception>.Success(schedules);
     }
 
-    public Result<FlightSchedule, Exception> GetSchedule(int id)
+    public Result<FlightSchedule, Exception> GetScheduleById(int id)
     {
         var schedule = unitOfWork.FlightSchedules.GetById(id);
         if (schedule == null)

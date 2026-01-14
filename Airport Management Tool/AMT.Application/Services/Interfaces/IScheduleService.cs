@@ -7,7 +7,7 @@ namespace AMT.Application.Services.Interfaces;
 
 public interface IScheduleService
 {
-    Result<FlightSchedule,Exception> GetSchedule(int id);
+    Result<FlightSchedule,Exception> GetScheduleById(int id);
     Result<List<UpcomingFlightsDto>,Exception> GetUpcomingSchedules(string date);
     Task<Result<FlightSchedule,Exception>> CreateScheduleAsync(CreateScheduleDto scheduleRequest);
     Task<BulkImportResultDto> BulkCreateSchedulesAsync(Stream fileStream);
